@@ -6,19 +6,22 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.invest.advisor.data.db.entity.ColumnsDataConverter
+import com.invest.advisor.data.db.entity.MarketData
 import com.invest.advisor.data.db.entity.Securities
 
 @Database(
-    entities = [Securities::class],
+    entities = [Securities::class, MarketData::class],
     version = 1
 )
 
 @TypeConverters(ColumnsDataConverter::class)
-abstract class StocksDatabase : RoomDatabase() {
-    abstract fun currentStocksList(): SecuritiesDao
+abstract class MoexDatabase : RoomDatabase() {
+    abstract fun securitiesList(): SecuritiesDao
+    abstract fun marketDataList(): MarketDataDao
+
 
     companion object {
-        @Volatile private var instance: StocksDatabase? = null
+        @Volatile private var instance: MoexDatabase? = null
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
@@ -27,7 +30,7 @@ abstract class StocksDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
                 Room.databaseBuilder(context.applicationContext,
-                    StocksDatabase::class.java, "MOEXDatabase.db")
+                    MoexDatabase::class.java, "MOEXDatabase.db")
                     .build()
     }
 }

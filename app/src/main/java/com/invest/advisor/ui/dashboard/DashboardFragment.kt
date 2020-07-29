@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
-import com.invest.advisor.data.network.SecuritiesNetworkDataSourceImpl
+import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.response.MoexApiService
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.Dispatchers
@@ -42,13 +42,13 @@ class DashboardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val mIssApiService = MoexApiService(ConnectivityInterceptorImpl(requireContext()))
-        val securitiesNetworkDataSource = SecuritiesNetworkDataSourceImpl(mIssApiService)
+        val securitiesNetworkDataSource = MoexNetworkDataSourceImpl(mIssApiService)
 
         securitiesNetworkDataSource.downloadedSecurities.observe(viewLifecycleOwner, Observer {
 
             //val issApiServiceResponse = mIssApiService.getSecuritiesSECIDAsync().await()
 
-            val size = it.currentSecurities.columns.size
+            val size = it.currentSecurities.data.size
 
             var str: String = ""
             for (i in 0 until size){

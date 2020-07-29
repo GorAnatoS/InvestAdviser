@@ -24,8 +24,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 interface MoexApiService{
     @GET("securities.json?iss.meta=off&iss.only=securities")
-    fun getSecuritiesListAsync():
+    fun getSecuritiesAsync():
             Deferred<SecuritiesResponse>
+
+    @GET("securities.json?iss.meta=off&iss.only=marketdata")
+    fun getMarketDataAsync():
+            Deferred<MarketDataResponse>
+
 
     companion object {
         operator fun invoke(

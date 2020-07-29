@@ -5,6 +5,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.invest.advisor.data.db.entity.EnumMarketData
+import com.invest.advisor.data.db.entity.MarketData
 import com.invest.advisor.data.db.entity.Securities
 import com.invest.advisor.data.db.secList.SecEntry
 import com.invest.advisor.data.db.secList.SecListEntry
@@ -19,8 +21,15 @@ interface SecuritiesDao {
     fun upsert(securities: Securities)
 
 
-    @Query("SELECT * FROM MOEX_data")
+    @Query("SELECT * FROM securities_data")
     fun getRoomSecurities(): LiveData<List<Securities>>
+}
 
-    ////TODO 2020/07/28 20:05 || get prepared moex data
+@Dao
+interface MarketDataDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun upsert(marketData: MarketData)
+
+    @Query("SELECT * FROM market_data")
+    fun getRoomMarketData(): LiveData<List<MarketData>>
 }

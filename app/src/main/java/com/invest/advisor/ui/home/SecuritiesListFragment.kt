@@ -9,6 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.invest.advisor.R
+import com.invest.advisor.data.db.entity.EnumMarketData
+import com.invest.advisor.data.network.ConnectivityInterceptorImpl
+import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
+import com.invest.advisor.data.network.response.MoexApiService
+import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_securities_list.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * Класс для вывода общего списка данных MOEX за день с основными значениями:
@@ -39,20 +48,28 @@ class SecuritiesListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-//        val mIssApiService = IssApiService()
-//        GlobalScope.launch(Dispatchers.Main) {
-//            val issApiServiceResponse = mIssApiService.getSecuritiesAndMarketDataistAsync().await()
-//
-//            val size = issApiServiceResponse.securities.data.size
-//
-//            var str: String = ""
-//            for (i in 0 until size){
-//                //str += "${issApiServiceResponse.securities.columns[i]} = ${issApiServiceResponse.securities.data.get(0)[i]} \n"
-//                str += "${issApiServiceResponse.securities.data.get(i)[EnumSecurities.SECID.ordinal]} (${issApiServiceResponse.securities.data.get(i)[EnumSecurities.SHORTNAME.ordinal]})" +
-//                        " = ${issApiServiceResponse.marketdata.data.get(i)[EnumMarketData.WAPRICE.ordinal]} , ${issApiServiceResponse.marketdata.data.get(i)[EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]}\n"
-//            }
-//
-//            text_home.text = str
-//        }
+        val mIssApiService = MoexApiService(ConnectivityInterceptorImpl(requireContext()))
+        val marketDataNetworkDataSource = MoexNetworkDataSourceImpl(mIssApiService)
+
+        marketDataNetworkDataSource.downloadedMarketData.observe(viewLifecycleOwner, Observer {
+
+            //val issApiServiceResponse = mIssApiService.getSecuritiesSECIDAsync().await()
+
+            val size = it.currentMarketData.data.size
+
+            var str: String = ""
+            for (i in 0 until size){
+                str += "${it.currentMarketData.data.get(i)[0]} ${it.currentMarketData.data.get(i)[EnumMarketData.WAPRICE.ordinal]}\n"
+            }
+
+            text_home.text = str
+        })
+
+        GlobalScope.launch(Dispatchers.Main) {
+            //val temp = mIssApiService.getSecuritiesListAsync().await()
+            //text_dashboard.text =  temp.currentSecurities.data.get(0)[0]
+
+            marketDataNetworkDataSource.fetchMarketData()
+        }
     }
 }
