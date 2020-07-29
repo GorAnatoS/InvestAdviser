@@ -10,9 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
-import com.invest.advisor.data.network.SecuritiesNetworkDataSource
 import com.invest.advisor.data.network.SecuritiesNetworkDataSourceImpl
-import com.invest.advisor.data.network.response.IssApiService
+import com.invest.advisor.data.network.response.MoexApiService
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -42,10 +41,10 @@ class DashboardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val mIssApiService = IssApiService(ConnectivityInterceptorImpl(requireContext()))
+        val mIssApiService = MoexApiService(ConnectivityInterceptorImpl(requireContext()))
         val securitiesNetworkDataSource = SecuritiesNetworkDataSourceImpl(mIssApiService)
 
-        securitiesNetworkDataSource.downloadedCurrentSecurities.observe(viewLifecycleOwner, Observer {
+        securitiesNetworkDataSource.downloadedSecurities.observe(viewLifecycleOwner, Observer {
 
             //val issApiServiceResponse = mIssApiService.getSecuritiesSECIDAsync().await()
 
@@ -63,7 +62,7 @@ class DashboardFragment : Fragment() {
             //val temp = mIssApiService.getSecuritiesListAsync().await()
             //text_dashboard.text =  temp.currentSecurities.data.get(0)[0]
 
-            securitiesNetworkDataSource.downloadCurrentSecurities()
+            securitiesNetworkDataSource.fetchSecurities()
         }
     }
 }

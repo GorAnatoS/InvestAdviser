@@ -9,12 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.invest.advisor.R
-import com.invest.advisor.data.db.entity.EnumSecurities
-import com.invest.advisor.data.network.response.IssApiService
-import kotlinx.android.synthetic.main.fragment_securities_list.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 /**
  * Класс для вывода общего списка данных MOEX за день с основными значениями:

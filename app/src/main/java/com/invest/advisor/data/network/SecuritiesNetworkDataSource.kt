@@ -1,7 +1,7 @@
 package com.invest.advisor.data.network
 
 import androidx.lifecycle.LiveData
-import com.invest.advisor.data.network.response.CurrentSecuritiesResponse
+import com.invest.advisor.data.network.response.SecuritiesResponse
 
 
 /**
@@ -9,11 +9,11 @@ import com.invest.advisor.data.network.response.CurrentSecuritiesResponse
  */
 
 interface SecuritiesNetworkDataSource {
-    val downloadedCurrentSecurities: LiveData<CurrentSecuritiesResponse>
+    val downloadedSecurities: LiveData<SecuritiesResponse>
 
 //    suspend fun fetchCurrentSecurities(
 //
 //    )
 
-    suspend fun downloadCurrentSecurities()
+    suspend fun fetchSecurities()
 }

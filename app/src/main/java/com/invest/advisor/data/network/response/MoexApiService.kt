@@ -1,12 +1,9 @@
 package com.invest.advisor.data.network.response
 
 //import com.invest.advisor.data.db.entity.MOEXdata
-import com.invest.advisor.data.db.entity.Securities
 import com.invest.advisor.data.network.ConnectivityInterceptor
-import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -25,15 +22,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 //http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.meta=off&iss.only=securities&securities.columns=SECID
 
-interface IssApiService{
+interface MoexApiService{
     @GET("securities.json?iss.meta=off&iss.only=securities")
     fun getSecuritiesListAsync():
-            Deferred<CurrentSecuritiesResponse>
+            Deferred<SecuritiesResponse>
 
     companion object {
         operator fun invoke(
             connectivityInterceptor: ConnectivityInterceptor
-        ): IssApiService {
+        ): MoexApiService {
             val requestInterceptor = Interceptor {chain ->
                 val url = chain.request()
                     .url()
@@ -60,7 +57,7 @@ interface IssApiService{
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(IssApiService::class.java)
+                .create(MoexApiService::class.java)
         }
     }
 }

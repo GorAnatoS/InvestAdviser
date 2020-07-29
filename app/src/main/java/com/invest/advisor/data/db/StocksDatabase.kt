@@ -15,7 +15,7 @@ import com.invest.advisor.data.db.entity.Securities
 
 @TypeConverters(ColumnsDataConverter::class)
 abstract class StocksDatabase : RoomDatabase() {
-    abstract fun currentStocksList(): CurrentStocksSecIdDao
+    abstract fun currentStocksList(): SecuritiesDao
 
     companion object {
         @Volatile private var instance: StocksDatabase? = null

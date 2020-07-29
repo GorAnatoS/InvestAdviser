@@ -3,23 +3,23 @@ package com.invest.advisor.data.network
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.invest.advisor.data.network.response.CurrentSecuritiesResponse
-import com.invest.advisor.data.network.response.IssApiService
+import com.invest.advisor.data.network.response.SecuritiesResponse
+import com.invest.advisor.data.network.response.MoexApiService
 import com.invest.advisor.internal.NoConnectivityException
 
 class SecuritiesNetworkDataSourceImpl(
-    private val issApiService: IssApiService
+    private val moexApiService: MoexApiService
 ) : SecuritiesNetworkDataSource {
 
 
-    private val _downloadedCurrentSecurities = MutableLiveData<CurrentSecuritiesResponse>()
-    override val downloadedCurrentSecurities: LiveData<CurrentSecuritiesResponse>
+    private val _downloadedCurrentSecurities = MutableLiveData<SecuritiesResponse>()
+    override val downloadedSecurities: LiveData<SecuritiesResponse>
         get() = _downloadedCurrentSecurities
 
-    override suspend fun downloadCurrentSecurities() {
+    override suspend fun fetchSecurities() {
        try {
-           issApiService.getSecuritiesListAsync().await()
-           _downloadedCurrentSecurities.postValue(issApiService.getSecuritiesListAsync().await())
+           moexApiService.getSecuritiesListAsync().await()
+           _downloadedCurrentSecurities.postValue(moexApiService.getSecuritiesListAsync().await())
        } catch (e: NoConnectivityException) {
            Log.e("Connectivity", "No internet connection.", e)
        }
