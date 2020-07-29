@@ -1,4 +1,4 @@
-package com.invest.advisor.ui.dashboard
+package com.invest.advisor.ui.portfolio
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,27 +12,27 @@ import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.response.MoexApiService
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_portfolio.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class DashboardFragment : Fragment() {
+class PortfolioFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var portfolioViewModel: PortfolioViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+        portfolioViewModel =
+                ViewModelProviders.of(this).get(PortfolioViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        val root = inflater.inflate(R.layout.fragment_portfolio, container, false)
 
         val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+        portfolioViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

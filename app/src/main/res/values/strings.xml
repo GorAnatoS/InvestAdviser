@@ -3,4 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="user_portfolio">my portfolio</string>
+    <string name="moex">moex</string>
+    <string name="analitics">analitics</string>
 </resources>

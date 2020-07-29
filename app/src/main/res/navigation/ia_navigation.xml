@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/moexFragment">
+
+    <fragment
+        android:id="@+id/portfolioFragment"
+        android:name="com.invest.advisor.ui.portfolio.PortfolioFragment"
+        tools:layout="@layout/fragment_portfolio"
+        android:label="PortfolioFragment" />
+
+    <fragment
+        android:id="@+id/moexFragment"
+        android:name="com.invest.advisor.ui.moex.MoexFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_moex" />
+
+    <fragment
+        android:id="@+id/analiticsFragment"
+        android:name="com.invest.advisor.ui.portfolio.AnaliticsFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_analitics" />
+</navigation>

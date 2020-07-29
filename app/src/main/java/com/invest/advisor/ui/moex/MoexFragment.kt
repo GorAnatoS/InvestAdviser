@@ -1,4 +1,4 @@
-package com.invest.advisor.ui.home
+package com.invest.advisor.ui.moex
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,7 @@ import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.response.MoexApiService
-import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_securities_list.*
+import kotlinx.android.synthetic.main.fragment_moex.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,20 +25,20 @@ import kotlinx.coroutines.launch
  * prevprice
  * warchange
  */
-class SecuritiesListFragment : Fragment() {
+class MoexFragment : Fragment() {
 
-    private lateinit var securitiesListViewModel: SecuritiesListViewModel
+    private lateinit var moexViewModel: MoexViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        securitiesListViewModel =
-                ViewModelProviders.of(this).get(SecuritiesListViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_securities_list, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        securitiesListViewModel.text.observe(viewLifecycleOwner, Observer {
+        moexViewModel =
+                ViewModelProviders.of(this).get(MoexViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_moex, container, false)
+        val textView: TextView = root.findViewById(R.id.text_analitics)
+        moexViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
@@ -62,7 +61,7 @@ class SecuritiesListFragment : Fragment() {
                 str += "${it.currentMarketData.data.get(i)[0]} ${it.currentMarketData.data.get(i)[EnumMarketData.WAPRICE.ordinal]}\n"
             }
 
-            text_home.text = str
+            text_analitics.text = str
         })
 
         GlobalScope.launch(Dispatchers.Main) {
