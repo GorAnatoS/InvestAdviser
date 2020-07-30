@@ -3,12 +3,19 @@ package com.invest.advisor.ui.moex
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.invest.advisor.data.repository.MoexRepository
+import com.invest.advisor.internal.lazyDeffered
 
-class MoexViewModel : ViewModel() {
+class MoexViewModel(
+    private val moexRepository: MoexRepository
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+) : ViewModel() {
+
+    val securities by lazyDeffered {
+        moexRepository.getSecurities()
     }
-    val text: LiveData<String> = _text
-}
+    val marketData by lazyDeffered {
+        moexRepository.getMarketData()
+    }
 
+}

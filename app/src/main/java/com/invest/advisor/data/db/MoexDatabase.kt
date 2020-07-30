@@ -16,9 +16,7 @@ import com.invest.advisor.data.db.entity.Securities
 
 @TypeConverters(ColumnsDataConverter::class)
 abstract class MoexDatabase : RoomDatabase() {
-    abstract fun securitiesList(): SecuritiesDao
-    abstract fun marketDataList(): MarketDataDao
-
+    abstract fun moexDao(): MoexDatabaseDao
 
     companion object {
         @Volatile private var instance: MoexDatabase? = null

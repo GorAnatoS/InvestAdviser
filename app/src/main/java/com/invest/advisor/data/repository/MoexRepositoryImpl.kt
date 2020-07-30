@@ -1,8 +1,7 @@
 package com.invest.advisor.data.repository
 
 import androidx.lifecycle.LiveData
-import com.invest.advisor.data.db.MarketDataDao
-import com.invest.advisor.data.db.SecuritiesDao
+import com.invest.advisor.data.db.MoexDatabaseDao
 import com.invest.advisor.data.db.entity.MarketData
 import com.invest.advisor.data.db.entity.Securities
 import com.invest.advisor.data.network.MoexNetworkDataSource
@@ -14,11 +13,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.threeten.bp.ZonedDateTime
 
-class SecuritiesRepositoryImpl(
-    private val securitiesDao: SecuritiesDao,
-    private val marketDataDao: MarketDataDao,
+class MoexRepositoryImpl(
+    private val moexDatabaseDao: MoexDatabaseDao,
     private val moexNetworkDataSource: MoexNetworkDataSource
-) : SecuritiesRepository, MarketDataRepository {
+) : MoexRepository{
 
     init {
         moexNetworkDataSource.apply {
@@ -36,7 +34,7 @@ class SecuritiesRepositoryImpl(
         initMarketData()
 
         return withContext(Dispatchers.IO){
-            return@withContext marketDataDao.getRoomMarketData()
+            return@withContext moexDatabaseDao.getRoomMarketData()
         }
     }
 
@@ -44,13 +42,13 @@ class SecuritiesRepositoryImpl(
         initSecuritiesData()
 
         return withContext(Dispatchers.IO){
-            return@withContext securitiesDao.getRoomSecurities()
+            return@withContext moexDatabaseDao.getRoomSecurities()
         }
     }
 
     private fun persistFetchedSecurities(fetchedSecurities: SecuritiesResponse){
         GlobalScope.launch(Dispatchers.IO) {
-            securitiesDao.upsert(fetchedSecurities.currentSecurities)
+            moexDatabaseDao.upsert(fetchedSecurities.currentSecurities)
         }
     }
 
@@ -74,7 +72,7 @@ class SecuritiesRepositoryImpl(
 
     private fun persistFetchedMarketData(fetchedMarketData: MarketDataResponse){
         GlobalScope.launch(Dispatchers.IO) {
-            marketDataDao.upsert(fetchedMarketData.currentMarketData)
+            moexDatabaseDao.upsert(fetchedMarketData.currentMarketData)
         }
     }
 

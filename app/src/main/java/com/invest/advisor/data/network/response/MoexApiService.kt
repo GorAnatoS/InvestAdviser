@@ -19,7 +19,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 //http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/AFKS.json?iss.meta=off&iss.only=securities,marketdata
 
-
 //http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.meta=off&iss.only=securities&securities.columns=SECID
 
 interface MoexApiService{

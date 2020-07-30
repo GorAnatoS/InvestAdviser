@@ -13,20 +13,13 @@ import com.invest.advisor.data.db.secList.SecListEntry
 import com.invest.advisor.data.network.response.SecuritiesResponse
 
 @Dao
-interface SecuritiesDao {
-/*    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsert(secEntry: SecEntry)*/
-
+interface MoexDatabaseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsert(securities: Securities)
 
-
     @Query("SELECT * FROM securities_data")
     fun getRoomSecurities(): LiveData<List<Securities>>
-}
 
-@Dao
-interface MarketDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsert(marketData: MarketData)
 
