@@ -19,6 +19,8 @@ import kotlinx.coroutines.launch
 
 class PortfolioFragment : Fragment() {
 
+    private var mySecid = arrayOf<String>("AFKS", "AFLT", "VTBR")
+
     private lateinit var portfolioViewModel: PortfolioViewModel
 
     override fun onCreateView(
@@ -45,23 +47,17 @@ class PortfolioFragment : Fragment() {
         val securitiesNetworkDataSource = MoexNetworkDataSourceImpl(mIssApiService)
 
         securitiesNetworkDataSource.downloadedSecurities.observe(viewLifecycleOwner, Observer {
-
-            //val issApiServiceResponse = mIssApiService.getSecuritiesSECIDAsync().await()
-
             val size = it.currentSecurities.data.size
 
             var str: String = ""
             for (i in 0 until size){
-                str += "${it.currentSecurities.data.get(i)[0]}\n"
+                if (it.currentSecurities.data.get(i)[0] in mySecid) str += "${it.currentSecurities.data.get(i)[0]}\n"
             }
 
             text_dashboard.text = str
         })
 
         GlobalScope.launch(Dispatchers.Main) {
-            //val temp = mIssApiService.getSecuritiesListAsync().await()
-            //text_dashboard.text =  temp.currentSecurities.data.get(0)[0]
-
             securitiesNetworkDataSource.fetchSecurities()
         }
     }

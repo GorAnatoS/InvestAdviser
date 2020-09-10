@@ -8,8 +8,6 @@ import androidx.room.Query
 import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.entity.MarketData
 import com.invest.advisor.data.db.entity.Securities
-import com.invest.advisor.data.db.secList.SecEntry
-import com.invest.advisor.data.db.secList.SecListEntry
 import com.invest.advisor.data.network.response.SecuritiesResponse
 
 @Dao

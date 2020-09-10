@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/portfolioFragment"
         android:name="com.invest.advisor.ui.portfolio.PortfolioFragment"
-        tools:layout="@layout/fragment_portfolio"
-        android:label="PortfolioFragment" />
+        android:label="@string/user_portfolio"
+        tools:layout="@layout/fragment_portfolio" />
 
     <fragment
         android:id="@+id/moexFragment"
         android:name="com.invest.advisor.ui.moex.MoexFragment"
-        android:label="@string/title_home"
+        android:label="@string/moex"
         tools:layout="@layout/fragment_moex" />
 
     <fragment
         android:id="@+id/analiticsFragment"
         android:name="com.invest.advisor.ui.portfolio.AnaliticsFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/analitics"
         tools:layout="@layout/fragment_analitics" />
 </navigation>

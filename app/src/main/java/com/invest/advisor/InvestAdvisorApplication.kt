@@ -36,6 +36,7 @@ class InvestAdvisorApplication : Application(), KodeinAware {
         bind() from provider { MoexViewModelFactory(instance()) }
 
 
+
     }
 
     override fun onCreate() {

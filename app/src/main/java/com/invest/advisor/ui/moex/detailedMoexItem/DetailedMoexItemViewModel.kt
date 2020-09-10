@@ -1,11 +1,11 @@
-package com.invest.advisor.ui.moex
+package com.invest.advisor.ui.moex.detailedMoexItem
 
 import androidx.lifecycle.ViewModel
 import com.invest.advisor.data.network.MoexNetworkDataSource
 import com.invest.advisor.data.repository.MoexRepository
 import com.invest.advisor.internal.lazyDeferred
 
-class MoexViewModel(
+class DetailedMoexItemViewModel(
     private val moexNetworkDataSource: MoexNetworkDataSource
 ) : ViewModel() {
 

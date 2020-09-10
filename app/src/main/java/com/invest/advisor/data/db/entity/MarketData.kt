@@ -7,6 +7,7 @@ import androidx.room.TypeConverters
 @Entity(tableName = "market_data")
 data class MarketData(
     @PrimaryKey(autoGenerate = false)
+    // TODO: 7/30/2020 ???? 
     val id: Int = 0,
     @TypeConverters(ColumnsDataConverter::class)
     val columns: List<String>,

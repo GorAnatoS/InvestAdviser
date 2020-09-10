@@ -3,7 +3,6 @@ package com.invest.advisor.data.repository
 import androidx.lifecycle.LiveData
 import com.invest.advisor.data.db.entity.MarketData
 import com.invest.advisor.data.db.entity.Securities
-import com.invest.advisor.data.db.secList.SecListEntry
 
 
 /**

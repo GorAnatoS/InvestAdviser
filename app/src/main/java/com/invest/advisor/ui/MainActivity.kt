@@ -1,5 +1,6 @@
 package com.invest.advisor.ui
 
+import android.content.Context
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,8 @@ import com.invest.advisor.R
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var myContext: Context
+
     private lateinit var navController: NavController
     val appBarConfiguration = AppBarConfiguration(setOf(
         R.id.portfolioFragment,
@@ -20,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     ))
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        myContext = applicationContext
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
