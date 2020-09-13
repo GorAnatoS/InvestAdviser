@@ -5,6 +5,7 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/moexFragment">
 
+
     <fragment
         android:id="@+id/portfolioFragment"
         android:name="com.invest.advisor.ui.portfolio.PortfolioFragment"
@@ -15,7 +16,26 @@
         android:id="@+id/moexFragment"
         android:name="com.invest.advisor.ui.moex.MoexFragment"
         android:label="@string/moex"
-        tools:layout="@layout/fragment_moex" />
+        tools:layout="@layout/fragment_moex" >
+        <action
+            android:id="@+id/action_moexFragment_to_moexDetail"
+            app:destination="@id/moexDetail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/moexDetail"
+        android:name="com.invest.advisor.ui.moex.detailedMoexItem.DetailedMoexItemFragment"
+        android:label="@string/moexDetail"
+        tools:layout="@layout/fragment_moex_detail" >
+        <argument
+            android:name="secId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="secPrice"
+            app:argType="string"
+            android:defaultValue="0" />
+    </fragment>
 
     <fragment
         android:id="@+id/analiticsFragment"

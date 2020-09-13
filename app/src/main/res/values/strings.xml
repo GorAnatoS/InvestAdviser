@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">Invest Advisor</string>
+    <string name="app_name">InvestAdvisor</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="user_portfolio">my portfolio</string>
-    <string name="moex">moex</string>
-    <string name="analitics">analitics</string>
+    <string name="user_portfolio">Мой портфель</string>
+    <string name="moex">Индексы (MOEX)</string>
+    <string name="analitics">Аналитика</string>
+    <string name="moexDetail">moexDetail</string>
 </resources>

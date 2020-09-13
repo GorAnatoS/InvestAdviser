@@ -1,16 +1,13 @@
 package com.invest.advisor.ui.moex
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.RecyclerView
 import com.invest.advisor.R
 import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.entity.EnumSecurities
@@ -20,16 +17,15 @@ import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.response.MoexApiService
 import com.invest.advisor.ui.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.OnItemClickListener
-import com.xwray.groupie.ViewHolder
+import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_moex.*
-import kotlinx.android.synthetic.main.item_moex.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import java.util.Collections.addAll
 
 /**
  * Класс для вывода общего списка данных MOEX за день с основными значениями:
@@ -51,6 +47,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_moex, container, false)
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -73,22 +70,34 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
             val size = it.currentMarketData.data.size
 
-            for (i in 0 until size) {
-                myList.add(
-                    MoexEntry(
-                        it.currentMarketData.data[i][EnumMarketData.SECID.ordinal],
-                        "",
-                        if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) "0" else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
-                        if (it.currentMarketData.data[i][EnumMarketData.CHANGE.ordinal].isNullOrEmpty()) "0" else it.currentMarketData.data[i][EnumMarketData.CHANGE.ordinal]
+            if (myList.isEmpty()) {
+                for (i in 0 until size) {
+
+                    myList.add(
+                        MoexEntry(
+                            it.currentMarketData.data[i][EnumMarketData.SECID.ordinal],
+                            "",
+                            if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) "0" else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
+                            if (it.currentMarketData.data[i][EnumMarketData.CHANGE.ordinal].isNullOrEmpty()) "0" else it.currentMarketData.data[i][EnumMarketData.CHANGE.ordinal]
+                        )
                     )
-                )
+                }
+            } else {
+                for (i in 0 until size) {
+                    myList[i] =
+                        MoexEntry(
+                            it.currentMarketData.data[i][EnumMarketData.SECID.ordinal],
+                            "",
+                            if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) "0" else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
+                            if (it.currentMarketData.data[i][EnumMarketData.CHANGE.ordinal].isNullOrEmpty()) "0" else it.currentMarketData.data[i][EnumMarketData.CHANGE.ordinal]
+                        )
+                }
             }
+
             initRecycleView(myList.toMoexItems())
 
             moexNetworkDataSource.downloadedSecurities.observe(viewLifecycleOwner, Observer {
                 if (it == null) return@Observer
-
-                val size = it.currentSecurities.data.size
 
                 for (i in 0 until myList.size)
                     myList[i].secName = it.currentSecurities.data[i][EnumSecurities.SECNAME.ordinal]
@@ -107,7 +116,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun initRecycleView(items: List<MoexItem>) {
-        val groupAdapter = GroupAdapter<ViewHolder>().apply {
+        val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(items)
         }
 

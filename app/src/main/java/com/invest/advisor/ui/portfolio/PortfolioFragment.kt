@@ -4,61 +4,57 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.invest.advisor.R
-import com.invest.advisor.data.network.ConnectivityInterceptorImpl
-import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
-import com.invest.advisor.data.network.response.MoexApiService
-import kotlinx.android.synthetic.main.fragment_portfolio.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
+import com.invest.advisor.databinding.FragmentPortfolioBinding
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 
 class PortfolioFragment : Fragment() {
 
-    private var mySecid = arrayOf<String>("AFKS", "AFLT", "VTBR")
-
-    private lateinit var portfolioViewModel: PortfolioViewModel
-
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
+
+        bindingPortfolio =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_portfolio, container, false)
+
         portfolioViewModel =
-                ViewModelProviders.of(this).get(PortfolioViewModel::class.java)
+            ViewModelProvider(this).get(PortfolioViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_portfolio, container, false)
+        bindingPortfolio.userPortfolioViewModel = portfolioViewModel
+        bindingPortfolio.lifecycleOwner = this
 
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        portfolioViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+        portfolioViewModel.allData.observe(viewLifecycleOwner, Observer {
+            bindingPortfolio.itemsContainer.adapter =
+                GroupAdapter<GroupieViewHolder>().apply {
+                    addAll(it.toPortfolioItemCards().sortedBy { it.itemContent.secId })
+                }
         })
-        return root
+
+        return bindingPortfolio.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        val mIssApiService = MoexApiService(ConnectivityInterceptorImpl(requireContext()))
-        val securitiesNetworkDataSource = MoexNetworkDataSourceImpl(mIssApiService)
-
-        securitiesNetworkDataSource.downloadedSecurities.observe(viewLifecycleOwner, Observer {
-            val size = it.currentSecurities.data.size
-
-            var str: String = ""
-            for (i in 0 until size){
-                if (it.currentSecurities.data.get(i)[0] in mySecid) str += "${it.currentSecurities.data.get(i)[0]}\n"
-            }
-
-            text_dashboard.text = str
-        })
-
-        GlobalScope.launch(Dispatchers.Main) {
-            securitiesNetworkDataSource.fetchSecurities()
+    private fun List<UserPortfolioEntry>.toPortfolioItemCards(): List<PortfolioItemCard> {
+        return this.map {
+            PortfolioItemCard(
+                PortfolioItemContent(
+                    it.secId,
+                    it.secPrice,
+                    it.secQuantity
+                )
+            )
         }
+    }
+
+    companion object {
+        private lateinit var portfolioViewModel: PortfolioViewModel
+        lateinit var bindingPortfolio: FragmentPortfolioBinding
     }
 }
