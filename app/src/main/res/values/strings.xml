@@ -7,4 +7,7 @@
     <string name="moex">Индексы (MOEX)</string>
     <string name="analitics">Аналитика</string>
     <string name="moexDetail">moexDetail</string>
+    <string name="action_search">Поиск</string>
+    <string name="app_label">Invest Adviser</string>
+    <string name="search_hint">Поиск тикера акции</string>
 </resources>
