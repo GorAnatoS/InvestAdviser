@@ -93,7 +93,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
             }
 
         })
-        
+
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -116,20 +116,11 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                         MoexEntry(
                             it.currentMarketData.data[i][EnumMarketData.SECID.ordinal],
                             "",
-                            if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) "0" else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
-                            if (it.currentMarketData.data[i][EnumMarketData.CHANGE.ordinal].isNullOrEmpty()) "0" else it.currentMarketData.data[i][EnumMarketData.CHANGE.ordinal]
+                            if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) "NoE" else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
+                            if (it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal].isNullOrEmpty()) "NoE" else it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal],
+                            if (it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal].isNullOrEmpty()) "NoE" else it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]
                         )
                     )
-                }
-            } else {
-                for (i in 0 until size) {
-                    myList[i] =
-                        MoexEntry(
-                            it.currentMarketData.data[i][EnumMarketData.SECID.ordinal],
-                            "",
-                            if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) "0" else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
-                            if (it.currentMarketData.data[i][EnumMarketData.CHANGE.ordinal].isNullOrEmpty()) "0" else it.currentMarketData.data[i][EnumMarketData.CHANGE.ordinal]
-                        )
                 }
             }
 

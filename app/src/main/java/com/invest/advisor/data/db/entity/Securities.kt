@@ -4,6 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 
+//http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/columns
+
 @Entity(tableName = "securities_data")
 data class Securities(
     @PrimaryKey(autoGenerate = false)

@@ -60,7 +60,7 @@ class DetailedMoexItemFragment : ScopedFragment() {//, KodeinAware{
             textView_totalMoney_is.text = (editText_quantity.text.toString().toDouble() * editText_price.text.toString().toDouble()).toString()
 
             viewModel = ViewModelProvider(this).get(PortfolioViewModel::class.java)
-            val newUserPortfolioEntry = UserPortfolioEntry(0, arguments?.getString("secId")!!,arguments?.getString("secPrice")!!, editText_quantity.text.toString().toInt())
+            val newUserPortfolioEntry = UserPortfolioEntry(0, arguments?.getString("secId")!!, editText_price.text.toString(), editText_quantity.text.toString().toInt())
             viewModel.insert(newUserPortfolioEntry)
             Toast.makeText(requireContext(), newUserPortfolioEntry.toString(), Toast.LENGTH_LONG).show()
         }

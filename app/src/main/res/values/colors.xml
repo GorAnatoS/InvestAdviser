@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#c68400</color>
     <color name="colorPrimaryLight">#ffe54c</color>
     <color name="colorAccent">#16697A</color>
+
+    <color name="sharePlusColor">#00C853</color>
+    <color name="shareMinusColor">#DD2C00</color>
+    <color name="colorBlack">#000000</color>
+
 </resources>

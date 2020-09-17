@@ -4,54 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:minHeight="?listPreferredItemHeightLarge"
+    android:layout_margin="@dimen/margin_normal"
+    android:minHeight="?listPreferredItemHeightSmall"
     app:cardCornerRadius="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?listPreferredItemHeightLarge">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvSecId"
-            style="@style/TextAppearance.MaterialComponents.Headline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/tvSecName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Secid" />
+        android:minHeight="?listPreferredItemHeightSmall">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvSecName"
-            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/margin_half"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/tvSecId"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Gazprom ..." />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSecId"
+            android:layout_marginStart="@dimen/margin_half"
+            style="@style/TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSecId"
-            tools:text="SecName" />
+            app:layout_constraintTop_toBottomOf="@+id/tvSecName"
+            tools:text="GZPR" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvPrice"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
+            style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSecId"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvSecId"
-            tools:text="Price" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvQuantity"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvSecName"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvSecName"
+            tools:text="105" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChange"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSecId"
+            app:layout_constraintEnd_toStartOf="@+id/tvChangePcnt"
             app:layout_constraintTop_toBottomOf="@+id/tvPrice"
-            tools:text="Change" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="+5" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvChangePcnt"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSecId"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrice"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="+0.5%" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

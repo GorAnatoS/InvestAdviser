@@ -34,9 +34,6 @@ class InvestAdvisorApplication : Application(), KodeinAware {
         bind<MoexRepository>() with singleton { MoexRepositoryImpl(instance(), instance()) }
 
         bind() from provider { MoexViewModelFactory(instance()) }
-
-
-
     }
 
     override fun onCreate() {

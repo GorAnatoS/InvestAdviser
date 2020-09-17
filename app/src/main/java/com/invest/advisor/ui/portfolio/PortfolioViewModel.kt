@@ -18,8 +18,6 @@ class PortfolioViewModel(application: Application) : AndroidViewModel(applicatio
         val userPortfolioDao = UserPortfolio.getInstance(application).userPortfolioDao
         repository = UserPortfolioRepository(userPortfolioDao)
         allData = repository.allData
-
-
     }
 
     fun insert(userPortfolioEntry: UserPortfolioEntry) = viewModelScope.launch(Dispatchers.IO) {
