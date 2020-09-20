@@ -1,8 +1,9 @@
-package com.invest.advisor.ui.portfolio.new
+package com.invest.advisor.ui.portfolio.portfolioItems
 
 import android.graphics.drawable.Animatable
 import android.view.View
 import com.invest.advisor.R
+import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.ExpandableItem
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -10,19 +11,11 @@ import kotlinx.android.synthetic.main.portfolio_item.*
 
 
 class ExpandablePortfolioItem(
-    secId: String,
-    secPrice: String,
-    secQuantity: Int,
-    secCurrentPrice: String,
-    changePcnt: String,
-    changePrice: Double,
+    entry: UserPortfolioEntry,
+    marketData: List<String>
 ) : HeaderItem(
-    secId,
-    secPrice,
-    secQuantity,
-    secCurrentPrice,
-    changePcnt,
-    changePrice,
+    entry,
+    marketData
 ), ExpandableItem {
 
     var clickListener: ((ExpandablePortfolioItem) -> Unit)? = null

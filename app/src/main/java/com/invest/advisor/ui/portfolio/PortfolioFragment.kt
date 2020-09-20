@@ -17,8 +17,8 @@ import com.invest.advisor.databinding.FragmentPortfolioBinding
 import com.invest.advisor.ui.base.ScopedFragment
 import com.invest.advisor.ui.moex.MoexViewModel
 import com.invest.advisor.ui.moex.MoexViewModelFactory
-import com.invest.advisor.ui.portfolio.new.CardItem
-import com.invest.advisor.ui.portfolio.new.ExpandablePortfolioItem
+import com.invest.advisor.ui.portfolio.portfolioItems.CardItem
+import com.invest.advisor.ui.portfolio.portfolioItems.ExpandablePortfolioItem
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -73,8 +73,6 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun bindUI() = launch {
-        val marketData = moexViewModel.marketData.await()
-        val securities = moexViewModel.securities.await()
 
         val mIssApiService = MoexApiService(ConnectivityInterceptorImpl(requireContext()))
         val moexNetworkDataSource = MoexNetworkDataSourceImpl(mIssApiService)
@@ -82,46 +80,62 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         moexNetworkDataSource.downloadedMarketData.observe(viewLifecycleOwner, Observer { it ->
             if (it == null) return@Observer
 
-            var updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()
+            val firstDataList: MutableList<ExpandablePortfolioItem> = ArrayList()
 
             for (element in it.currentMarketData.data)
                 for (entry in portfolioViewModel.allData.value?.toList()!!)
                     if (entry.secId == element[EnumMarketData.SECID.ordinal]) {
-                        var currentPrice =
-                            (entry.secQuantity.toDouble() * element[EnumMarketData.WAPRICE.ordinal].toDouble())
-                        currentPrice = Math.round(currentPrice * 100.0) / 100.0
-
-                        var oldPrice = entry.secPrice.toDouble() * entry.secQuantity.toDouble()
-
-                        var changePcnt = (element[EnumMarketData.WAPRICE.ordinal].toDouble() - entry.secPrice.toDouble()) / entry.secPrice.toDouble() * 100// entry.secQuantity.toDouble()
-                        changePcnt = Math.round(changePcnt * 100.0) / 100.0
-
-                        var changePrice = currentPrice - oldPrice
-                        changePrice = Math.round(changePrice * 100.0) / 100.0
-
                         val expandableHeaderItem = ExpandablePortfolioItem(
-                            entry.secId,
-                            element[EnumMarketData.WAPRICE.ordinal],
-                            entry.secQuantity,
-                            currentPrice.toString(),
-                            changePcnt.toString(),
-                            changePrice
+                            entry,
+                            element
                         )
-
-                        groupAdapter += ExpandableGroup(expandableHeaderItem).apply {
-                            for (i in 0..1) {
-                                add(CardItem("#ef9a9a"))
-                            }
-                        }
-
+                        firstDataList.add(expandableHeaderItem)
                     }
 
+            val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()
 
-         /*   bindingPortfolio.itemsContainer.adapter =
-                GroupAdapter<GroupieViewHolder>().apply {
-                    clear()
-                    addAll(updatedList)
-                }*/
+            val headerList = firstDataList.toList().groupBy { it.entryDatabase.secId }
+
+            for (j in headerList.values) {
+
+                var newItem = ExpandablePortfolioItem(
+                    UserPortfolioEntry(
+                        j[0].entryDatabase.id,
+                        j[0].entryDatabase.secId,
+                        j[0].entryDatabase.secPrice,
+                        j[0].entryDatabase.secQuantity
+                    ),
+                    j[0].entryMarketData
+                )
+
+                for (k in j.subList(1, j.size)) {
+                    newItem = ExpandablePortfolioItem(
+                        UserPortfolioEntry(
+                            k.entryDatabase.id,
+                            k.entryDatabase.secId,
+                            ((newItem.entryDatabase.secPrice.toDouble() + k.entryDatabase.secPrice.toDouble()) / 2).toString(),
+                            newItem.entryDatabase.secQuantity + k.entryDatabase.secQuantity
+                        ),
+                        k.entryMarketData
+                    )
+                }
+
+                updatedList.add(newItem)
+            }
+
+            for (expandableItem in updatedList) {
+                groupAdapter += ExpandableGroup(expandableItem).apply {
+                    for (item in firstDataList) {
+                        if (item.entryDatabase.secId == expandableItem.entryDatabase.secId)
+                            add(
+                                CardItem(
+                                    item.entryDatabase,
+                                    item.entryMarketData
+                                )
+                            )
+                    }
+                }
+            }
 
             bindingPortfolio.itemsContainer.adapter = groupAdapter
         })
@@ -134,6 +148,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
     }
 
+    // TODO: 9/20/2020 delete 
     private fun List<UserPortfolioEntry>.toPortfolioItemCards(): List<PortfolioItemCard> {
         return this.map {
             PortfolioItemCard(
