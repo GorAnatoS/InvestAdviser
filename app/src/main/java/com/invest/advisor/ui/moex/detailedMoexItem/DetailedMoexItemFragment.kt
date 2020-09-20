@@ -40,7 +40,7 @@ class DetailedMoexItemFragment : ScopedFragment() {//, KodeinAware{
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        Toast.makeText(requireContext(), arguments?.getString("secId")!!, Toast.LENGTH_LONG).show()
+        //Toast.makeText(requireContext(), arguments?.getString("secId")!!, Toast.LENGTH_LONG).show()
 
         text_title.text = text_title.text.toString().replace("ХХ", arguments?.getString("secId")!!, true)
 
@@ -49,29 +49,41 @@ class DetailedMoexItemFragment : ScopedFragment() {//, KodeinAware{
         textView_totalMoney_is.text = (editText_quantity.text.toString().toDouble() * editText_price.text.toString().toDouble()).toString()
 
         editText_price.doAfterTextChanged {
-            textView_totalMoney_is.text = (editText_quantity.text.toString().toDouble() * editText_price.text.toString().toDouble()).toString()
+            if (editText_price.text.isNotEmpty() && editText_quantity.text.isNotEmpty())
+                textView_totalMoney_is.text = (editText_quantity.text.toString().toDouble() * editText_price.text.toString().toDouble()).toString()
         }
 
         editText_quantity.doAfterTextChanged {
-            textView_totalMoney_is.text = (editText_quantity.text.toString().toDouble() * editText_price.text.toString().toDouble()).toString()
+            if (editText_price.text.isNotEmpty() && editText_quantity.text.isNotEmpty())
+                textView_totalMoney_is.text = (editText_quantity.text.toString().toDouble() * editText_price.text.toString().toDouble()).toString()
         }
 
         addButton.setOnClickListener{
-            textView_totalMoney_is.text = (editText_quantity.text.toString().toDouble() * editText_price.text.toString().toDouble()).toString()
+            if (editText_price.text.isNotEmpty() && editText_quantity.text.isNotEmpty()) {
+                textView_totalMoney_is.text =
+                    (editText_quantity.text.toString().toDouble() * editText_price.text.toString()
+                        .toDouble()).toString()
 
-            viewModel = ViewModelProvider(this).get(PortfolioViewModel::class.java)
-            val newUserPortfolioEntry = UserPortfolioEntry(0, arguments?.getString("secId")!!, editText_price.text.toString(), editText_quantity.text.toString().toInt())
-            viewModel.insert(newUserPortfolioEntry)
-            Toast.makeText(requireContext(), newUserPortfolioEntry.toString(), Toast.LENGTH_LONG).show()
+
+                viewModel = ViewModelProvider(this).get(PortfolioViewModel::class.java)
+                val newUserPortfolioEntry = UserPortfolioEntry(
+                    0,
+                    arguments?.getString("secId")!!,
+                    editText_price.text.toString(),
+                    editText_quantity.text.toString().toInt()
+                )
+                viewModel.insert(newUserPortfolioEntry)
+                Toast.makeText(
+                    requireContext(),
+                    newUserPortfolioEntry.toString(),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else    Toast.makeText(
+                requireContext(),
+                "Ошибка ввода",
+                Toast.LENGTH_LONG
+            ).show()
         }
 
-
-
-//        viewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailedMoexItemViewModel::class.java)
     }
-
-  /*  private fun bindUI() = launch(Dispatchers.Main) {
-        val marketData = viewModel.marketData.await()
-        val seciritiesData = viewModel.securities.await()
-    }*/
 }

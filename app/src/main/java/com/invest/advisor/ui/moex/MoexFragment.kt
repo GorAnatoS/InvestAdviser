@@ -145,14 +145,11 @@ class MoexFragment : ScopedFragment(), KodeinAware {
             moexNetworkDataSource.fetchSecurities()
             moexNetworkDataSource.fetchMarketData()
         }
-
     }
 
     private fun initRecycleView(items: List<MoexItem>) {
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(items)
-
-
         }
 
         recyclerView.apply {

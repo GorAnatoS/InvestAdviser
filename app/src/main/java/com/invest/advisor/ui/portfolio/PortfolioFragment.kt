@@ -17,8 +17,12 @@ import com.invest.advisor.databinding.FragmentPortfolioBinding
 import com.invest.advisor.ui.base.ScopedFragment
 import com.invest.advisor.ui.moex.MoexViewModel
 import com.invest.advisor.ui.moex.MoexViewModelFactory
+import com.invest.advisor.ui.portfolio.new.CardItem
+import com.invest.advisor.ui.portfolio.new.ExpandablePortfolioItem
+import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.groupiex.plusAssign
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,7 +30,12 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
+const val INSET_TYPE_KEY = "inset_type"
+const val INSET = "inset"
+
 class PortfolioFragment : ScopedFragment(), KodeinAware {
+
+    private val groupAdapter = GroupAdapter<GroupieViewHolder>() //TODO get rid of this parameter
 
     override val kodein by closestKodein()
     private val viewModelFactory: MoexViewModelFactory by instance()
@@ -73,7 +82,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         moexNetworkDataSource.downloadedMarketData.observe(viewLifecycleOwner, Observer { it ->
             if (it == null) return@Observer
 
-            var updatedList: MutableList<PortfolioItemCard> = ArrayList()
+            var updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()
 
             for (element in it.currentMarketData.data)
                 for (entry in portfolioViewModel.allData.value?.toList()!!)
@@ -90,34 +99,38 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                         var changePrice = currentPrice - oldPrice
                         changePrice = Math.round(changePrice * 100.0) / 100.0
 
-
-                        updatedList.add(
-                            PortfolioItemCard(
-                                PortfolioItemContent(
-                                    entry.secId,
-                                    element[EnumMarketData.WAPRICE.ordinal],
-                                    entry.secQuantity,
-                                    currentPrice.toString(),
-                                    changePcnt.toString(),
-                                    changePrice
-                                )
-                            )
+                        val expandableHeaderItem = ExpandablePortfolioItem(
+                            entry.secId,
+                            element[EnumMarketData.WAPRICE.ordinal],
+                            entry.secQuantity,
+                            currentPrice.toString(),
+                            changePcnt.toString(),
+                            changePrice
                         )
+
+                        groupAdapter += ExpandableGroup(expandableHeaderItem).apply {
+                            for (i in 0..1) {
+                                add(CardItem("#ef9a9a"))
+                            }
+                        }
+
                     }
 
 
-            bindingPortfolio.itemsContainer.adapter =
+         /*   bindingPortfolio.itemsContainer.adapter =
                 GroupAdapter<GroupieViewHolder>().apply {
                     clear()
                     addAll(updatedList)
-                }
+                }*/
 
+            bindingPortfolio.itemsContainer.adapter = groupAdapter
         })
 
 
         GlobalScope.launch(Dispatchers.Main) {
             moexNetworkDataSource.fetchMarketData()
         }
+
 
     }
 

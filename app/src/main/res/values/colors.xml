@@ -9,4 +9,8 @@
     <color name="shareMinusColor">#DD2C00</color>
     <color name="colorBlack">#000000</color>
 
+
+    <color name="background">#eee</color>
+    <color name="white">#fff</color>
+
 </resources>
