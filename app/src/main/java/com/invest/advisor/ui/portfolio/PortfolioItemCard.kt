@@ -4,7 +4,7 @@ import androidx.core.content.ContextCompat
 import com.invest.advisor.R
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import kotlinx.android.synthetic.main.portfolio_item.*
+import kotlinx.android.synthetic.main.portfolio_header_item.*
 
 /**
  * Created by qsufff on 9/13/2020.
@@ -14,7 +14,7 @@ class PortfolioItemCard(private val content: PortfolioItemContent) : Item() {
     var itemContent: PortfolioItemContent = content
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.tvSecName.text = content.secId
+        viewHolder.tvPurchaseDate.text = content.secId
         viewHolder.tvPrice.text = content.secPrice
         viewHolder.tvQuantity.text = content.secQuantity.toString()
         viewHolder.tvCurrentPrice.text = content.secCurrentPrice
@@ -49,7 +49,7 @@ class PortfolioItemCard(private val content: PortfolioItemContent) : Item() {
 
     }
 
-    override fun getLayout() = R.layout.portfolio_item
+    override fun getLayout() = R.layout.portfolio_header_item
 }
 
 data class PortfolioItemContent(

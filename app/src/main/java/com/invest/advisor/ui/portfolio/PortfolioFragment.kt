@@ -23,12 +23,14 @@ import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.groupiex.plusAssign
+import kotlinx.android.synthetic.main.content_fragment_portfolio.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import kotlin.math.roundToInt
 
 const val INSET_TYPE_KEY = "inset_type"
 const val INSET = "inset"
@@ -40,6 +42,8 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
     override val kodein by closestKodein()
     private val viewModelFactory: MoexViewModelFactory by instance()
 
+    var portfolioPurchaseSum = 0.0
+    var currentPortfolioPrice = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,10 +61,10 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         bindingPortfolio.lifecycleOwner = this
 
         portfolioViewModel.allData.observe(viewLifecycleOwner, Observer {
-            bindingPortfolio.itemsContainer.adapter =
-                GroupAdapter<GroupieViewHolder>().apply {
-                    addAll(it.toPortfolioItemCards().sortedBy { it.itemContent.secId })
-                }
+
+            for (i in it)
+                portfolioPurchaseSum += i.secQuantity.toDouble() * i.secPrice.toDouble()
+
         })
 
         return bindingPortfolio.root
@@ -80,21 +84,39 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         moexNetworkDataSource.downloadedMarketData.observe(viewLifecycleOwner, Observer { it ->
             if (it == null) return@Observer
 
-            val firstDataList: MutableList<ExpandablePortfolioItem> = ArrayList()
+            //first List of stocks
+            val cardItemList: MutableList<ExpandablePortfolioItem> = ArrayList()
 
             for (element in it.currentMarketData.data)
                 for (entry in portfolioViewModel.allData.value?.toList()!!)
                     if (entry.secId == element[EnumMarketData.SECID.ordinal]) {
                         val expandableHeaderItem = ExpandablePortfolioItem(
                             entry,
-                            element
+                            element,
+                            false
                         )
-                        firstDataList.add(expandableHeaderItem)
+                        cardItemList.add(expandableHeaderItem)
+
+                        currentPortfolioPrice += entry.secQuantity.toDouble() * element[EnumMarketData.WAPRICE.ordinal].toDouble()
                     }
+
+            //update my portfolio
+            // TODO: 9/21/2020 null and 0 / check
+            currentPortfolioPrice = (currentPortfolioPrice * 100).roundToInt() / 100.0
+
+            var changePrice = currentPortfolioPrice - portfolioPurchaseSum
+            changePrice = (changePrice * 100).roundToInt() / 100.0
+
+            var changePercent =
+                ((currentPortfolioPrice - portfolioPurchaseSum) / portfolioPurchaseSum)
+            changePercent = (changePercent * 100.0).roundToInt() / 1.0
+
+            bindingPortfolio.tvPortfolioInfo.text =
+                "Цена портфеля $currentPortfolioPrice₽ ${changePrice} (${changePercent}%)"
 
             val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()
 
-            val headerList = firstDataList.toList().groupBy { it.entryDatabase.secId }
+            val headerList = cardItemList.toList().groupBy { it.entryDatabase.secId }
 
             for (j in headerList.values) {
 
@@ -103,9 +125,11 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                         j[0].entryDatabase.id,
                         j[0].entryDatabase.secId,
                         j[0].entryDatabase.secPrice,
-                        j[0].entryDatabase.secQuantity
+                        j[0].entryDatabase.secQuantity,
+                        j[0].entryDatabase.secPurchaseDate
                     ),
-                    j[0].entryMarketData
+                    j[0].entryMarketData,
+                    j.size > 1
                 )
 
                 for (k in j.subList(1, j.size)) {
@@ -114,9 +138,11 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                             k.entryDatabase.id,
                             k.entryDatabase.secId,
                             ((newItem.entryDatabase.secPrice.toDouble() + k.entryDatabase.secPrice.toDouble()) / 2).toString(),
-                            newItem.entryDatabase.secQuantity + k.entryDatabase.secQuantity
+                            newItem.entryDatabase.secQuantity + k.entryDatabase.secQuantity,
+                            k.entryDatabase.secPurchaseDate
                         ),
-                        k.entryMarketData
+                        k.entryMarketData,
+                        newItem.isExpandable
                     )
                 }
 
@@ -125,7 +151,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
             for (expandableItem in updatedList) {
                 groupAdapter += ExpandableGroup(expandableItem).apply {
-                    for (item in firstDataList) {
+                    for (item in cardItemList) {
                         if (item.entryDatabase.secId == expandableItem.entryDatabase.secId)
                             add(
                                 CardItem(
@@ -137,27 +163,11 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                 }
             }
 
-            bindingPortfolio.itemsContainer.adapter = groupAdapter
+            bindingPortfolio.include.items_container.adapter = groupAdapter
         })
-
 
         GlobalScope.launch(Dispatchers.Main) {
             moexNetworkDataSource.fetchMarketData()
-        }
-
-
-    }
-
-    // TODO: 9/20/2020 delete 
-    private fun List<UserPortfolioEntry>.toPortfolioItemCards(): List<PortfolioItemCard> {
-        return this.map {
-            PortfolioItemCard(
-                PortfolioItemContent(
-                    it.secId,
-                    it.secPrice,
-                    it.secQuantity
-                )
-            )
         }
     }
 

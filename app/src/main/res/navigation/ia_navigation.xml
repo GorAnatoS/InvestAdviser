@@ -10,7 +10,7 @@
         android:id="@+id/portfolioFragment"
         android:name="com.invest.advisor.ui.portfolio.PortfolioFragment"
         android:label="@string/user_portfolio"
-        tools:layout="@layout/fragment_portfolio" />
+        tools:layout="@layout/content_fragment_portfolio" />
 
     <fragment
         android:id="@+id/moexFragment"

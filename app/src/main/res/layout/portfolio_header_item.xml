@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_half"
+    android:layout_margin="4dp"
     android:minHeight="?listPreferredItemHeightSmall"
     app:cardCornerRadius="4dp">
 
@@ -17,58 +17,72 @@
             android:id="@+id/tvPurchaseDate"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/margin_half"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/tvSecId"
+            android:layout_marginTop="@dimen/margin_half"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Gazprom ..." />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvSecId"
-            android:layout_marginStart="@dimen/margin_half"
-            style="@style/TextAppearance.AppCompat.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPurchaseDate"
-            tools:text="GZPR" />
+            tools:text="Secid" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvPrice"
-            style="@style/TextAppearance.AppCompat.Medium"
+            style="@style/TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvPurchaseDate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvPurchaseDate"
-            tools:text="105" />
+            android:layout_marginStart="@dimen/margin_1_4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvQuantity"
+            app:layout_constraintTop_toBottomOf="@+id/tvPurchaseDate"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Price" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvChange"
-            style="@style/TextAppearance.AppCompat.Medium"
+            android:id="@+id/tvQuantity"
+            style="@style/TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSecId"
-            app:layout_constraintEnd_toStartOf="@+id/tvChangePcnt"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrice"
-            app:layout_constraintVertical_bias="1.0"
-            tools:text="+5" />
+            android:layout_marginStart="@dimen/margin_half"
+            android:layout_marginBottom="@dimen/margin_half"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPurchaseDate"
+            tools:text="Quantity" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvChangePcnt"
+            android:id="@+id/tvCurrentPrice"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSecId"
+            android:layout_marginTop="@dimen/margin_half"
+            android:layout_marginEnd="@dimen/margin_half"
+            app:layout_constraintEnd_toStartOf="@id/icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Price =" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCurrentPriceChng"
+            style="@style/TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_half"
+            android:layout_marginBottom="@dimen/margin_half"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/icon"
+            tools:text="Change =" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_standart"
+            android:background="@drawable/ripple_circular"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrice"
-            app:layout_constraintVertical_bias="1.0"
-            tools:text="+0.5%" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/palette" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.cardview.widget.CardView>

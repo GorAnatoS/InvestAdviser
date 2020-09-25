@@ -12,7 +12,7 @@ import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.response.MoexApiService
-import kotlinx.android.synthetic.main.fragment_portfolio.*
+import kotlinx.android.synthetic.main.content_fragment_portfolio.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

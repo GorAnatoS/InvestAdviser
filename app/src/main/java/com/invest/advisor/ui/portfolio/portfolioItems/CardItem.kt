@@ -8,10 +8,19 @@ import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.ui.portfolio.INSET
 import com.invest.advisor.ui.portfolio.INSET_TYPE_KEY
-
-import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import kotlinx.android.synthetic.main.portfolio_item.*
+import com.xwray.groupie.kotlinandroidextensions.Item
+import kotlinx.android.synthetic.main.portfolio_card_item.*
+import kotlinx.android.synthetic.main.portfolio_card_item.icon
+import kotlinx.android.synthetic.main.portfolio_card_item.tvCurrentPriceChng
+import kotlinx.android.synthetic.main.portfolio_card_item.tvPrice
+import kotlinx.android.synthetic.main.portfolio_card_item.tvPurchaseDate
+import kotlinx.android.synthetic.main.portfolio_card_item.tvQuantity
+import kotlinx.android.synthetic.main.portfolio_header_item.*
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 open class CardItem(
@@ -24,15 +33,15 @@ open class CardItem(
     init {
         extras[INSET_TYPE_KEY] = INSET
     }
+
     override fun getLayout(): Int {
-        return R.layout.portfolio_item
+        return R.layout.portfolio_card_item
     }
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.tvSecName.text = entryDatabase.secId
-        viewHolder.tvPrice.text = entryMarketData[EnumMarketData.WAPRICE.ordinal]
-        viewHolder.tvQuantity.text = entryDatabase.secQuantity.toString()
-        viewHolder.tvCurrentPrice.text = (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() * entryDatabase.secQuantity.toDouble()).toString()
+        viewHolder.tvPurchaseDate.text = entryDatabase.secPurchaseDate?.substring(0,18)
+        viewHolder.tvPrice.text = entryDatabase.secPrice + "₽"
+        viewHolder.tvQuantity.text = entryDatabase.secQuantity.toString() + " шт. ⋄"
 
         var currentPrice =
             (entryDatabase.secQuantity.toDouble() * entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble())
@@ -40,7 +49,8 @@ open class CardItem(
 
         var oldPrice = entryDatabase.secPrice.toDouble() * entryDatabase.secQuantity.toDouble()
 
-        var changePcnt = (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() - entryDatabase.secPrice.toDouble()) / entryDatabase.secPrice.toDouble() * 100
+        var changePcnt =
+            (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() - entryDatabase.secPrice.toDouble()) / entryDatabase.secPrice.toDouble() * 100
         changePcnt = Math.round(changePcnt * 100.0) / 100.0
 
         var changePrice = currentPrice - oldPrice

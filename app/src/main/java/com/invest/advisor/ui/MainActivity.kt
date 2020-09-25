@@ -50,3 +50,5 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 }
+
+// TODO: 9/20/2020 разобраться со временем 

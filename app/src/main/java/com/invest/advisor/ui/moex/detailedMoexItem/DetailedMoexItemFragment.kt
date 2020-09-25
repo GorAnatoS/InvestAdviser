@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.invest.advisor.R
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.ui.base.ScopedFragment
@@ -19,6 +20,8 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetailedMoexItemFragment : ScopedFragment() {//, KodeinAware{
 /*
@@ -64,13 +67,17 @@ class DetailedMoexItemFragment : ScopedFragment() {//, KodeinAware{
                     (editText_quantity.text.toString().toDouble() * editText_price.text.toString()
                         .toDouble()).toString()
 
+                val date = Calendar.getInstance().time
+                val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
+                val formatedDate = formatter.format(date)
 
                 viewModel = ViewModelProvider(this).get(PortfolioViewModel::class.java)
                 val newUserPortfolioEntry = UserPortfolioEntry(
                     0,
                     arguments?.getString("secId")!!,
                     editText_price.text.toString(),
-                    editText_quantity.text.toString().toInt()
+                    editText_quantity.text.toString().toInt(),
+                    formatedDate
                 )
                 viewModel.insert(newUserPortfolioEntry)
                 Toast.makeText(
@@ -83,6 +90,9 @@ class DetailedMoexItemFragment : ScopedFragment() {//, KodeinAware{
                 "Ошибка ввода",
                 Toast.LENGTH_LONG
             ).show()
+
+
+            findNavController().navigateUp()
         }
 
     }

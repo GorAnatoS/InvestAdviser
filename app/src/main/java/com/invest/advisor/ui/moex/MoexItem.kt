@@ -18,7 +18,7 @@ class MoexItem(
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.apply {
-            tvSecName.text = moexEntry.secName
+            tvPurchaseDate.text = moexEntry.secName
             tvSecId.text = moexEntry.secId
             tvPrice.text = moexEntry.secPrice
 

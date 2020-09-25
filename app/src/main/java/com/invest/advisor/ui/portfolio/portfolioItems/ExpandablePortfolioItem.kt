@@ -7,12 +7,13 @@ import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.ExpandableItem
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import kotlinx.android.synthetic.main.portfolio_item.*
+import kotlinx.android.synthetic.main.portfolio_header_item.*
 
 
 class ExpandablePortfolioItem(
     entry: UserPortfolioEntry,
-    marketData: List<String>
+    marketData: List<String>,
+    val isExpandable: Boolean
 ) : HeaderItem(
     entry,
     marketData
@@ -27,12 +28,15 @@ class ExpandablePortfolioItem(
 
         // Initial icon state -- not animated.
         viewHolder.icon.apply {
-            visibility = View.VISIBLE
-            setImageResource(if (expandableGroup.isExpanded) R.drawable.collapse_animated else R.drawable.expand_animated)
-            setOnClickListener {
-                expandableGroup.onToggleExpanded()
-                bindIcon(viewHolder)
+            if (isExpandable) {
+                visibility = View.VISIBLE
+                setImageResource(if (expandableGroup.isExpanded) R.drawable.collapse_animated else R.drawable.expand_animated)
+                setOnClickListener {
+                    expandableGroup.onToggleExpanded()
+                    bindIcon(viewHolder)
+                }
             }
+            else visibility = View.INVISIBLE
         }
 
         viewHolder.itemView.setOnClickListener {

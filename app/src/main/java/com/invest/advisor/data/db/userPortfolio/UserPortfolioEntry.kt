@@ -21,18 +21,18 @@ data class UserPortfolioEntry(
 
     @ColumnInfo(name = secQuantity_COLUMN)
     val secQuantity: Int,
-    /*@ColumnInfo(name = secAveragePrice_COLUMN)
-    val secAveragePrice: String?*/
+
+    @ColumnInfo(name = secBuyDate_COLUMN)
+    val secPurchaseDate: String?
 )
 
 const val DATABASE_NAME = "User_s_portfolio_database.db"
 const val TABLE_NAME = "User_s_portfolio"
 const val Id_COLUMN = "id"
 const val secId_COLUMN = "secId"
-const val secName_COLUMN = "secName"
+const val secBuyDate_COLUMN = "date of purchase"
 const val secPrice_COLUMN = "secPrice"
 const val secQuantity_COLUMN = "Quantity"
-const val secAveragePrice_COLUMN = "security average price"
 
 const val DATABASE_VERSION = 1
 

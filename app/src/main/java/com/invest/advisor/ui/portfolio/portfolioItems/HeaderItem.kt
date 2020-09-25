@@ -8,7 +8,8 @@ import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import kotlinx.android.synthetic.main.portfolio_item.*
+import kotlinx.android.synthetic.main.portfolio_header_item.*
+import kotlin.math.roundToInt
 
 open class HeaderItem(
     val entryDatabase: UserPortfolioEntry,
@@ -18,26 +19,27 @@ open class HeaderItem(
 ) : Item() {
 
     override fun getLayout(): Int {
-        return R.layout.portfolio_item
+        return R.layout.portfolio_header_item
     }
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.tvSecName.text = entryDatabase.secId
-        viewHolder.tvPrice.text = entryMarketData[EnumMarketData.WAPRICE.ordinal]
-        viewHolder.tvQuantity.text = entryDatabase.secQuantity.toString()
+        viewHolder.tvPurchaseDate.text = entryDatabase.secId
+        viewHolder.tvPrice.text = entryMarketData[EnumMarketData.WAPRICE.ordinal] + "₽"
+        viewHolder.tvQuantity.text = entryDatabase.secQuantity.toString() + " шт. ⋄"
         viewHolder.tvCurrentPrice.text = (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() * entryDatabase.secQuantity.toDouble()).toString()
 
         var currentPrice =
             (entryDatabase.secQuantity.toDouble() * entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble())
-        currentPrice = Math.round(currentPrice * 100.0) / 100.0
+        currentPrice = (currentPrice * 100.0).roundToInt() / 100.0
+        viewHolder.tvCurrentPrice.text = currentPrice.toString()
 
         var oldPrice = entryDatabase.secPrice.toDouble() * entryDatabase.secQuantity.toDouble()
 
         var changePcnt = (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() - entryDatabase.secPrice.toDouble()) / entryDatabase.secPrice.toDouble() * 100
-        changePcnt = Math.round(changePcnt * 100.0) / 100.0
+        changePcnt = (changePcnt * 100.0).roundToInt() / 100.0
 
         var changePrice = currentPrice - oldPrice
-        changePrice = Math.round(changePrice * 100.0) / 100.0
+        changePrice = (changePrice * 100.0).roundToInt() / 100.0
 
         if (changePcnt < 0)
             viewHolder.tvCurrentPriceChng.setTextColor(
