@@ -19,8 +19,6 @@ class PortfolioItemCard(private val content: PortfolioItemContent) : Item() {
         viewHolder.tvQuantity.text = content.secQuantity.toString()
         viewHolder.tvCurrentPrice.text = content.secCurrentPrice
 
-
-
         if (content.changePcnt.startsWith("-"))
             viewHolder.tvCurrentPriceChng.setTextColor(
                 ContextCompat.getColor(

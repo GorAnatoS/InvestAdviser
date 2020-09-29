@@ -6,8 +6,13 @@
     <string name="user_portfolio">Мой портфель</string>
     <string name="moex">Индексы (MOEX)</string>
     <string name="analitics">Аналитика</string>
+    <string name="analize">Оценить</string>
     <string name="moexDetail">moexDetail</string>
     <string name="action_search">Поиск</string>
+    <string name="action_sort">Сортировка</string>
     <string name="app_label">Invest Adviser</string>
     <string name="search_hint">Поиск тикера акции</string>
+    <string name="sortByName">По названию</string>
+    <string name="sortByPrice">По цене</string>
+    <string name="Add">Добавить</string>
 </resources>

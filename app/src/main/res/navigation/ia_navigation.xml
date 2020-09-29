@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/analiticsFragment"
-        android:name="com.invest.advisor.ui.portfolio.AnaliticsFragment"
+        android:name="com.invest.advisor.ui.analitics.AnaliticsFragment"
         android:label="@string/analitics"
         tools:layout="@layout/fragment_analitics" />
 </navigation>

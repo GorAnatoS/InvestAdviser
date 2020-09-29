@@ -1,6 +1,8 @@
 package com.invest.advisor.ui.base
 
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.View
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,5 +29,6 @@ abstract class ScopedFragment: Fragment(), CoroutineScope {
         super.onDestroy()
         job.cancel()
     }
+
 
 }

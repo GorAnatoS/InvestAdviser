@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.invest.advisor.R
 import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
@@ -24,6 +26,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.groupiex.plusAssign
 import kotlinx.android.synthetic.main.content_fragment_portfolio.view.*
+import kotlinx.android.synthetic.main.fragment_portfolio.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -78,12 +81,23 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
     private fun bindUI() = launch {
 
+        textView_add.setOnClickListener{
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.moexFragment)
+        }
+
+        textView_analize.setOnClickListener {
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.analiticsFragment)
+        }
+
         val mIssApiService = MoexApiService(ConnectivityInterceptorImpl(requireContext()))
         val moexNetworkDataSource = MoexNetworkDataSourceImpl(mIssApiService)
 
         moexNetworkDataSource.downloadedMarketData.observe(viewLifecycleOwner, Observer { it ->
             if (it == null) return@Observer
 
+            textView_analize.visibility = View.VISIBLE
+            textView_add.visibility = View.VISIBLE
+            
             //first List of stocks
             val cardItemList: MutableList<ExpandablePortfolioItem> = ArrayList()
 
@@ -177,3 +191,5 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         private lateinit var moexViewModel: MoexViewModel
     }
 }
+
+// TODO: 9/26/2020 Время отображаеть без :

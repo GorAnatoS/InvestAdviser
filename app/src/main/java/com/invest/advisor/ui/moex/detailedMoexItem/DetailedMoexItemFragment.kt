@@ -24,12 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DetailedMoexItemFragment : ScopedFragment() {//, KodeinAware{
-/*
-    override val kodein by closestKodein()
-    private val viewModelFactory: DetailedMoexItemFactory by instance()
 
-    private lateinit var viewModel: DetailedMoexItemViewModel
-*/
     private lateinit var viewModel: PortfolioViewModel
 
     override fun onCreateView(
