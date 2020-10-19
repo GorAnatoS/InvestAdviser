@@ -20,51 +20,45 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 
 class AnaliticsFragment : ScopedFragment(), KodeinAware {
-    override val kodein by closestKodein()
-    //private val viewModelFactory: AnaliticsViewModelFactory by instance()
 
-    //private lateinit var viewModel: AnaliticsViewModel
+    override val kodein by closestKodein()
+
+    lateinit var mYahooNetworkDataSource: YahooNetworkDataSourceImpl
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        portfolioViewModel = ViewModelProvider(this).get(PortfolioViewModel::class.java)
 
+        val mYahooApiService = YahooApiService(ConnectivityInterceptorImpl(requireContext()))
+        mYahooNetworkDataSource = YahooNetworkDataSourceImpl(mYahooApiService)
 
         return inflater.inflate(R.layout.fragment_analitics, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        portfolioViewModel =
-            ViewModelProvider(this).get(PortfolioViewModel::class.java)
         bindUI()
     }
 
-
     private fun bindUI() = launch {
-        val mYahooApiService = YahooApiService(ConnectivityInterceptorImpl(requireContext()))
-        val mYahooNetworkDataSource = YahooNetworkDataSourceImpl(mYahooApiService)
 
         mYahooNetworkDataSource.downloadedYahooResponse.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
 
             text_analitics.text =
-                text_analitics.text.toString() + '\n' + it.quoteSummary.result[0].assetProfile.industry + "  " + it.quoteSummary.result[0].assetProfile.sector + " " + it.quoteSummary.result[0].financialData.currentPrice.raw
+                text_analitics.text.toString() + it.quoteSummary.result[0].price.shortName + " " + it.quoteSummary.result[0].assetProfile.industry + "  " + it.quoteSummary.result[0].assetProfile.sector + " " + it.quoteSummary.result[0].financialData.currentPrice.raw + '\n'
         })
 
         portfolioViewModel.allData.observe(viewLifecycleOwner, Observer {
             GlobalScope.launch(Dispatchers.IO) {
                 for (i in it) {
-                    try {
-                        mYahooNetworkDataSource.fetchYahooData(i.secId + ".ME")
-                    } catch (e: Exception) {}
+                    mYahooNetworkDataSource.fetchYahooData(i.secId + ".ME")
                 }
             }
         })
-
-
     }
 
     companion object {
