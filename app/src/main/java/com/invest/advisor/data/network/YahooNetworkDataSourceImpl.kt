@@ -1,5 +1,6 @@
 package com.invest.advisor.data.network
 
+import android.content.res.Resources
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,6 +20,8 @@ class YahooNetworkDataSourceImpl(
         try {
             yahooApiService.getAssetProfileAsync(assetName).await()
             _downloadedYahooResponse.postValue(yahooApiService.getAssetProfileAsync(assetName).await())
+        } catch (e: Resources.NotFoundException){
+            Log.e("Fetch data", "Not found 404.", e)
         } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No internet connection.", e)
         }
