@@ -12,5 +12,7 @@
     <dimen name="padding_tiny">4dp</dimen>
     <dimen name="padding_small">8dp</dimen>
     <dimen name="padding_standard">16dp</dimen>
+    <dimen name="margin_list_items">4dp</dimen>
+    <dimen name="margin_list_horizontal">8dp</dimen>
 
 </resources>

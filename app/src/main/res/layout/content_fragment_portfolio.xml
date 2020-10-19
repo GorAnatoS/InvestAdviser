@@ -25,10 +25,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/items_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_standart"
+                android:layout_height="@dimen/margin_list_horizontal"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="@dimen/margin_half"
-                android:layout_marginEnd="@dimen/margin_standart"
                 android:layout_marginBottom="@dimen/margin_half"
                 android:orientation="vertical"
                 android:visibility="visible"

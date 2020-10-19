@@ -114,7 +114,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
                         currentPortfolioPrice += entry.secQuantity.toDouble() * element[EnumMarketData.WAPRICE.ordinal].toDouble()
                     }
-            
+
             if (cardItemList.isNotEmpty()) {
                 currentPortfolioPrice = (currentPortfolioPrice * 100).roundToInt() / 100.0
 
