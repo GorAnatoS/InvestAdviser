@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 
 data class ExercisedValue(
     val raw: Int,
-    val fmt: String?,
+    val fmt: Any?,
     val longFmt: String
 )

@@ -1,12 +1,9 @@
 package com.invest.advisor.data.network.yahooResponse
 
 
-import com.google.gson.annotations.SerializedName
-
 data class AssetProfile(
     val address1: String,
     val city: String,
-    val state: String,
     val zip: String,
     val country: String,
     val phone: String,
@@ -22,6 +19,5 @@ data class AssetProfile(
     val shareHolderRightsRisk: Int,
     val overallRisk: Int,
     val governanceEpochDate: Int,
-    val compensationAsOfEpochDate: Int,
     val maxAge: Int
 )
