@@ -2,13 +2,12 @@ package com.invest.advisor
 
 import android.app.Application
 import com.invest.advisor.data.db.MoexDatabase
-import com.invest.advisor.data.network.ConnectivityInterceptor
-import com.invest.advisor.data.network.ConnectivityInterceptorImpl
-import com.invest.advisor.data.network.MoexNetworkDataSource
-import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
-import com.invest.advisor.data.network.response.MoexApiService
+import com.invest.advisor.data.network.*
+import com.invest.advisor.data.network.moexResponse.MoexApiService
+import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.data.repository.MoexRepository
 import com.invest.advisor.data.repository.MoexRepositoryImpl
+import com.invest.advisor.ui.analitics.AnaliticsViewModelFactory
 import com.invest.advisor.ui.moex.MoexViewModelFactory
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
@@ -32,8 +31,12 @@ class InvestAdvisorApplication : Application(), KodeinAware {
         bind() from singleton { MoexApiService(instance()) }
         bind<MoexNetworkDataSource>() with singleton { MoexNetworkDataSourceImpl(instance()) }
         bind<MoexRepository>() with singleton { MoexRepositoryImpl(instance(), instance()) }
-
         bind() from provider { MoexViewModelFactory(instance()) }
+
+        bind() from singleton { YahooApiService(instance()) }
+        bind<YahooNetworkDataSource>() with singleton {YahooNetworkDataSourceImpl(instance()) }
+        //bind() from provider { AnaliticsViewModelFactory(instance()) }
+
     }
 
     override fun onCreate() {

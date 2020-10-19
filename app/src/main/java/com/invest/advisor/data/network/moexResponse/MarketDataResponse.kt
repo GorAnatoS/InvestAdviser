@@ -1,4 +1,4 @@
-package com.invest.advisor.data.network.response
+package com.invest.advisor.data.network.moexResponse
 
 import com.google.gson.annotations.SerializedName
 import com.invest.advisor.data.db.entity.MarketData

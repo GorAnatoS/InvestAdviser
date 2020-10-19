@@ -30,5 +30,4 @@ abstract class ScopedFragment: Fragment(), CoroutineScope {
         job.cancel()
     }
 
-
 }

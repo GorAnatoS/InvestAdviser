@@ -1,8 +1,8 @@
 package com.invest.advisor.data.network
 
 import androidx.lifecycle.LiveData
-import com.invest.advisor.data.network.response.MarketDataResponse
-import com.invest.advisor.data.network.response.SecuritiesResponse
+import com.invest.advisor.data.network.moexResponse.MarketDataResponse
+import com.invest.advisor.data.network.moexResponse.SecuritiesResponse
 
 
 /**
@@ -14,6 +14,5 @@ interface MoexNetworkDataSource {
     val downloadedMarketData: LiveData<MarketDataResponse>
 
     suspend fun fetchSecurities()
-
     suspend fun fetchMarketData()
 }

@@ -8,13 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.invest.advisor.R
 import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
-import com.invest.advisor.data.network.response.MoexApiService
+import com.invest.advisor.data.network.moexResponse.MoexApiService
 import com.invest.advisor.databinding.FragmentPortfolioBinding
 import com.invest.advisor.ui.base.ScopedFragment
 import com.invest.advisor.ui.moex.MoexViewModel
@@ -47,6 +46,8 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
     var portfolioPurchaseSum = 0.0
     var currentPortfolioPrice = 0.0
+    var changePrice = 0.0
+    var changePercent = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -97,7 +98,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
             textView_analize.visibility = View.VISIBLE
             textView_add.visibility = View.VISIBLE
-            
+
             //first List of stocks
             val cardItemList: MutableList<ExpandablePortfolioItem> = ArrayList()
 
@@ -113,23 +114,24 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
                         currentPortfolioPrice += entry.secQuantity.toDouble() * element[EnumMarketData.WAPRICE.ordinal].toDouble()
                     }
+            
+            if (cardItemList.isNotEmpty()) {
+                currentPortfolioPrice = (currentPortfolioPrice * 100).roundToInt() / 100.0
 
-            //update my portfolio
-            // TODO: 9/21/2020 null and 0 / check
-            currentPortfolioPrice = (currentPortfolioPrice * 100).roundToInt() / 100.0
+                changePrice = currentPortfolioPrice - portfolioPurchaseSum
+                changePrice = (changePrice * 100).roundToInt() / 100.0
 
-            var changePrice = currentPortfolioPrice - portfolioPurchaseSum
-            changePrice = (changePrice * 100).roundToInt() / 100.0
+                changePercent =
+                    ((currentPortfolioPrice - portfolioPurchaseSum) / portfolioPurchaseSum)
+                changePercent = (changePercent * 100.0).roundToInt() / 1.0
 
-            var changePercent =
-                ((currentPortfolioPrice - portfolioPurchaseSum) / portfolioPurchaseSum)
-            changePercent = (changePercent * 100.0).roundToInt() / 1.0
+            }
 
             bindingPortfolio.tvPortfolioInfo.text =
                 "Цена портфеля $currentPortfolioPrice₽ ${changePrice} (${changePercent}%)"
 
-            val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()
 
+            val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()
             val headerList = cardItemList.toList().groupBy { it.entryDatabase.secId }
 
             for (j in headerList.values) {

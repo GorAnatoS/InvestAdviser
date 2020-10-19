@@ -3,16 +3,14 @@ package com.invest.advisor.data.network
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.invest.advisor.data.network.response.MarketDataResponse
-import com.invest.advisor.data.network.response.SecuritiesResponse
-import com.invest.advisor.data.network.response.MoexApiService
+import com.invest.advisor.data.network.moexResponse.MarketDataResponse
+import com.invest.advisor.data.network.moexResponse.SecuritiesResponse
+import com.invest.advisor.data.network.moexResponse.MoexApiService
 import com.invest.advisor.internal.NoConnectivityException
 
 class MoexNetworkDataSourceImpl(
     private val moexApiService: MoexApiService
 ) : MoexNetworkDataSource {
-
-
     private val _downloadedCurrentSecurities = MutableLiveData<SecuritiesResponse>()
     override val downloadedSecurities: LiveData<SecuritiesResponse>
         get() = _downloadedCurrentSecurities

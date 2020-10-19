@@ -5,10 +5,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.entity.MarketData
 import com.invest.advisor.data.db.entity.Securities
-import com.invest.advisor.data.network.response.SecuritiesResponse
 
 @Dao
 interface MoexDatabaseDao {

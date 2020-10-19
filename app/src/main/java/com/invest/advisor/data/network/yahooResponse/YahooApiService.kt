@@ -1,6 +1,5 @@
-package com.invest.advisor.data.network.response
+package com.invest.advisor.data.network.yahooResponse
 
-//import com.invest.advisor.data.db.entity.MOEXdata
 import com.invest.advisor.data.network.ConnectivityInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.http.GET
@@ -9,32 +8,22 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+import retrofit2.http.Path
 
 /**
  * Created by qsufff on 7/26/2020.
  */
 
-//http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/AFKS.xml?iss.meta=off&iss.only=securities&securities.columns=SECID,SECNAME,LATNAME
-
-//http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/AFKS.json?iss.meta=off&iss.only=securities,marketdata
-
-//http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.meta=off&iss.only=securities&securities.columns=SECID
-
-interface MoexApiService{
-    @GET("securities.json?iss.meta=off&iss.only=securities")
-    fun getSecuritiesAsync():
-            Deferred<SecuritiesResponse>
-
-    @GET("securities.json?iss.meta=off&iss.only=marketdata")
-    fun getMarketDataAsync():
-            Deferred<MarketDataResponse>
-
+interface YahooApiService{
+    @GET("{assetName}?modules=assetProfile%2CfinancialData")
+    fun getAssetProfileAsync(
+        @Path("assetName") assetName: String
+    ): Deferred<YahooResponse>
 
     companion object {
         operator fun invoke(
             connectivityInterceptor: ConnectivityInterceptor
-        ): MoexApiService {
+        ): YahooApiService {
             val requestInterceptor = Interceptor {chain ->
                 val url = chain.request()
                     .url()
@@ -57,11 +46,11 @@ interface MoexApiService{
 
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/")
+                .baseUrl("https://query1.finance.yahoo.com/v10/finance/quoteSummary/")
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(MoexApiService::class.java)
+                .create(YahooApiService::class.java)
         }
     }
 }

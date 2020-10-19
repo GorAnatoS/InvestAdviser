@@ -5,8 +5,8 @@ import com.invest.advisor.data.db.MoexDatabaseDao
 import com.invest.advisor.data.db.entity.MarketData
 import com.invest.advisor.data.db.entity.Securities
 import com.invest.advisor.data.network.MoexNetworkDataSource
-import com.invest.advisor.data.network.response.MarketDataResponse
-import com.invest.advisor.data.network.response.SecuritiesResponse
+import com.invest.advisor.data.network.moexResponse.MarketDataResponse
+import com.invest.advisor.data.network.moexResponse.SecuritiesResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
