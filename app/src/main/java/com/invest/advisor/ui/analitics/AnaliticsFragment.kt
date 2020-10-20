@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.YahooNetworkDataSourceImpl
@@ -18,6 +21,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
+import java.util.*
 
 class AnaliticsFragment : ScopedFragment(), KodeinAware {
 
@@ -41,6 +45,14 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         bindUI()
+
+        setChart()
+    }
+
+    private fun setChart(){
+        val dataSet = PieDataSet(pieEntries, "My Portfolio")
+        val data = PieData(dataSet)
+        chart.data = data
     }
 
     private fun bindUI() = launch {
@@ -54,8 +66,21 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
 
         portfolioViewModel.allData.observe(viewLifecycleOwner, Observer {
             GlobalScope.launch(Dispatchers.IO) {
-                for (i in it) {
-                    mYahooNetworkDataSource.fetchYahooData(i.secId + ".ME")
+                //
+
+
+                val myPortfolioItemList = it.groupBy { it.secId }
+
+                for (j in myPortfolioItemList.values) {
+                    var newEntry = PieEntry(j.get(0).secPrice.toFloat() * j.get(0).secQuantity.toFloat(), j.get(0).secId)
+
+                    for (k in j.subList(1, j.size))
+                        newEntry = PieEntry(newEntry.value + k.secPrice.toFloat() * k.secQuantity.toFloat(), newEntry.label)
+
+
+                    mYahooNetworkDataSource.fetchYahooData(newEntry.label + ".ME")
+
+                    pieEntries.add(newEntry)
                 }
             }
         })
@@ -63,5 +88,9 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
 
     companion object {
         private lateinit var portfolioViewModel: PortfolioViewModel
+
+        //for chart
+        //val entries = ArrayList<PieEntry>()
+        val pieEntries: MutableList<PieEntry> = ArrayList()
     }
 }

@@ -44,10 +44,11 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
     override val kodein by closestKodein()
     private val viewModelFactory: MoexViewModelFactory by instance()
 
-    var portfolioPurchaseSum = 0.0
-    var currentPortfolioPrice = 0.0
-    var changePrice = 0.0
-    var changePercent = 0.0
+    var portfolioPurchaseSum = 0.0 //total price of my portfolio when it was bought
+    var currentPortfolioPrice = 0.0 //current portfolio price
+    var changePrice = 0.0 //currentPortfolioPrice - portfolioPurchaseSum
+    var changePercent = 0.0  // changePrice в процентах
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -131,6 +132,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                 "Цена портфеля $currentPortfolioPrice₽ ${changePrice} (${changePercent}%)"
 
 
+            //expandable list setting
             val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()
             val headerList = cardItemList.toList().groupBy { it.entryDatabase.secId }
 
