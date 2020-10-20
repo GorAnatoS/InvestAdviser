@@ -2,6 +2,7 @@ package com.invest.advisor.ui.portfolio.portfolioItems
 
 import android.graphics.drawable.Animatable
 import android.view.View
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.invest.advisor.R
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.xwray.groupie.ExpandableGroup
@@ -18,6 +19,8 @@ class ExpandablePortfolioItem(
     entry,
     marketData
 ), ExpandableItem {
+
+    override fun getSwipeDirs(): Int = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
 
     var clickListener: ((ExpandablePortfolioItem) -> Unit)? = null
 

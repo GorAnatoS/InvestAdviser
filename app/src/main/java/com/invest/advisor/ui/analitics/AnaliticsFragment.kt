@@ -49,6 +49,7 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
         mYahooNetworkDataSource = YahooNetworkDataSourceImpl(mYahooApiService)
 
         pieEntries.clear()
+        sectorEntries.clear()
 
 
 
@@ -100,36 +101,37 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
         data.setValueTextSize(11f)
         data.setValueTextColor(Color.BLACK)
 
-        pieChart.data = data
+        pieChart?.let {
+            pieChart.data = data
 
-        //todo
-        pieChart.setUsePercentValues(true)
-        pieChart.description.isEnabled = false
-        pieChart.dragDecelerationFrictionCoef = 0.95f
+            //todo
+            pieChart.setUsePercentValues(true)
+            pieChart.description.isEnabled = false
+            pieChart.dragDecelerationFrictionCoef = 0.95f
 
-        pieChart.isDrawHoleEnabled = true
-        pieChart.setHoleColor(Color.WHITE)
+            pieChart.isDrawHoleEnabled = true
+            pieChart.setHoleColor(Color.WHITE)
 
-        pieChart.setTransparentCircleColor(Color.WHITE)
-        pieChart.setTransparentCircleAlpha(110)
+            pieChart.setTransparentCircleColor(Color.WHITE)
+            pieChart.setTransparentCircleAlpha(110)
 
-        pieChart.holeRadius = 58f
-        pieChart.transparentCircleRadius = 61f
+            pieChart.holeRadius = 58f
+            pieChart.transparentCircleRadius = 61f
 
-        pieChart.setDrawCenterText(true)
+            pieChart.setDrawCenterText(true)
 
-        pieChart.rotationAngle = 0f
-        // enable rotation of the chart by touch
-        // enable rotation of the chart by touch
-        pieChart.isRotationEnabled = true
-        pieChart.isHighlightPerTapEnabled = true
+            pieChart.rotationAngle = 0f
+            // enable rotation of the chart by touch
+            // enable rotation of the chart by touch
+            pieChart.isRotationEnabled = true
+            pieChart.isHighlightPerTapEnabled = true
 
-        // chart.setUnit(" €");
-        //chart.setExtraOffsets(5f, 10f, 5f, 5f)
-        pieChart.setExtraOffsets(20f, 5f, 20f, 5f)
-        pieChart.animateY(1400, Easing.EaseInOutQuad)
+            // chart.setUnit(" €");
+            //chart.setExtraOffsets(5f, 10f, 5f, 5f)
+            pieChart.setExtraOffsets(20f, 5f, 20f, 5f)
+            pieChart.animateY(1400, Easing.EaseInOutQuad)
 
-        // chart.spin(2000, 0, 360);
+            // chart.spin(2000, 0, 360);
 /*        val l = chart.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
         l.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
@@ -139,21 +141,21 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
         l.yEntrySpace = 0f
         l.yOffset = 0f*/
 
-        pieChart.legend.isEnabled = false
+            pieChart.legend.isEnabled = false
 
-        // entry label styling
-        pieChart.setEntryLabelColor(Color.WHITE)
-        //chart.setEntryLabelTypeface(tfRegular)
-        pieChart.setEntryLabelTextSize(12f)
+            // entry label styling
+            pieChart.setEntryLabelColor(Color.WHITE)
+            //chart.setEntryLabelTypeface(tfRegular)
+            pieChart.setEntryLabelTextSize(12f)
 
-        pieChart.centerText = generateCenterSpannableTextForPieChart()
+            pieChart.centerText = generateCenterSpannableTextForPieChart()}
+
     }
 
     private fun setSectorsChart() {
 
         updatedSectorEntries.clear()
         val newSectorEntrues = sectorEntries.groupBy { it.second }
-
 
 
         for (j in newSectorEntrues.values) {
@@ -474,3 +476,5 @@ val PIE_CHART_COLORS = intArrayOf(
     Color.rgb(255, 146, 139),
     Color.rgb(187, 153, 156)
 )
+
+// TODO: 10/21/2020 !! Сделать ViewModel, т.к. удаляет если меняюь фрагмент 

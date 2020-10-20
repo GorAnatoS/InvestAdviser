@@ -23,6 +23,7 @@ import com.invest.advisor.ui.portfolio.portfolioItems.ExpandablePortfolioItem
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Section
 import com.xwray.groupie.groupiex.plusAssign
 import kotlinx.android.synthetic.main.content_fragment_portfolio.view.*
 import kotlinx.android.synthetic.main.fragment_portfolio.*
@@ -40,6 +41,7 @@ const val INSET = "inset"
 class PortfolioFragment : ScopedFragment(), KodeinAware {
 
     private val groupAdapter = GroupAdapter<GroupieViewHolder>() //TODO get rid of this parameter
+    
 
     override val kodein by closestKodein()
     private val viewModelFactory: MoexViewModelFactory by instance()

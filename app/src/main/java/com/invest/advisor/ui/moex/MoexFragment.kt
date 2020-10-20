@@ -129,14 +129,14 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
             if (myList.isEmpty()) {
                 for (i in 0 until size) {
-                    if (!it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty())
+                    //if (!it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty())
                         myList.add(
                             MoexEntry(
                                 it.currentMarketData.data[i][EnumMarketData.SECID.ordinal],
                                 "",
-                                if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) "NoE" else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
-                                if (it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal].isNullOrEmpty()) "NoE" else it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal],
-                                if (it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal].isNullOrEmpty()) "NoE" else it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]
+                                if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
+                                if (it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal],
+                                if (it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]
                             )
                         )
                 }
@@ -149,8 +149,9 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
                 viewModel.securitiesResponse = it
 
-                for (i in 0 until myList.size)
+                for (i in 0 until myList.size) {
                     myList[i].secName = it.currentSecurities.data[i][EnumSecurities.SECNAME.ordinal]
+                }
 
                 displayList.addAll(myList)
 
@@ -169,7 +170,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
     private fun initRecycleView(items: List<MoexItem>) {
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
-            addAll(items)
+            addAll(items.filter { it.moexEntry.secPrice != CONST_NOE_VALUE})
         }
 
         recyclerView.apply {
@@ -260,13 +261,8 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                         addElementsToDisplayList(newList)
                         initRecycleView(displayList.toMoexItems())
                     }
-
-
                 }
-
-
             })
-
 
         dialog = builder.create()
 
@@ -284,9 +280,9 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                         list[i][EnumMarketData.SECID.ordinal],
                         secList.find { it[0] == list[i][EnumMarketData.SECID.ordinal] }
                             ?.get(EnumSecurities.SECNAME.ordinal) ?: "",
-                        if (list[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) "NoE" else list[i][EnumMarketData.WAPRICE.ordinal],
-                        if (list[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal].isNullOrEmpty()) "NoE" else list[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal],
-                        if (list[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal].isNullOrEmpty()) "NoE" else list[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]
+                        if (list[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else list[i][EnumMarketData.WAPRICE.ordinal],
+                        if (list[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else list[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal],
+                        if (list[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else list[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]
                     )
                 )
         }
@@ -295,6 +291,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
 }
 
+const val CONST_NOE_VALUE = "NoE" //Null or Empty value
 enum class EnumSortOptions(val sortTypeOrder: Int) {
     BY_NAME(0),
     BY_WARPRICE(1),
@@ -303,6 +300,7 @@ enum class EnumSortOptions(val sortTypeOrder: Int) {
 
 // TODO: 9/13/2020 add search option  https://demonuts.com/android-recyclerview-search/#edit https://howtodoandroid.com/search-filter-recyclerview-android/
 
+// TODO: 10/21/2020 NOE - не показывать !!!
 //TODO 2020/09/13 22:27 || что надо для первого релиза?
 // TODO: 9/13/2020 сделать поиск
 // TODO: 9/13/2020 сделать в моем портфеле сброс и удаление
