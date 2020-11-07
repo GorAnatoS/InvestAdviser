@@ -15,4 +15,6 @@
     <string name="sortByName">По названию</string>
     <string name="sortByPrice">По цене</string>
     <string name="Add">Добавить</string>
+    <string name="delete_item">удалить</string>
+    <string name="deleted">Удалено</string>
 </resources>

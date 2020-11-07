@@ -18,4 +18,7 @@ interface UserPortfolioDao {
     @Query("SELECT * FROM $TABLE_NAME")
     fun getAllData(): LiveData<List<UserPortfolioEntry>>
 
+    @Delete
+    fun delete(userPortfolioEntry: UserPortfolioEntry)
+
 }

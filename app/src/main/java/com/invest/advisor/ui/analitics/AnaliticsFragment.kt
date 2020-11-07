@@ -37,6 +37,7 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
     override val kodein by closestKodein()
 
     lateinit var mYahooNetworkDataSource: YahooNetworkDataSourceImpl
+    lateinit var mYahooApiService: YahooApiService
 
     override fun onCreateView(
         inflater: LayoutInflater,

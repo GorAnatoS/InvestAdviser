@@ -12,7 +12,7 @@ class PortfolioViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val repository: UserPortfolioRepository
 
-    val allData: LiveData<List<UserPortfolioEntry>>
+    var allData: LiveData<List<UserPortfolioEntry>>
 
     init {
         val userPortfolioDao = UserPortfolio.getInstance(application).userPortfolioDao
@@ -22,5 +22,11 @@ class PortfolioViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun insert(userPortfolioEntry: UserPortfolioEntry) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(userPortfolioEntry)
+    }
+
+
+    fun delete(userPortfolioEntry: UserPortfolioEntry) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(userPortfolioEntry)
+        //allData = repository.allData
     }
 }

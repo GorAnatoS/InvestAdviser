@@ -10,7 +10,11 @@
         android:id="@+id/portfolioFragment"
         android:name="com.invest.advisor.ui.portfolio.PortfolioFragment"
         android:label="@string/user_portfolio"
-        tools:layout="@layout/content_fragment_portfolio" />
+        tools:layout="@layout/content_fragment_portfolio" >
+        <action
+            android:id="@+id/action_portfolioFragment_to_detailedPortfolioItem"
+            app:destination="@id/detailedPortfolioItem" />
+    </fragment>
 
     <fragment
         android:id="@+id/moexFragment"
@@ -42,4 +46,13 @@
         android:name="com.invest.advisor.ui.analitics.AnaliticsFragment"
         android:label="@string/analitics"
         tools:layout="@layout/fragment_analitics" />
+    <fragment
+        android:id="@+id/detailedPortfolioItem"
+        android:name="com.invest.advisor.ui.portfolio.detailedPortfolioItem.DetailedPortfolioItemFragment"
+        android:label="detailed_portfolio_item_fragment"
+        tools:layout="@layout/detailed_portfolio_item_fragment" >
+        <argument
+            android:name="itemNumberInDB"
+            app:argType="string" />
+    </fragment>
 </navigation>

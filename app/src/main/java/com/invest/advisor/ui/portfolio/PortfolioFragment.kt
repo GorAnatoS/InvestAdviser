@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.invest.advisor.R
 import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
@@ -23,7 +25,6 @@ import com.invest.advisor.ui.portfolio.portfolioItems.ExpandablePortfolioItem
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.xwray.groupie.Section
 import com.xwray.groupie.groupiex.plusAssign
 import kotlinx.android.synthetic.main.content_fragment_portfolio.view.*
 import kotlinx.android.synthetic.main.fragment_portfolio.*
@@ -40,8 +41,8 @@ const val INSET = "inset"
 
 class PortfolioFragment : ScopedFragment(), KodeinAware {
 
+
     private val groupAdapter = GroupAdapter<GroupieViewHolder>() //TODO get rid of this parameter
-    
 
     override val kodein by closestKodein()
     private val viewModelFactory: MoexViewModelFactory by instance()
@@ -50,7 +51,6 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
     var currentPortfolioPrice = 0.0 //current portfolio price
     var changePrice = 0.0 //currentPortfolioPrice - portfolioPurchaseSum
     var changePercent = 0.0  // changePrice в процентах
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +69,8 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
         portfolioViewModel.allData.observe(viewLifecycleOwner, Observer {
 
+            databaseList = it
+
             for (i in it)
                 portfolioPurchaseSum += i.secQuantity.toDouble() * i.secPrice.toDouble()
 
@@ -85,12 +87,14 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
     private fun bindUI() = launch {
 
-        textView_add.setOnClickListener{
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.moexFragment)
+        textView_add.setOnClickListener {
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+                .navigate(R.id.moexFragment)
         }
 
         textView_analize.setOnClickListener {
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.analiticsFragment)
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+                .navigate(R.id.analiticsFragment)
         }
 
         val mIssApiService = MoexApiService(ConnectivityInterceptorImpl(requireContext()))
@@ -98,6 +102,8 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
         moexNetworkDataSource.downloadedMarketData.observe(viewLifecycleOwner, Observer { it ->
             if (it == null) return@Observer
+
+            groupAdapter.clear()
 
             textView_analize.visibility = View.VISIBLE
             textView_add.visibility = View.VISIBLE
@@ -127,7 +133,6 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                 changePercent =
                     ((currentPortfolioPrice - portfolioPurchaseSum) / portfolioPurchaseSum)
                 changePercent = (changePercent * 100.0).roundToInt() / 1.0
-
             }
 
             bindingPortfolio.tvPortfolioInfo.text =
@@ -169,7 +174,25 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                 updatedList.add(newItem)
             }
 
-            for (expandableItem in updatedList) {
+            for ((index, expandableItem) in updatedList.withIndex()) {
+
+                expandableItem.clickListener = { expandableItem ->
+                    Toast.makeText(context, expandableItem.entryDatabase.secId, Toast.LENGTH_LONG)
+                        .show()
+
+                    //Get data from detailed fragment
+
+
+                    groupIndex = index
+                    groupShareName = expandableItem.entryDatabase.secId
+
+                    findNavController().navigate(
+                        PortfolioFragmentDirections.actionPortfolioFragmentToDetailedPortfolioItem(
+                            expandableItem.entryDatabase.secId
+                        )
+                    )
+                }
+
                 groupAdapter += ExpandableGroup(expandableItem).apply {
                     for (item in cardItemList) {
                         if (item.entryDatabase.secId == expandableItem.entryDatabase.secId)
@@ -184,6 +207,34 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
             }
 
             bindingPortfolio.include.items_container.adapter = groupAdapter
+
+
+            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("key")
+                ?.observe(viewLifecycleOwner) { resultDeleted ->
+                    if (resultDeleted && groupIndex != -1) {
+
+                        if (groupIndex < groupAdapter.groupCount) {
+                            groupAdapter.remove(groupAdapter.getGroupAtAdapterPosition(groupIndex))
+
+                            groupIndex = -1
+                        }
+
+
+                        databaseList.filter { it.secId == groupShareName }
+                            .let { listOfItemsToDelete ->
+
+                                for (item in listOfItemsToDelete)
+                                    portfolioViewModel.delete(
+                                        item
+                                    )
+                            }
+
+                        bindingPortfolio.include.items_container.adapter?.notifyDataSetChanged()
+
+                    }
+                }
+
+
         })
 
         GlobalScope.launch(Dispatchers.Main) {
@@ -195,6 +246,12 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         private lateinit var portfolioViewModel: PortfolioViewModel
         lateinit var bindingPortfolio: FragmentPortfolioBinding
         private lateinit var moexViewModel: MoexViewModel
+
+        lateinit var databaseList: List<UserPortfolioEntry>
+        private var groupIndex: Int = -1
+        private var groupShareName: String = ""
+        /* //expandable list setting
+         val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()*/
     }
 }
 

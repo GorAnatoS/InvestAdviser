@@ -20,8 +20,6 @@ class ExpandablePortfolioItem(
     marketData
 ), ExpandableItem {
 
-    override fun getSwipeDirs(): Int = ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-
     var clickListener: ((ExpandablePortfolioItem) -> Unit)? = null
 
     private lateinit var expandableGroup: ExpandableGroup

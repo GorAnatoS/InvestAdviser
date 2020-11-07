@@ -10,9 +10,14 @@ import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
  */
 class UserPortfolioRepository(private val userPortfolioDao: UserPortfolioDao) {
 
-    val allData: LiveData<List<UserPortfolioEntry>> = userPortfolioDao.getAllData()
+    var allData: LiveData<List<UserPortfolioEntry>> = userPortfolioDao.getAllData()
 
     suspend fun insert(entry: UserPortfolioEntry) {
         userPortfolioDao.insert(entry)
+    }
+
+    suspend fun delete(entry: UserPortfolioEntry){
+        userPortfolioDao.delete(entry)
+        //allData = userPortfolioDao.getAllData()
     }
 }
