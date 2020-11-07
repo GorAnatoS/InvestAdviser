@@ -12,8 +12,8 @@
         android:title="@string/moex" />
 
     <item
-        android:id="@+id/analiticsFragment"
+        android:id="@+id/recommendationsFragment"
         android:icon="@drawable/ic_baseline_donut_small_24"
-        android:title="@string/analitics" />
+        android:title="@string/recommendations" />
 
 </menu>

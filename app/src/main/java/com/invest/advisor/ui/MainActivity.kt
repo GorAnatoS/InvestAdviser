@@ -1,8 +1,6 @@
 package com.invest.advisor.ui
 
-import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     val appBarConfiguration = AppBarConfiguration(setOf(
         R.id.portfolioFragment,
         R.id.moexFragment,
-        R.id.analiticsFragment
+        R.id.recommendationsFragment
     ))
 
     override fun onCreate(savedInstanceState: Bundle?) {

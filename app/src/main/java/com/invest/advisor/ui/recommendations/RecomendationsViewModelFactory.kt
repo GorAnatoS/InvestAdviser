@@ -9,7 +9,7 @@ import com.invest.advisor.data.network.YahooNetworkDataSource
  * Created by qsufff on 7/29/2020.
  */
 
-class AnaliticsViewModelFactory (
+class RecomendationsViewModelFactory (
     private val yahooNetworkDataSource: YahooNetworkDataSource
 ): ViewModelProvider.NewInstanceFactory() {
 

@@ -7,6 +7,12 @@
 
 
     <fragment
+        android:id="@+id/recommendationsFragment"
+        android:name="com.invest.advisor.ui.recommendations.RecommendationsFragment"
+        android:label="@string/analitics"
+        tools:layout="@layout/fragment_recommendations" />
+
+    <fragment
         android:id="@+id/portfolioFragment"
         android:name="com.invest.advisor.ui.portfolio.PortfolioFragment"
         android:label="@string/user_portfolio"
@@ -46,6 +52,7 @@
         android:name="com.invest.advisor.ui.analitics.AnaliticsFragment"
         android:label="@string/analitics"
         tools:layout="@layout/fragment_analitics" />
+
     <fragment
         android:id="@+id/detailedPortfolioItem"
         android:name="com.invest.advisor.ui.portfolio.detailedPortfolioItem.DetailedPortfolioItemFragment"

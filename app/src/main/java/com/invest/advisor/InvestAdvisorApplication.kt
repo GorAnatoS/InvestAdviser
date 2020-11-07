@@ -7,7 +7,6 @@ import com.invest.advisor.data.network.moexResponse.MoexApiService
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.data.repository.MoexRepository
 import com.invest.advisor.data.repository.MoexRepositoryImpl
-import com.invest.advisor.ui.analitics.AnaliticsViewModelFactory
 import com.invest.advisor.ui.moex.MoexViewModelFactory
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
