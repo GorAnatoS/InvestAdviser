@@ -15,6 +15,7 @@ import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
+import com.invest.advisor.data.network.moexResponse.MarketDataResponse
 import com.invest.advisor.data.network.moexResponse.MoexApiService
 import com.invest.advisor.databinding.FragmentPortfolioBinding
 import com.invest.advisor.ui.base.ScopedFragment
@@ -40,7 +41,6 @@ const val INSET_TYPE_KEY = "inset_type"
 const val INSET = "inset"
 
 class PortfolioFragment : ScopedFragment(), KodeinAware {
-
 
     private val groupAdapter = GroupAdapter<GroupieViewHolder>() //TODO get rid of this parameter
 
@@ -69,10 +69,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
         portfolioViewModel.allData.observe(viewLifecycleOwner, Observer {
 
-            databaseList = it
-
-            for (i in it)
-                portfolioPurchaseSum += i.secQuantity.toDouble() * i.secPrice.toDouble()
+            databaseList = it.toMutableList()
 
         })
 
@@ -103,41 +100,15 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         moexNetworkDataSource.downloadedMarketData.observe(viewLifecycleOwner, Observer { it ->
             if (it == null) return@Observer
 
+            marketDataResponse = it
+
             groupAdapter.clear()
 
             textView_analize.visibility = View.VISIBLE
             textView_add.visibility = View.VISIBLE
 
-            //first List of stocks
-            val cardItemList: MutableList<ExpandablePortfolioItem> = ArrayList()
 
-            for (element in it.currentMarketData.data)
-                for (entry in portfolioViewModel.allData.value?.toList()!!)
-                    if (entry.secId == element[EnumMarketData.SECID.ordinal]) {
-                        val expandableHeaderItem = ExpandablePortfolioItem(
-                            entry,
-                            element,
-                            false
-                        )
-                        cardItemList.add(expandableHeaderItem)
-
-                        currentPortfolioPrice += entry.secQuantity.toDouble() * element[EnumMarketData.WAPRICE.ordinal].toDouble()
-                    }
-
-            if (cardItemList.isNotEmpty()) {
-                currentPortfolioPrice = (currentPortfolioPrice * 100).roundToInt() / 100.0
-
-                changePrice = currentPortfolioPrice - portfolioPurchaseSum
-                changePrice = (changePrice * 100).roundToInt() / 100.0
-
-                changePercent =
-                    ((currentPortfolioPrice - portfolioPurchaseSum) / portfolioPurchaseSum)
-                changePercent = (changePercent * 100.0).roundToInt() / 1.0
-            }
-
-            bindingPortfolio.tvPortfolioInfo.text =
-                "Цена портфеля $currentPortfolioPrice₽ ${changePrice} (${changePercent}%)"
-
+            calculatePortfolio()
 
             //expandable list setting
             val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()
@@ -223,11 +194,25 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                         databaseList.filter { it.secId == groupShareName }
                             .let { listOfItemsToDelete ->
 
-                                for (item in listOfItemsToDelete)
+                                for (item in listOfItemsToDelete) {
+
+
+
+
                                     portfolioViewModel.delete(
                                         item
                                     )
+
+                                    databaseList.remove(item)
+
+
+                                    calculatePortfolio()
+
+                                }
+
                             }
+
+                        calculatePortfolio()
 
                         bindingPortfolio.include.items_container.adapter?.notifyDataSetChanged()
 
@@ -242,12 +227,58 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         }
     }
 
+    private fun calculatePortfolio() {
+        cardItemList = ArrayList()
+
+        currentPortfolioPrice = 0.0
+        portfolioPurchaseSum = 0.0
+
+        for (i in databaseList)
+            portfolioPurchaseSum += i.secQuantity.toDouble() * i.secPrice.toDouble()
+
+        //first List of stocks
+
+
+
+        for (element in marketDataResponse.currentMarketData.data)
+            for (entry in databaseList.toList())
+                if (entry.secId == element[EnumMarketData.SECID.ordinal]) {
+                    val expandableHeaderItem = ExpandablePortfolioItem(
+                        entry,
+                        element,
+                        false
+                    )
+                    cardItemList.add(expandableHeaderItem)
+
+                    currentPortfolioPrice += entry.secQuantity.toDouble() * element[EnumMarketData.WAPRICE.ordinal].toDouble()
+                }
+
+        if (cardItemList.isNotEmpty()) {
+            currentPortfolioPrice = (currentPortfolioPrice * 100).roundToInt() / 100.0
+
+            changePrice = currentPortfolioPrice - portfolioPurchaseSum
+            changePrice = (changePrice * 100).roundToInt() / 100.0
+
+            changePercent =
+                ((currentPortfolioPrice - portfolioPurchaseSum) / portfolioPurchaseSum)
+            changePercent = (changePercent * 100.0).roundToInt() / 1.0
+        }
+
+        bindingPortfolio.tvPortfolioInfo.text =
+            "Цена портфеля $currentPortfolioPrice₽ ${changePrice} (${changePercent}%)"
+
+    }
+
     companion object {
         private lateinit var portfolioViewModel: PortfolioViewModel
         lateinit var bindingPortfolio: FragmentPortfolioBinding
         private lateinit var moexViewModel: MoexViewModel
 
-        lateinit var databaseList: List<UserPortfolioEntry>
+        lateinit var marketDataResponse: MarketDataResponse
+
+        var cardItemList: MutableList<ExpandablePortfolioItem> = ArrayList()
+
+        lateinit var databaseList: MutableList<UserPortfolioEntry>
         private var groupIndex: Int = -1
         private var groupShareName: String = ""
         /* //expandable list setting
