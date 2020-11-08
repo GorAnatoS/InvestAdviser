@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -67,11 +70,23 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         bindingPortfolio.userPortfolioViewModel = portfolioViewModel
         bindingPortfolio.lifecycleOwner = this
 
+        val newNumOfShares = Observer<Int> {newNum ->
+            textView_analize.isClickable = newNum > 0
+            textView_analize.isVisible = newNum > 0
+        }
+
+        portfolioViewModel.numOfShares.observe(viewLifecycleOwner, newNumOfShares)
+
         portfolioViewModel.allData.observe(viewLifecycleOwner, Observer {
 
             databaseList = it.toMutableList()
 
+            portfolioViewModel.numOfShares.value = databaseList.size
+
+
         })
+
+
 
         return bindingPortfolio.root
     }
@@ -104,7 +119,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
             groupAdapter.clear()
 
-            textView_analize.visibility = View.VISIBLE
+           // textView_analize.visibility = View.VISIBLE
             textView_add.visibility = View.VISIBLE
 
 
@@ -196,15 +211,13 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
                                 for (item in listOfItemsToDelete) {
 
-
-
-
                                     portfolioViewModel.delete(
                                         item
                                     )
 
                                     databaseList.remove(item)
 
+                                    portfolioViewModel.numOfShares.value = databaseList.size
 
                                     calculatePortfolio()
 
@@ -281,6 +294,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         lateinit var databaseList: MutableList<UserPortfolioEntry>
         private var groupIndex: Int = -1
         private var groupShareName: String = ""
+
         /* //expandable list setting
          val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()*/
     }

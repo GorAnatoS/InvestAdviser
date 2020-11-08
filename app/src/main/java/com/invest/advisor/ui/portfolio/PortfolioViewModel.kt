@@ -10,6 +10,10 @@ import kotlinx.coroutines.launch
 
 class PortfolioViewModel(application: Application) : AndroidViewModel(application) {
 
+    val numOfShares: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>()
+    }
+
     private val repository: UserPortfolioRepository
 
     var allData: LiveData<List<UserPortfolioEntry>>
