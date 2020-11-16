@@ -10,17 +10,11 @@ import com.invest.advisor.ui.portfolio.INSET
 import com.invest.advisor.ui.portfolio.INSET_TYPE_KEY
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import kotlinx.android.synthetic.main.portfolio_card_item.*
 import kotlinx.android.synthetic.main.portfolio_card_item.icon
 import kotlinx.android.synthetic.main.portfolio_card_item.tvCurrentPriceChng
 import kotlinx.android.synthetic.main.portfolio_card_item.tvPrice
 import kotlinx.android.synthetic.main.portfolio_card_item.tvPurchaseDate
 import kotlinx.android.synthetic.main.portfolio_card_item.tvQuantity
-import kotlinx.android.synthetic.main.portfolio_header_item.*
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 open class CardItem(
@@ -74,7 +68,7 @@ open class CardItem(
         if (changePcnt == 0.0) viewHolder.tvCurrentPriceChng.setTextColor(
             ContextCompat.getColor(
                 viewHolder.containerView.context,
-                R.color.colorBlack
+                R.color.black
             )
         )
 

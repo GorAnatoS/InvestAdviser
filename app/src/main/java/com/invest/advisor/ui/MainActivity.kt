@@ -48,8 +48,19 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 }
+//интересные библиотки
+
+// range bars
+//https://github.com/warkiz/IndicatorSeekBar
+//https://github.com/MarcinMoskala/ArcSeekBar
+//https://github.com/harjot-oberai/Croller
+//https://github.com/stfalcon-studio/StfalconPriceRangeBar-android
+
+//время, выбор дат из календаря
+//https://github.com/square/android-times-square
 
 // TODO: 9/20/2020 разобраться со временем
 
-// TODO: 10/21/2020 функция удаления в портфолио
+
+// TODO: 11/16/2020 styling 
 //аналиитку -Ю рекоментадии

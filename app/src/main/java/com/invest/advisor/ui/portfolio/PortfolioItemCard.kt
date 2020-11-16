@@ -37,7 +37,7 @@ class PortfolioItemCard(private val content: PortfolioItemContent) : Item() {
         if (content.changePcnt == "0") viewHolder.tvCurrentPriceChng.setTextColor(
             ContextCompat.getColor(
                 viewHolder.containerView.context,
-                R.color.colorBlack
+                R.color.black
             )
         )
 

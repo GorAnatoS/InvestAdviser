@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffb300</color>
-    <color name="colorPrimaryDark">#c68400</color>
-    <color name="colorPrimaryLight">#ffe54c</color>
+    <color name="colorPrimary">@color/amber_600</color>
+    <color name="colorPrimaryDark">@color/amber_600_dark</color>
+    <color name="colorPrimaryLight">@color/amber_600_light</color>
     <color name="colorAccent">#16697A</color>
+
+
+    <color name="amber_600">#FFD600</color>
+    <color name="amber_600_dark">#c68400</color>
+    <color name="amber_600_light">#ffe54c</color>
+
+    <color name="amber_a_700">#ffc400</color>
+    <color name="amber_a_700_dark">#c79400</color>
+    <color name="amber_a_700_light">#fff64f</color>
+
+    <color name="cyan_900">#005f63</color>
+    <color name="cyan_900_dark">#003539</color>
+    <color name="cyan_900_light">#428d90</color>
+
 
     <color name="sharePlusColor">#00C853</color>
     <color name="shareMinusColor">#DD2C00</color>
-    <color name="colorBlack">#000000</color>
 
+
+    <color name="bottomNavBgColor">@color/amber_600</color>
+
+    <color name="black">#000000</color>
 
     <color name="background">#eee</color>
     <color name="white">#fff</color>

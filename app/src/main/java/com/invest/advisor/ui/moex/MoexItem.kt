@@ -29,14 +29,14 @@ class MoexItem(
             } else {
                 tvChange.setTextColor(ContextCompat.getColor(containerView.context, R.color.sharePlusColor))
             }
-            if (moexEntry.secChange == "0") tvChange.setTextColor(ContextCompat.getColor(containerView.context, R.color.colorBlack))
+            if (moexEntry.secChange == "0") tvChange.setTextColor(ContextCompat.getColor(containerView.context, R.color.black))
 
 
             tvChangePcnt.text = "(${moexEntry.secChangePcnt}%)"
             if (moexEntry.secChangePcnt?.startsWith("-")!!) {
                 tvChangePcnt.setTextColor(ContextCompat.getColor(containerView.context, R.color.shareMinusColor))
             } else tvChangePcnt.setTextColor(ContextCompat.getColor(containerView.context, R.color.sharePlusColor))
-            if (moexEntry.secChangePcnt == "0") tvChangePcnt.setTextColor(ContextCompat.getColor(containerView.context, R.color.colorBlack))
+            if (moexEntry.secChangePcnt == "0") tvChangePcnt.setTextColor(ContextCompat.getColor(containerView.context, R.color.black))
 
             itemView.setOnClickListener{
                 //Toast.makeText(viewHolder.containerView.context,  , Toast.LENGTH_SHORT).show()

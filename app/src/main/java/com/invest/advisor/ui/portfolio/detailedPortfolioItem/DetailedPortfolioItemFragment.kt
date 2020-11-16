@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.slider.Slider
 import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.ui.base.ScopedFragment
-import com.invest.advisor.ui.portfolio.PortfolioViewModel
 import kotlinx.android.synthetic.main.detailed_portfolio_item_fragment.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,11 +35,6 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-      /*  portfolioViewModel =
-            ViewModelProvider(this).get(PortfolioViewModel::class.java)*/
-
-        //findNavController().previousBackStackEntry?.savedStateHandle?.set("key", resultDeleted)
 
         return inflater.inflate(R.layout.detailed_portfolio_item_fragment, container, false)
     }
@@ -87,15 +81,79 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
         mYahooNetworkDataSource.downloadedYahooResponse.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
 
-            text.apply {
-                text = arguments?.getString("itemNumberInDB") + "\n"
+            tvName.text = it.quoteSummary.result[0].price.shortName
 
-                text = text.toString() + it.quoteSummary.result[0].price.shortName + "\n"
+            tvCurrentPrice.text =
+                it.quoteSummary.result[0].price.regularMarketPrice.raw.toString() + " (" +
+                        it.quoteSummary.result[0].price.regularMarketChange.raw.toString() + ", " +
+                        it.quoteSummary.result[0].price.regularMarketChangePercent.raw.toString() + "%)"
+
+            sliderDayPriceRange.apply {
+                valueFrom = it.quoteSummary.result[0].price.regularMarketDayLow.raw.toFloat()
+                valueTo = it.quoteSummary.result[0].price.regularMarketDayHigh.raw.toFloat()
+                value = it.quoteSummary.result[0].price.regularMarketPrice.raw.toFloat()
+
+
+
+                tvRegularMarketDayHigh.text =
+                    it.quoteSummary.result[0].price.regularMarketDayHigh.raw.toString()
+                tvRegularMarketDayLow.text =
+                    it.quoteSummary.result[0].price.regularMarketDayLow.raw.toString()
+            }
+
+            sliderDayPriceRange.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+                override fun onStartTrackingTouch(slider: Slider) {
+                    //println("Start Tracking Touch")
+                }
+
+                override fun onStopTrackingTouch(slider: Slider) {
+                    sliderDayPriceRange.value =
+                        it.quoteSummary.result[0].price.regularMarketPrice.raw.toFloat()
+                }
+            })
+
+            // TODO: 11/16/2020 изменить бэкграунд при нажджатии на слайдер
+
+
+            //.apply {
+            //text =
+
+
+/*
+                text = text.toString() + it.quoteSummary.result[0].price.exchange + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.exchangeName + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.fromCurrency.toString() + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.marketCap + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.marketState + "\n"
+
+                text = text.toString() + it.quoteSummary.result[0].price.postMarketChange + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.postMarketPrice + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.preMarketChange + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.preMarketPrice + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.priceHint + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.strikePrice + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.volume24Hr + "\n"
+                text = text.toString() + it.quoteSummary.result[0].price.volumeAllCurrencies + "\n\n\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.targetMeanPrice + "\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.debtToEquity + "\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.currentRatio + "\n"*/
+
+            /*      text = text.toString() + it.quoteSummary.result[0].financialData.earningsGrowth + "\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.ebitda + "\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.ebitdaMargins + "\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.targetMeanPrice + "\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.freeCashflow + "\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.profitMargins + "\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.quickRatio + "\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.recommendationKey + "\n"
+                text = text.toString() + it.quoteSummary.result[0].financialData.recommendationMean.toString() + "\n"
+                
+
                 text = text.toString() + it.quoteSummary.result[0].financialData.currentPrice + "\n"
                 text = text.toString() + it.quoteSummary.result[0].financialData.currentRatio + "\n"
                 text =
-                    text.toString() + it.quoteSummary.result[0].financialData.targetMeanPrice + "\n"
-            }
+                    text.toString() + it.quoteSummary.result[0].financialData.targetMeanPrice + "\n"*/
+            //}
         })
 
         setHasOptionsMenu(true)

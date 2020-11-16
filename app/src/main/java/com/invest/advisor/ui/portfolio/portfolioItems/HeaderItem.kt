@@ -59,7 +59,7 @@ open class HeaderItem(
         if (changePcnt == 0.0) viewHolder.tvCurrentPriceChng.setTextColor(
             ContextCompat.getColor(
                 viewHolder.containerView.context,
-                R.color.colorBlack
+                R.color.black
             )
         )
 
