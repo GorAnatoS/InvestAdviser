@@ -10,6 +10,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.invest.advisor.R
 import com.invest.advisor.databinding.FragmentCommonDetailedMoexItemBinding
+import com.invest.advisor.ui.base.ScopedFragment
 import com.invest.advisor.ui.portfolio.detailedPortfolioItem.DetailedPortfolioItemFragment
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,7 +25,7 @@ private const val ARG_PARAM2 = "secPrice"
  * Use the [CommonDetailedMoexItem.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CommonDetailedMoexItem : Fragment() {
+class CommonDetailedMoexItem : ScopedFragment() {
 
     private lateinit var binding: FragmentCommonDetailedMoexItemBinding
 
@@ -55,8 +56,8 @@ class CommonDetailedMoexItem : Fragment() {
             override fun createFragment(position: Int): Fragment {
                 return when (position) {
                     0 -> DetailedMoexItemFragment.newInstance(secId, secPrice!!)
-                    1 -> DetailedPortfolioItemFragment.newInstance()
-                    else -> DetailedMoexItemFragment()
+                    1 -> DetailedPortfolioItemFragment.newInstance(secId)
+                    else -> DetailedMoexItemFragment.newInstance(secId, secPrice!!)
                 }
             }
         }

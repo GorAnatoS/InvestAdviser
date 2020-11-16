@@ -27,10 +27,9 @@ import java.util.*
 private const val ARG_PARAM1 = "secId"
 private const val ARG_PARAM2 = "secPrice"
 
-class DetailedMoexItemFragment : ScopedFragment() {
+class DetailedMoexItemFragment : Fragment() {
     private lateinit var rootView: FragmentMoexDetailBinding
     private lateinit var viewModel: PortfolioViewModel
-
 
     private var secId: String? = null
     private var secPrice: String? = null
@@ -38,6 +37,10 @@ class DetailedMoexItemFragment : ScopedFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel =
+            ViewModelProvider(requireActivity()).get(PortfolioViewModel::class.java)
+
         arguments?.let {
             secId = it.getString(ARG_PARAM1)
             secPrice = it.getString(ARG_PARAM2)
@@ -57,8 +60,7 @@ class DetailedMoexItemFragment : ScopedFragment() {
                 false
             )
 
-        viewModel =
-            ViewModelProvider(requireActivity()).get(PortfolioViewModel::class.java)
+
 
         rootView.apply {
             textTitle.text =
