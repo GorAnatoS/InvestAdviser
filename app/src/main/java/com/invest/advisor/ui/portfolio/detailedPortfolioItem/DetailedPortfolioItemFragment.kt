@@ -14,6 +14,8 @@ import com.invest.advisor.internal.Helper
 import com.invest.advisor.ui.base.ScopedFragment
 import com.invest.advisor.ui.moex.detailedMoexItem.DetailedMoexItemFragment
 import kotlinx.android.synthetic.main.detailed_portfolio_item_fragment.*
+import kotlinx.android.synthetic.main.detailed_portfolio_item_fragment.group_loading
+import kotlinx.android.synthetic.main.fragment_moex.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -110,6 +112,13 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
         mYahooNetworkDataSource.downloadedYahooResponse.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
 
+            tvName.visibility = View.VISIBLE
+            tvCurrentPrice.visibility = View.VISIBLE
+            sliderDayPriceRange.visibility = View.VISIBLE
+            tvRegularMarketDayLow.visibility = View.VISIBLE
+            tvRegularMarketDayHigh.visibility = View.VISIBLE
+            tvPriceData.visibility = View.VISIBLE
+
             tvName.text = it.quoteSummary.result[0].price.shortName
 
             tvCurrentPrice.text =
@@ -143,9 +152,11 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
 
             // TODO: 11/16/2020 изменить бэкграунд при нажджатии на слайдер
 
+            group_loading.visibility = View.GONE
+
         })
 
         if (hasOptionMenu) setHasOptionsMenu(true)
     }
-    
+
 }
