@@ -41,7 +41,7 @@ class MoexItem(
             itemView.setOnClickListener{
                 //Toast.makeText(viewHolder.containerView.context,  , Toast.LENGTH_SHORT).show()
                 if (moexEntry.secPrice != "NoE")
-                    it.findNavController().navigate(MoexFragmentDirections.actionMoexFragmentToMoexDetail(moexEntry.secId, moexEntry.secPrice!!))
+                    it.findNavController().navigate(MoexFragmentDirections.actionMoexFragmentToCommonDetailedMoexItem(moexEntry.secId, moexEntry.secPrice!!))
             }
         }
     }

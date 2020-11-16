@@ -28,8 +28,8 @@
         android:label="@string/moex"
         tools:layout="@layout/fragment_moex" >
         <action
-            android:id="@+id/action_moexFragment_to_moexDetail"
-            app:destination="@id/moexDetail" />
+            android:id="@+id/action_moexFragment_to_commonDetailedMoexItem"
+            app:destination="@id/commonDetailedMoexItem" />
     </fragment>
 
     <fragment
@@ -61,5 +61,20 @@
         <argument
             android:name="itemNumberInDB"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/commonDetailedMoexItem"
+        tools:layout="@layout/fragment_common_detailed_moex_item"
+        android:name="com.invest.advisor.ui.moex.detailedMoexItem.CommonDetailedMoexItem"
+        android:label="CommonDetailedMoexItem">
+        <argument
+            android:name="secId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="secPrice"
+            app:argType="string"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

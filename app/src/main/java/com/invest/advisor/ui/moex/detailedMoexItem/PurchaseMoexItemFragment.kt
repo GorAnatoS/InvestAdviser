@@ -24,11 +24,25 @@ import kotlinx.android.synthetic.main.fragment_moex_detail_pager.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DetailedMoexItemFragment : ScopedFragment() {
+private const val ARG_PARAM1 = "secId"
+private const val ARG_PARAM2 = "secPrice"
 
+class DetailedMoexItemFragment : ScopedFragment() {
     private lateinit var rootView: FragmentMoexDetailBinding
     private lateinit var viewModel: PortfolioViewModel
 
+
+    private var secId: String? = null
+    private var secPrice: String? = null
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            secId = it.getString(ARG_PARAM1)
+            secPrice = it.getString(ARG_PARAM2)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,11 +57,14 @@ class DetailedMoexItemFragment : ScopedFragment() {
                 false
             )
 
+        viewModel =
+            ViewModelProvider(requireActivity()).get(PortfolioViewModel::class.java)
+
         rootView.apply {
             textTitle.text =
                 textTitle.text.toString()
-                    .replace("ХХ", arguments?.getString("secId")!!, true)
-            editTextPrice.setText(arguments?.getString("secPrice"))
+                    .replace("ХХ", secId!!, true)
+            editTextPrice.setText(secPrice!!)
 
             textViewTotalMoneyIs.text =
                 (editTextQuantity.text.toString()
@@ -80,11 +97,10 @@ class DetailedMoexItemFragment : ScopedFragment() {
                         SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
                     val formatedDate = formatter.format(date)
 
-                    viewModel =
-                        ViewModelProvider(requireActivity()).get(PortfolioViewModel::class.java)
+
                     val newUserPortfolioEntry = UserPortfolioEntry(
                         0,
-                        arguments?.getString("secId")!!,
+                        secId!!,
                         editTextPrice.text.toString(),
                         editTextQuantity.text.toString().toInt(),
                         formatedDate
@@ -109,57 +125,24 @@ class DetailedMoexItemFragment : ScopedFragment() {
         return rootView.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
-        text_title.text = text_title.text.toString().replace("ХХ", arguments?.getString("secId")!!, true)
-
-        editText_price.setText(arguments?.getString("secPrice"))
-
-        textView_totalMoney_is.text = (editText_quantity.text.toString().toDouble() * editText_price.text.toString().toDouble()).toString()
-
-        editText_price.doAfterTextChanged {
-            if (editText_price.text.isNotEmpty() && editText_quantity.text.isNotEmpty())
-                textView_totalMoney_is.text = (editText_quantity.text.toString().toDouble() * editText_price.text.toString().toDouble()).toString()
-        }
-
-        editText_quantity.doAfterTextChanged {
-            if (editText_price.text.isNotEmpty() && editText_quantity.text.isNotEmpty())
-                textView_totalMoney_is.text = (editText_quantity.text.toString().toDouble() * editText_price.text.toString().toDouble()).toString()
-        }
-
-        addButton.setOnClickListener{
-            if (editText_price.text.isNotEmpty() && editText_quantity.text.isNotEmpty()) {
-                textView_totalMoney_is.text =
-                    (editText_quantity.text.toString().toDouble() * editText_price.text.toString()
-                        .toDouble()).toString()
-
-                val date = Calendar.getInstance().time
-                val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
-                val formatedDate = formatter.format(date)
-
-                viewModel = ViewModelProvider(this).get(PortfolioViewModel::class.java)
-                val newUserPortfolioEntry = UserPortfolioEntry(
-                    0,
-                    arguments?.getString("secId")!!,
-                    editText_price.text.toString(),
-                    editText_quantity.text.toString().toInt(),
-                    formatedDate
-                )
-                viewModel.insert(newUserPortfolioEntry)
-                Toast.makeText(
-                    requireContext(),
-                    newUserPortfolioEntry.toString(),
-                    Toast.LENGTH_LONG
-                ).show()
-            } else
-                Toast.makeText(
-                    requireContext(),
-                    "Ошибка ввода",
-                    Toast.LENGTH_LONG
-                ).show()
-
-            findNavController().navigateUp()
-        }
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment CommonDetailedMoexItem.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(secId: String?, secPrice: String) =
+            DetailedMoexItemFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, secId)
+                    putString(ARG_PARAM2, secPrice)
+                }
+            }
     }
 }

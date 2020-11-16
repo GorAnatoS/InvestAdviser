@@ -6,6 +6,8 @@
     <color name="colorAccent">#16697A</color>
 
 
+    <color name="colorSecondary">@color/cyan_900</color>
+
     <color name="amber_600">#FFD600</color>
     <color name="amber_600_dark">#c68400</color>
     <color name="amber_600_light">#ffe54c</color>
@@ -23,6 +25,7 @@
     <color name="shareMinusColor">#DD2C00</color>
 
 
+    <color name="paperStrip">@color/white</color>
     <color name="bottomNavBgColor">@color/amber_600</color>
 
     <color name="black">#000000</color>
