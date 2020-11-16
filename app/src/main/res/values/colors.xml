@@ -29,8 +29,13 @@
     <color name="bottomNavBgColor">@color/amber_600</color>
 
     <color name="black">#000000</color>
+    <color name="black87">#DE000000</color>
+
+    <color name="colorSearchTextHint">@color/black87</color>
 
     <color name="background">#eee</color>
     <color name="white">#fff</color>
+
+    <color name="colorIconBackground">@color/black87</color>
 
 </resources>

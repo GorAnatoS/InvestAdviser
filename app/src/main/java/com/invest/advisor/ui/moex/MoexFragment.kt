@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.SearchView.SearchAutoComplete
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -79,6 +81,9 @@ class MoexFragment : ScopedFragment(), KodeinAware {
         }
 
         val searchView = searchItem?.actionView as SearchView
+        val theTextArea = searchView.findViewById<View>(R.id.search_src_text) as SearchAutoComplete
+        theTextArea.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorSearchTextHint))
+        theTextArea.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.colorSearchTextHint))
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -130,15 +135,15 @@ class MoexFragment : ScopedFragment(), KodeinAware {
             if (myList.isEmpty()) {
                 for (i in 0 until size) {
                     //if (!it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty())
-                        myList.add(
-                            MoexEntry(
-                                it.currentMarketData.data[i][EnumMarketData.SECID.ordinal],
-                                "",
-                                if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
-                                if (it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal],
-                                if (it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]
-                            )
+                    myList.add(
+                        MoexEntry(
+                            it.currentMarketData.data[i][EnumMarketData.SECID.ordinal],
+                            "",
+                            if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
+                            if (it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICE.ordinal],
+                            if (it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else it.currentMarketData.data[i][EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]
                         )
+                    )
                 }
             }
 
@@ -170,7 +175,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
     private fun initRecycleView(items: List<MoexItem>) {
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
-            addAll(items.filter { it.moexEntry.secPrice != CONST_NOE_VALUE})
+            addAll(items.filter { it.moexEntry.secPrice != CONST_NOE_VALUE })
         }
 
         recyclerView.apply {
@@ -218,7 +223,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                         } else {
                             newList =
                                 viewModel.marketDataResponse.currentMarketData.data.sortedByDescending { it[EnumMarketData.WAPRICE.ordinal]?.toDouble() }
-                            array[which] = array[which].replace( '↓', '↑')
+                            array[which] = array[which].replace('↓', '↑')
                         }
 
                         addElementsToDisplayList(newList)
@@ -237,7 +242,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                         } else {
                             newList =
                                 viewModel.marketDataResponse.currentMarketData.data.sortedByDescending { it[EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]?.toDouble() }
-                            array[which] = array[which].replace( '↓', '↑')
+                            array[which] = array[which].replace('↓', '↑')
                         }
 
                         addElementsToDisplayList(newList)
@@ -255,7 +260,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                         } else {
                             newList =
                                 viewModel.marketDataResponse.currentMarketData.data.sortedByDescending { it[EnumMarketData.SECID.ordinal] }
-                            array[which] = array[which].replace( '↓', '↑')
+                            array[which] = array[which].replace('↓', '↑')
                         }
 
                         addElementsToDisplayList(newList)
