@@ -303,12 +303,10 @@ enum class EnumSortOptions(val sortTypeOrder: Int) {
     BY_DAY_CHANGE(2),
 }
 
-// TODO: 9/13/2020 add search option  https://demonuts.com/android-recyclerview-search/#edit https://howtodoandroid.com/search-filter-recyclerview-android/
 
-// TODO: 10/21/2020 NOE - не показывать !!!
 //TODO 2020/09/13 22:27 || что надо для первого релиза?
-// TODO: 9/13/2020 сделать поиск
-// TODO: 9/13/2020 сделать в моем портфеле сброс и удаление
-// TODO: 9/13/2020 сделать в портфеле сворачивание одной акции и удаление ее
+// TODO: 9/13/2020 сделать поиск +
+// TODO: 9/13/2020 сделать в моем портфеле сброс и удаление +
+// TODO: 9/13/2020 сделать в портфеле сворачивание одной акции и удаление ее +
 //https://developer.android.com/guide/topics/search/search-dialog
-// TODO: 9/13/2020 сделать аналитику?
+// TODO: 9/13/2020 сделать аналитику? +

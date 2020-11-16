@@ -20,7 +20,6 @@
         <item name="backgroundTint">@color/colorPrimary</item>
     </style>
 
-
     <style name="TextAppearance.App.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/roboto_thin</item>
         <item name="android:fontFamily">@font/rubik_light</item>
@@ -32,6 +31,9 @@
     </style>
 
 
+    <style name="Widget.MaterialComponents.TextView" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/roboto</item>
+    </style>
 
     <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <!--<item name="elevation">4dp</item>-->

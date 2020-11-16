@@ -15,6 +15,7 @@
 
         <!-- Customize your theme here. -->
 
+        <item name="android:textViewStyle">@style/Widget.MaterialComponents.TextView</item>
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
     </style>

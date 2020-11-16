@@ -70,8 +70,8 @@ class CommonDetailedMoexItem : ScopedFragment() {
         super.onViewCreated(view, savedInstanceState)
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Купить"
-                1 -> "Значения"
+                0 -> "Добавить"
+                1 -> "Показатели"
                 else -> "Купить"
             }
         }.attach()
