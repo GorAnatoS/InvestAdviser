@@ -107,7 +107,7 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
         mYahooNetworkDataSource.downloadedYahooResponse.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
 
-
+            group_loading.visibility = View.GONE
 
             tvName.visibility = View.VISIBLE
             tvCurrentPrice.visibility = View.VISIBLE
@@ -174,7 +174,7 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
             tvROAVal.text = it.quoteSummary.result[0].financialData.returnOnAssets.fmt
 
 
-            group_loading.visibility = View.GONE
+
 
         })
 
