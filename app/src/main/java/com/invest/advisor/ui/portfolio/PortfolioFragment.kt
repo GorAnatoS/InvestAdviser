@@ -30,6 +30,7 @@ import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.groupiex.plusAssign
+import kotlinx.android.synthetic.main.content_fragment_portfolio.*
 import kotlinx.android.synthetic.main.content_fragment_portfolio.view.*
 import kotlinx.android.synthetic.main.fragment_portfolio.*
 import kotlinx.coroutines.Dispatchers
@@ -232,7 +233,9 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                     }
                 }
 
-
+            app_bar.visibility = View.VISIBLE
+            items_container.visibility = View.VISIBLE
+            group_loading.visibility = View.GONE
         })
 
         GlobalScope.launch(Dispatchers.Main) {

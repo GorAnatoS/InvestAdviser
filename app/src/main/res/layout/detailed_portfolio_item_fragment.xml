@@ -48,61 +48,46 @@
 
     <TextView
         android:id="@+id/tvName"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="GAZPROM"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvPriceData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="PriceData"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tvCurrentPrice"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceData"
-        tools:text="100" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:text="100"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tvRegularMarketDayLow"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/sliderDayPriceRange"
         app:layout_constraintEnd_toStartOf="@+id/sliderDayPriceRange"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sliderDayPriceRange"
-        tools:text="0" />
+        tools:text="0"
+        tools:visibility="visible" />
 
 
     <com.google.android.material.slider.Slider
-        android:visibility="gone"
-        tools:visibility="visible"
         android:id="@+id/sliderDayPriceRange"
-        android:layout_width="0dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
@@ -110,24 +95,220 @@
         android:value="42.0"
         android:valueFrom="0.0"
         android:valueTo="100.0"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/tvRegularMarketDayHigh"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvRegularMarketDayLow"
-        app:layout_constraintTop_toBottomOf="@+id/tvCurrentPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrentPrice"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tvRegularMarketDayHigh"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/sliderDayPriceRange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/sliderDayPriceRange"
         app:layout_constraintTop_toTopOf="@+id/sliderDayPriceRange"
-        tools:text="100" />
+        tools:text="100"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+
+    <TextView
+        android:id="@+id/tvPrevClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Previous Close"
+        app:layout_constraintEnd_toStartOf="@+id/tvPrevCloseVal"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sliderDayPriceRange"
+        android:visibility="gone"
+        tools:visibility="visible"  />
+
+    <TextView
+        android:id="@+id/tvPrevCloseVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="N/A"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPrevClose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvPrevClose"
+        app:layout_constraintTop_toTopOf="@+id/tvPrevClose"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvOpen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"
+        android:text="Open"
+        app:layout_constraintEnd_toStartOf="@+id/tvOpenVal"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPrevClose"
+        android:visibility="gone"
+        tools:visibility="visible"  />
+
+    <TextView
+        android:id="@+id/tvOpenVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="N/A"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOpen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvOpen"
+        app:layout_constraintTop_toTopOf="@+id/tvOpen"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvVolume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"
+        android:text="Volume"
+        app:layout_constraintEnd_toStartOf="@+id/tvVolumeVal"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOpen"
+        android:visibility="gone"
+        tools:visibility="visible"  />
+
+    <TextView
+        android:id="@+id/tvVolumeVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="N/A"
+        app:layout_constraintBottom_toBottomOf="@+id/tvVolume"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvVolume"
+        app:layout_constraintTop_toTopOf="@+id/tvVolume"
+        tools:visibility="visible" />
+
+
+    <TextView
+        android:id="@+id/tvMarketCap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"
+        android:text="Market Cap"
+        app:layout_constraintEnd_toStartOf="@+id/tvMarketCapVal"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVolume"
+        android:visibility="gone"
+        tools:visibility="visible"  />
+
+    <TextView
+        android:id="@+id/tvMarketCapVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="N/A"
+        app:layout_constraintBottom_toBottomOf="@+id/tvMarketCap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvMarketCap"
+        app:layout_constraintTop_toTopOf="@+id/tvMarketCap"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvBeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Beta"
+        app:layout_constraintEnd_toStartOf="@+id/tvBetaVal"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMarketCap"
+        android:visibility="gone"
+        tools:visibility="visible"  />
+
+    <TextView
+        android:id="@+id/tvBetaVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="N/A"
+        app:layout_constraintBottom_toBottomOf="@+id/tvBeta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvBeta"
+        app:layout_constraintTop_toTopOf="@+id/tvBeta"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvROE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="ROE"
+        app:layout_constraintEnd_toStartOf="@+id/tvROEVal"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBeta"
+        android:visibility="gone"
+        tools:visibility="visible"  />
+
+    <TextView
+        android:id="@+id/tvROEVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="N/A"
+        app:layout_constraintBottom_toBottomOf="@+id/tvROE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvROE"
+        app:layout_constraintTop_toTopOf="@+id/tvROE"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvROA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="ROA"
+        app:layout_constraintEnd_toStartOf="@+id/tvROAVal"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvROE"
+        android:visibility="gone"
+        tools:visibility="visible"  />
+
+    <TextView
+        android:id="@+id/tvROAVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="N/A"
+        app:layout_constraintBottom_toBottomOf="@+id/tvROA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvROA"
+        app:layout_constraintTop_toTopOf="@+id/tvROA"
+        tools:visibility="visible" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

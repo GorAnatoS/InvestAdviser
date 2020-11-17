@@ -17,6 +17,8 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
@@ -115,6 +117,7 @@
         <include
             android:id="@+id/include"
             layout="@layout/content_fragment_portfolio" />
+
 
         <!--  <com.google.android.material.floatingactionbutton.FloatingActionButton
               android:id="@+id/fab"

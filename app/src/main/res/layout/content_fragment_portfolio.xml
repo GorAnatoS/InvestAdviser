@@ -13,6 +13,45 @@
         android:layout_height="match_parent"
         tools:context=".ui.portfolio.PortfolioFragment">
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_half"
+            app:constraint_referenced_ids="progressBar_loading, textView_loading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_half"
+            android:layout_marginTop="@dimen/margin_half"
+            android:layout_marginEnd="@dimen/margin_half"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_half"
+            android:layout_marginTop="@dimen/margin_half"
+            android:layout_marginEnd="@dimen/margin_half"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:text="Loading"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar_loading"
+            app:layout_constraintVertical_bias="0.0" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,13 +63,14 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/items_container"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/margin_list_horizontal"
                 android:layout_marginTop="@dimen/margin_half"
                 android:layout_marginBottom="@dimen/margin_half"
                 android:orientation="vertical"
-                android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:ignore="RtlSymmetry" />
         </LinearLayout>

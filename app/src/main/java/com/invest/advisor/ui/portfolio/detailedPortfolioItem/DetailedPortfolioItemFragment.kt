@@ -12,17 +12,12 @@ import com.invest.advisor.data.network.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.internal.Helper
 import com.invest.advisor.ui.base.ScopedFragment
-import com.invest.advisor.ui.moex.detailedMoexItem.DetailedMoexItemFragment
 import kotlinx.android.synthetic.main.detailed_portfolio_item_fragment.*
 import kotlinx.android.synthetic.main.detailed_portfolio_item_fragment.group_loading
-import kotlinx.android.synthetic.main.fragment_moex.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
-import java.math.RoundingMode
 
 private const val ARG_PARAM1 = "secId"
 
@@ -112,12 +107,28 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
         mYahooNetworkDataSource.downloadedYahooResponse.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
 
+
+
             tvName.visibility = View.VISIBLE
             tvCurrentPrice.visibility = View.VISIBLE
             sliderDayPriceRange.visibility = View.VISIBLE
             tvRegularMarketDayLow.visibility = View.VISIBLE
             tvRegularMarketDayHigh.visibility = View.VISIBLE
-            tvPriceData.visibility = View.VISIBLE
+            tvPrevClose.visibility = View.VISIBLE
+            tvOpen.visibility = View.VISIBLE
+            tvVolume.visibility = View.VISIBLE
+            tvMarketCap.visibility = View.VISIBLE
+            tvBeta.visibility = View.VISIBLE
+            tvROE.visibility = View.VISIBLE
+            tvROA.visibility = View.VISIBLE
+            tvPrevCloseVal.visibility = View.VISIBLE
+            tvOpenVal.visibility = View.VISIBLE
+            tvVolumeVal.visibility = View.VISIBLE
+            tvMarketCapVal.visibility = View.VISIBLE
+            tvBetaVal.visibility = View.VISIBLE
+            tvROEVal.visibility = View.VISIBLE
+            tvROAVal.visibility = View.VISIBLE
+
 
             tvName.text = it.quoteSummary.result[0].price.shortName
 
@@ -151,6 +162,17 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
             })
 
             // TODO: 11/16/2020 изменить бэкграунд при нажджатии на слайдер
+
+
+
+            tvPrevCloseVal.text = it.quoteSummary.result[0].price.regularMarketPreviousClose.fmt
+            tvOpenVal.text = it.quoteSummary.result[0].price.regularMarketOpen.fmt
+            tvVolumeVal.text = it.quoteSummary.result[0].price.regularMarketVolume.fmt
+            tvMarketCapVal.text = it.quoteSummary.result[0].price.marketCap.fmt
+            tvBetaVal.text = it.quoteSummary.result[0].financialData.currentRatio.fmt
+            tvROEVal.text = it.quoteSummary.result[0].financialData.returnOnEquity.fmt
+            tvROAVal.text = it.quoteSummary.result[0].financialData.returnOnAssets.fmt
+
 
             group_loading.visibility = View.GONE
 
