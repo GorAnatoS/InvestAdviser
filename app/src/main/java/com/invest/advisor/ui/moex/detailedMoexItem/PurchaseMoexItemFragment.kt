@@ -10,19 +10,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.invest.advisor.R
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.databinding.FragmentMoexDetailBinding
-import com.invest.advisor.databinding.FragmentMoexDetailPagerBinding
-import com.invest.advisor.ui.base.ScopedFragment
+import com.invest.advisor.internal.Helper
 import com.invest.advisor.ui.portfolio.PortfolioViewModel
-import kotlinx.android.synthetic.main.fragment_moex_detail.*
-import kotlinx.android.synthetic.main.fragment_moex_detail_pager.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 private const val ARG_PARAM1 = "secId"
 private const val ARG_PARAM2 = "secPrice"
@@ -34,6 +30,7 @@ class DetailedMoexItemFragment : Fragment() {
     private var secId: String? = null
     private var secPrice: String? = null
 
+    private var formatedDateLong: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +57,22 @@ class DetailedMoexItemFragment : Fragment() {
                 false
             )
 
+        rootView.tvDateVal.text = Helper.getFormatedDateString()
+        formatedDateLong = Helper.formatedDateStringToFormatedDateLong(Helper.getFormatedDateString())
 
+        val builder = MaterialDatePicker.Builder.datePicker()
+        builder.setTitleText("Выберите дату")
+        val materialDatePicker = builder.build()
+
+
+        materialDatePicker.addOnPositiveButtonClickListener {
+            rootView.tvDateVal.text = Helper.getFormatedDateString(it)
+            formatedDateLong = it
+        }
+
+        rootView.tvDateVal.setOnClickListener{
+            materialDatePicker.show(parentFragmentManager, "DATE_PICKER")
+        }
 
         rootView.apply {
             textTitle.text =
@@ -94,30 +106,26 @@ class DetailedMoexItemFragment : Fragment() {
                             .toDouble() * editTextPrice.text.toString()
                             .toDouble()).toString()
 
-                    val date = Calendar.getInstance().time
-                    val formatter =
-                        SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
-                    val formatedDate = formatter.format(date)
-
-
                     val newUserPortfolioEntry = UserPortfolioEntry(
                         0,
                         secId!!,
                         editTextPrice.text.toString(),
                         editTextQuantity.text.toString().toInt(),
-                        formatedDate
+                        formatedDateLong
                     )
                     viewModel.insert(newUserPortfolioEntry)
+
                     Toast.makeText(
                         requireContext(),
-                        newUserPortfolioEntry.toString(),
-                        Toast.LENGTH_LONG
+                        "Добавлено",
+                        Toast.LENGTH_SHORT
                     ).show()
+
                 } else
                     Toast.makeText(
                         requireContext(),
                         "Ошибка ввода",
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
 
                 findNavController().navigateUp()
@@ -129,15 +137,6 @@ class DetailedMoexItemFragment : Fragment() {
 
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CommonDetailedMoexItem.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(secId: String?, secPrice: String) =
             DetailedMoexItemFragment().apply {

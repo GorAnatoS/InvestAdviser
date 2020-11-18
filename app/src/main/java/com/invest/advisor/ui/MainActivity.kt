@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     val appBarConfiguration = AppBarConfiguration(setOf(
         R.id.portfolioFragment,
         R.id.moexFragment,
-        R.id.recommendationsFragment
+        //R.id.recommendationsFragment
     ))
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +55,13 @@ class MainActivity : AppCompatActivity() {
 // TODO: 11/17/2020 icon + screens
 
 
+//TODO 2020/09/13 22:27 || что надо для первого релиза?
+// TODO: 9/13/2020 сделать поиск +
+// TODO: 9/13/2020 сделать в моем портфеле сброс и удаление +
+// TODO: 9/13/2020 сделать в портфеле сворачивание одной акции и удаление ее +
+//https://developer.android.com/guide/topics/search/search-dialog
+// TODO: 9/13/2020 сделать аналитику? +
+
 //интересные библиотки
 
 // range bars
@@ -67,7 +74,6 @@ class MainActivity : AppCompatActivity() {
 //https://github.com/square/android-times-square
 
 // TODO: 9/20/2020 разобраться со временем
-
 
 // TODO: 11/16/2020 styling 
 //аналиитку -Ю рекоментадии

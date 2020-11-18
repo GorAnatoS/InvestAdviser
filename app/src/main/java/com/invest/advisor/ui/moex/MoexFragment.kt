@@ -304,9 +304,3 @@ enum class EnumSortOptions(val sortTypeOrder: Int) {
 }
 
 
-//TODO 2020/09/13 22:27 || что надо для первого релиза?
-// TODO: 9/13/2020 сделать поиск +
-// TODO: 9/13/2020 сделать в моем портфеле сброс и удаление +
-// TODO: 9/13/2020 сделать в портфеле сворачивание одной акции и удаление ее +
-//https://developer.android.com/guide/topics/search/search-dialog
-// TODO: 9/13/2020 сделать аналитику? +

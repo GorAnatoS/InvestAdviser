@@ -23,7 +23,7 @@ data class UserPortfolioEntry(
     val secQuantity: Int,
 
     @ColumnInfo(name = secBuyDate_COLUMN)
-    val secPurchaseDate: String?
+    val secPurchaseDate: Long
 )
 
 const val DATABASE_NAME = "User_s_portfolio_database.db"

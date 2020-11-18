@@ -3,6 +3,7 @@ package com.invest.advisor.ui.analitics
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.invest.advisor.data.network.YahooNetworkDataSource
+import com.invest.advisor.ui.recommendations.RecommendationsViewModel
 
 
 /**
@@ -15,6 +16,6 @@ class AnaliticsViewModelFactory (
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return  RecommendationsViewModel(yahooNetworkDataSource) as T
+        return  AnaliticsViewModel(yahooNetworkDataSource) as T
     }
 }

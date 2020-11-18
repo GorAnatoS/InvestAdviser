@@ -120,7 +120,6 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
             groupAdapter.clear()
 
-           // textView_analize.visibility = View.VISIBLE
             textView_add.visibility = View.VISIBLE
 
 
@@ -164,9 +163,9 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
             for ((index, expandableItem) in updatedList.withIndex()) {
 
                 expandableItem.clickListener = { expandableItem ->
-                    Toast.makeText(context, expandableItem.entryDatabase.secId, Toast.LENGTH_LONG)
+                    /*Toast.makeText(context, expandableItem.entryDatabase.secId, Toast.LENGTH_LONG)
                         .show()
-
+*/
                     //Get data from detailed fragment
 
 

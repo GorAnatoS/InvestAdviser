@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import com.invest.advisor.R
 import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
+import com.invest.advisor.internal.Helper
 import com.invest.advisor.ui.portfolio.INSET
 import com.invest.advisor.ui.portfolio.INSET_TYPE_KEY
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -33,7 +34,7 @@ open class CardItem(
     }
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.tvPurchaseDate.text = entryDatabase.secPurchaseDate?.substring(0,18)
+        viewHolder.tvPurchaseDate.text = Helper.getFormatedDateString(entryDatabase.secPurchaseDate)
         viewHolder.tvPrice.text = entryDatabase.secPrice + "₽"
         viewHolder.tvQuantity.text = entryDatabase.secQuantity.toString() + " шт. ⋄"
 

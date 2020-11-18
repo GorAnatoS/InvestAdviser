@@ -1,7 +1,8 @@
-package com.invest.advisor.ui.analitics
+package com.invest.advisor.ui.recommendations
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.invest.advisor.data.network.MoexNetworkDataSource
 import com.invest.advisor.data.network.YahooNetworkDataSource
 
 
@@ -10,11 +11,13 @@ import com.invest.advisor.data.network.YahooNetworkDataSource
  */
 
 class RecomendationsViewModelFactory (
-    private val yahooNetworkDataSource: YahooNetworkDataSource
+    private val yahooNetworkDataSource: YahooNetworkDataSource,
+    private val moexNetworkDataSource: MoexNetworkDataSource
+
 ): ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return  RecommendationsViewModel(yahooNetworkDataSource) as T
+        return  RecommendationsViewModel(yahooNetworkDataSource, moexNetworkDataSource) as T
     }
 }
