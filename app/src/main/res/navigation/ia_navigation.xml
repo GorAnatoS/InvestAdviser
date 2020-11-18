@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/detailedPortfolioItem"
         android:name="com.invest.advisor.ui.portfolio.detailedPortfolioItem.DetailedPortfolioItemFragment"
-        android:label="detailed_portfolio_item_fragment"
+        android:label="@string/detailed_portfolio_item_fragment"
         tools:layout="@layout/detailed_portfolio_item_fragment" >
         <argument
             android:name="itemNumberInDB"
@@ -67,7 +67,7 @@
         android:id="@+id/commonDetailedMoexItem"
         tools:layout="@layout/fragment_common_detailed_moex_item"
         android:name="com.invest.advisor.ui.moex.detailedMoexItem.CommonDetailedMoexItem"
-        android:label="CommonDetailedMoexItem">
+        android:label="@string/сommonDetailedMoexItem">
         <argument
             android:name="secId"
             app:argType="string"

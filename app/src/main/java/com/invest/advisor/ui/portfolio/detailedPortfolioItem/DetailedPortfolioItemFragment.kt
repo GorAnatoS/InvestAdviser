@@ -163,8 +163,6 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
 
             // TODO: 11/16/2020 изменить бэкграунд при нажджатии на слайдер
 
-
-
             tvPrevCloseVal.text = it.quoteSummary.result[0].price.regularMarketPreviousClose.fmt
             tvOpenVal.text = it.quoteSummary.result[0].price.regularMarketOpen.fmt
             tvVolumeVal.text = it.quoteSummary.result[0].price.regularMarketVolume.fmt
@@ -172,10 +170,6 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
             tvBetaVal.text = it.quoteSummary.result[0].financialData.currentRatio.fmt
             tvROEVal.text = it.quoteSummary.result[0].financialData.returnOnEquity.fmt
             tvROAVal.text = it.quoteSummary.result[0].financialData.returnOnAssets.fmt
-
-
-
-
         })
 
         if (hasOptionMenu) setHasOptionsMenu(true)

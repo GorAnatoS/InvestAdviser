@@ -48,6 +48,13 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 }
+
+
+// TODO: 11/17/2020 Для публикации осталось:
+// TODO: 11/17/2020 firebase add
+// TODO: 11/17/2020 icon + screens
+
+
 //интересные библиотки
 
 // range bars

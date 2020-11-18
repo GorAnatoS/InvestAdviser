@@ -20,9 +20,9 @@ import org.kodein.di.generic.*
  */
 
 
-class InvestAdvisorApplication : Application(), KodeinAware {
+class InvestAdviserApplication : Application(), KodeinAware {
     override val kodein = Kodein.lazy {
-        import(androidXModule(this@InvestAdvisorApplication))
+        import(androidXModule(this@InvestAdviserApplication))
 
         bind() from singleton { MoexDatabase(instance()) }
         bind() from singleton { instance<MoexDatabase>().moexDao() }
