@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "256447315020",
+    "firebase_url": "https://invest-adviser.firebaseio.com",
+    "project_id": "invest-adviser",
+    "storage_bucket": "invest-adviser.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256447315020:android:a46bde1806abf28c3708e9",
+        "android_client_info": {
+          "package_name": "com.goranatos.investadviser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256447315020-3ono34n1qfllupmpc8khe966tog6mu0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWpg10bgCsHICxZEvE2Y8ijBtwgOkJLY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256447315020-3ono34n1qfllupmpc8khe966tog6mu0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
