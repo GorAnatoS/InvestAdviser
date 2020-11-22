@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     val appBarConfiguration = AppBarConfiguration(setOf(
         R.id.portfolioFragment,
         R.id.moexFragment,
-        //R.id.recommendationsFragment
+//        R.id.recommendationsFragment
     ))
 
     override fun onCreate(savedInstanceState: Bundle?) {

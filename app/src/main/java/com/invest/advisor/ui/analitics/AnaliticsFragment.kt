@@ -46,7 +46,7 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
     ): View? {
         portfolioViewModel = ViewModelProvider(this).get(PortfolioViewModel::class.java)
 
-        val mYahooApiService = YahooApiService(ConnectivityInterceptorImpl(requireContext()))
+        mYahooApiService = YahooApiService(ConnectivityInterceptorImpl(requireContext()))
         mYahooNetworkDataSource = YahooNetworkDataSourceImpl(mYahooApiService)
 
         pieEntries.clear()

@@ -1,6 +1,7 @@
 package com.invest.advisor
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.invest.advisor.data.db.MoexDatabase
 import com.invest.advisor.data.network.*
 import com.invest.advisor.data.network.moexResponse.MoexApiService
@@ -8,6 +9,8 @@ import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.data.repository.MoexRepository
 import com.invest.advisor.data.repository.MoexRepositoryImpl
 import com.invest.advisor.ui.moex.MoexViewModelFactory
+import com.invest.advisor.ui.recommendations.RecommendationsViewModel
+import com.invest.advisor.ui.recommendations.RecommendationsViewModelFactory
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -34,12 +37,16 @@ class InvestAdviserApplication : Application(), KodeinAware {
 
         bind() from singleton { YahooApiService(instance()) }
         bind<YahooNetworkDataSource>() with singleton {YahooNetworkDataSourceImpl(instance()) }
-        //bind() from provider { AnaliticsViewModelFactory(instance()) }
+        //bind() from provider { AnaliticsViewModelFactory(instance()) }  private val viewModelFactory: MoexViewModelFactory by instance()
+
+        bind() from provider { RecommendationsViewModelFactory(instance(), instance()) }
 
     }
 
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        // TODO: 11/22/2020 night mode off 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }

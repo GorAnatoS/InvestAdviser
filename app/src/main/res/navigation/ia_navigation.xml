@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/recommendationsFragment"
         android:name="com.invest.advisor.ui.recommendations.RecommendationsFragment"
-        android:label="@string/analitics"
+        android:label="@string/recommendations"
         tools:layout="@layout/fragment_recommendations" />
 
     <fragment
