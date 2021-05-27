@@ -46,7 +46,9 @@ class InvestAdviserApplication : Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
-        // TODO: 11/22/2020 night mode off 
+        // TODO: 11/22/2020 night mode off
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }
+
+//passwords: 1-strong, 2 - usual

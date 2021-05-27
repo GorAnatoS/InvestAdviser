@@ -84,10 +84,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
             portfolioViewModel.numOfShares.value = databaseList.size
 
-
         })
-
-
 
         return bindingPortfolio.root
     }
