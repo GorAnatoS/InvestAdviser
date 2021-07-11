@@ -17,3 +17,9 @@
 */release
 
 .idea
+
+local.properties
+/keys
+/keystore.properties
+/keystore.properties.txt
+app/google-services.json
