@@ -13,5 +13,4 @@ fun <T> lazyDeferred(block: suspend CoroutineScope.() -> T) : Lazy<Deferred<T>>{
             block.invoke(this)
         }
     }
-
 }

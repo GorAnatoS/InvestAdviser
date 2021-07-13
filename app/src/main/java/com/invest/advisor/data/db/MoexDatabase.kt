@@ -11,7 +11,8 @@ import com.invest.advisor.data.db.entity.Securities
 
 @Database(
     entities = [Securities::class, MarketData::class],
-    version = 1
+    version = 1,
+    exportSchema = true
 )
 
 @TypeConverters(ColumnsDataConverter::class)
