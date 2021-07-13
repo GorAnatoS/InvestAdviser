@@ -302,5 +302,3 @@ enum class EnumSortOptions(val sortTypeOrder: Int) {
     BY_WARPRICE(1),
     BY_DAY_CHANGE(2),
 }
-
-

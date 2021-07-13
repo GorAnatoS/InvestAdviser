@@ -11,14 +11,12 @@ import androidx.room.RoomDatabase
  */
 
 
-@Database(entities = [UserPortfolioEntry::class], version = DATABASE_VERSION)
+@Database(entities = [UserPortfolioEntry::class], version = DATABASE_VERSION, exportSchema = false)
 abstract class UserPortfolio : RoomDatabase() {
 
     abstract val userPortfolioDao: UserPortfolioDao
 
     companion object {
-
-
         @Volatile
         private var INSTANCE: UserPortfolio? = null
 

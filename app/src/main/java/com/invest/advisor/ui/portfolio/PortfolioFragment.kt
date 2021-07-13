@@ -45,6 +45,9 @@ const val INSET_TYPE_KEY = "inset_type"
 const val INSET = "inset"
 
 class PortfolioFragment : ScopedFragment(), KodeinAware {
+    private lateinit var portfolioViewModel: PortfolioViewModel
+    lateinit var bindingPortfolio: FragmentPortfolioBinding
+    private lateinit var moexViewModel: MoexViewModel
 
     private val groupAdapter = GroupAdapter<GroupieViewHolder>() //TODO get rid of this parameter
 
@@ -189,7 +192,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                 }
             }
 
-            bindingPortfolio.include.items_container.adapter = groupAdapter
+            bindingPortfolio.include.itemsContainer.adapter = groupAdapter
 
 
             findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("key")
@@ -224,7 +227,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
                         calculatePortfolio()
 
-                        bindingPortfolio.include.items_container.adapter?.notifyDataSetChanged()
+                        bindingPortfolio.include.itemsContainer.adapter?.notifyDataSetChanged()
 
                     }
                 }
@@ -282,10 +285,6 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
     }
 
     companion object {
-        private lateinit var portfolioViewModel: PortfolioViewModel
-        lateinit var bindingPortfolio: FragmentPortfolioBinding
-        private lateinit var moexViewModel: MoexViewModel
-
         lateinit var marketDataResponse: MarketDataResponse
 
         var cardItemList: MutableList<ExpandablePortfolioItem> = ArrayList()
@@ -294,8 +293,6 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         private var groupIndex: Int = -1
         private var groupShareName: String = ""
 
-        /* //expandable list setting
-         val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()*/
     }
 }
 
