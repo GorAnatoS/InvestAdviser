@@ -1,10 +1,18 @@
-package com.invest.advisor.data.db.userPortfolio
+package com.invest.advisor.data.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = TABLE_NAME)
+/*
+Entries of user's portfolis that constatns:
+secId - short name of share
+secPrice - what price was when share was bought
+secQuantity - how many share user bought
+secPurchaseDate - when user bought share
+*/
+
+@Entity(tableName = USER_PORTFOLIO_TABLE_NAME)
 data class UserPortfolioEntry(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = Id_COLUMN)
@@ -25,7 +33,7 @@ data class UserPortfolioEntry(
 )
 
 const val DATABASE_NAME = "User_s_portfolio_database.db"
-const val TABLE_NAME = "User_s_portfolio"
+const val USER_PORTFOLIO_TABLE_NAME = "user_portfolio_table"
 const val Id_COLUMN = "id"
 const val secId_COLUMN = "secId"
 const val secBuyDate_COLUMN = "date of purchase"
