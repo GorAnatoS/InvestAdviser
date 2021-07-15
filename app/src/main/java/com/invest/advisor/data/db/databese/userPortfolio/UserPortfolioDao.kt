@@ -1,12 +1,15 @@
-package com.invest.advisor.data.db.userPortfolio
+package com.invest.advisor.data.db.databese.userPortfolio
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.invest.advisor.data.db.entity.USER_PORTFOLIO_TABLE_NAME
+import com.invest.advisor.data.db.entity.UserPortfolioEntry
 
 
 /**
- * Created by qsufff on 9/13/2020.
+ * DAO for work with UserPortfolio Database
  */
+
 @Dao
 interface UserPortfolioDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -15,10 +18,9 @@ interface UserPortfolioDao {
     @Update
     fun update(userPortfolioEntry: UserPortfolioEntry)
 
-    @Query("SELECT * FROM $TABLE_NAME")
+    @Query("SELECT * FROM $USER_PORTFOLIO_TABLE_NAME")
     fun getAllData(): LiveData<List<UserPortfolioEntry>>
 
     @Delete
     fun delete(userPortfolioEntry: UserPortfolioEntry)
-
 }
