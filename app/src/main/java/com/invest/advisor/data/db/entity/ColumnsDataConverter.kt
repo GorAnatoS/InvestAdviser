@@ -7,7 +7,7 @@ import java.util.stream.Collectors
 
 
 /**
- * Created by qsufff on 7/29/2020.
+ * Class that converts data from MOEX columns and data to Strings and on the contrary
  */
 
 class ColumnsDataConverter {
