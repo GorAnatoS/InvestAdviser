@@ -5,13 +5,6 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/moexFragment">
 
-
-<!--    <fragment-->
-<!--        android:id="@+id/recommendationsFragment"-->
-<!--        android:name="com.invest.advisor.ui.recommendations.RecommendationsFragment"-->
-<!--        android:label="@string/recommendations"-->
-<!--        tools:layout="@layout/fragment_recommendations" />-->
-
     <fragment
         android:id="@+id/portfolioFragment"
         android:name="com.invest.advisor.ui.portfolio.PortfolioFragment"
