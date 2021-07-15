@@ -6,10 +6,10 @@ import androidx.room.TypeConverters
 
 //http://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/columns
 
+//To have custom types like columns and data here we use ColumnDataConverter
 @Entity(tableName = "market_data")
 data class MarketData(
     @PrimaryKey(autoGenerate = false)
-    // TODO: 7/30/2020 ???? 
     val id: Int = 0,
     @TypeConverters(ColumnsDataConverter::class)
     val columns: List<String>,
@@ -17,6 +17,7 @@ data class MarketData(
     val `data`: List<List<String>>
 )
 
+//All market data columns we can have
 enum class EnumMarketData(val rowName: String, val rowType: Any) {
     SECID("SECID", String),
     BOARDID("BOARDID", String),
