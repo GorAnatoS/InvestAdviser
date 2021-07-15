@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.invest.advisor.data.db.userPortfolio.UserPortfolio
-import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
+import com.invest.advisor.data.db.databese.userPortfolio.UserPortfolio
+import com.invest.advisor.data.db.entity.UserPortfolioEntry
 import com.invest.advisor.data.repository.UserPortfolioRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

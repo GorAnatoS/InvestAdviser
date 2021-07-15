@@ -5,7 +5,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.invest.advisor.R
 import com.invest.advisor.data.db.entity.EnumMarketData
-import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
+import com.invest.advisor.data.db.entity.UserPortfolioEntry
 import com.invest.advisor.internal.Helper
 import com.invest.advisor.ui.portfolio.INSET
 import com.invest.advisor.ui.portfolio.INSET_TYPE_KEY

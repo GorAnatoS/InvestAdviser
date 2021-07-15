@@ -3,7 +3,7 @@ package com.invest.advisor.ui.portfolio.portfolioItems
 import android.graphics.drawable.Animatable
 import android.view.View
 import com.invest.advisor.R
-import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
+import com.invest.advisor.data.db.entity.UserPortfolioEntry
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.ExpandableItem
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder

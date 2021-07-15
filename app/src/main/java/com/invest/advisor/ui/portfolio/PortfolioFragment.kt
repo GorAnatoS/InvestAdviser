@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.invest.advisor.R
 import com.invest.advisor.data.db.entity.EnumMarketData
-import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
+import com.invest.advisor.data.db.entity.UserPortfolioEntry
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.moexResponse.MarketDataResponse
