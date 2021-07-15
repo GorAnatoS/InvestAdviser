@@ -30,7 +30,7 @@ open class CardItem(
     }
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.tvPurchaseDate.text = Helper.getFormatedDateString(entryDatabase.secPurchaseDate)
+        viewHolder.tvPurchaseDate.text = Helper.getFormattedDateString(entryDatabase.secPurchaseDate)
         viewHolder.tvPrice.text = entryDatabase.secPrice + "₽"
         viewHolder.tvQuantity.text = entryDatabase.secQuantity.toString() + " шт. ⋄"
 
@@ -81,4 +81,3 @@ open class CardItem(
         }
     }
 }
-

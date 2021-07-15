@@ -55,15 +55,15 @@ class DetailedMoexItemFragment : Fragment() {
                 false
             )
 
-        rootView.tvDateVal.text = Helper.getFormatedDateString()
-        formatedDateLong = Helper.formatedDateStringToFormatedDateLong(Helper.getFormatedDateString())
+        rootView.tvDateVal.text = Helper.getFormattedDateString()
+        formatedDateLong = Helper.formattedDateStringToFormattedDateLong(Helper.getFormattedDateString())
 
         val builder = MaterialDatePicker.Builder.datePicker()
         builder.setTitleText("Выберите дату")
         val materialDatePicker = builder.build()
 
         materialDatePicker.addOnPositiveButtonClickListener {
-            rootView.tvDateVal.text = Helper.getFormatedDateString(it)
+            rootView.tvDateVal.text = Helper.getFormattedDateString(it)
             formatedDateLong = it
         }
 

@@ -18,7 +18,7 @@ class Helper {
             return df.format(number).toDouble()
         }
 
-        fun formatedDateStringToFormatedDateLong(string: String): Long {
+        fun formattedDateStringToFormattedDateLong(string: String): Long {
             val date = Calendar.getInstance().time
             val formatter =
                 SimpleDateFormat.getDateInstance() //or use getDateInstance()
@@ -27,7 +27,7 @@ class Helper {
             return formatedDateLong
         }
 
-        fun getFormatedDateString(): String {
+        fun getFormattedDateString(): String {
             val date = Calendar.getInstance().time
             val formatter =
                 SimpleDateFormat.getDateInstance()
@@ -35,7 +35,7 @@ class Helper {
             return formatedDateString
         }
 
-        fun getFormatedDateString(ms: Long): String {
+        fun getFormattedDateString(ms: Long): String {
             val date = Calendar.getInstance().time
             val formatter =
                 SimpleDateFormat.getDateInstance()
