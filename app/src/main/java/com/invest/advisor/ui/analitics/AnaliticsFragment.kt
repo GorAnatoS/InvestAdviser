@@ -363,10 +363,10 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
         mYahooNetworkDataSource.downloadedYahooResponse.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
 
-            val symb = it.quoteSummary.result[0].price?.symbol.substring(
-                0,
-                it.quoteSummary.result[0].price?.symbol.length - 3
-            ).toUpperCase()
+            val symb = it.quoteSummary.result[0].price.symbol.substring(
+                        0,
+                        it.quoteSummary.result[0].price.symbol.length - 3
+                    ).uppercase(Locale.getDefault())
 
             var index = -1
             var i = 0
@@ -383,8 +383,8 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
                     index,
                     Pair(
                         sectorEntries[index].first,
-                        if (it.quoteSummary.result[0].assetProfile?.sector.isNullOrEmpty()) "Other"
-                        else it.quoteSummary.result[0].assetProfile?.sector
+                        if (it.quoteSummary.result[0].assetProfile.sector.isNullOrEmpty()) "Other"
+                        else it.quoteSummary.result[0].assetProfile.sector
                     )
                 )
 

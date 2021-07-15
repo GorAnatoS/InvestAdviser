@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.invest.advisor.data.network.moexResponse.MarketDataResponse
-import com.invest.advisor.data.network.moexResponse.SecuritiesResponse
 import com.invest.advisor.data.network.moexResponse.MoexApiService
+import com.invest.advisor.data.network.moexResponse.SecuritiesResponse
 import com.invest.advisor.internal.NoConnectivityException
 
 class MoexNetworkDataSourceImpl(
@@ -20,12 +20,12 @@ class MoexNetworkDataSourceImpl(
         get() = _downloadedMarketData
 
     override suspend fun fetchSecurities() {
-       try {
-           moexApiService.getSecuritiesAsync().await()
-           _downloadedCurrentSecurities.postValue(moexApiService.getSecuritiesAsync().await())
-       } catch (e: NoConnectivityException) {
-           Log.e("Connectivity", "No internet connection.", e)
-       }
+        try {
+            moexApiService.getSecuritiesAsync().await()
+            _downloadedCurrentSecurities.postValue(moexApiService.getSecuritiesAsync().await())
+        } catch (e: NoConnectivityException) {
+            Log.e("Connectivity", "No internet connection.", e)
+        }
     }
 
     override suspend fun fetchMarketData() {

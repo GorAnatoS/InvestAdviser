@@ -16,12 +16,12 @@ data class Securities(
     val `data`: List<List<String>>
 )
 
-enum class EnumSecurities(val rowName: String, rowType: Any){
+enum class EnumSecurities(val rowName: String, rowType: Any) {
     SECID("SECID", String),     //тикер
-    BOARDID("BOARDID",String),
+    BOARDID("BOARDID", String),
     SHORTNAME("SHORTNAME", String),
     PREVPRICE("PREVPRICE", Double),
-    LOTSIZE("LOTSIZE",  Int), //Int32
+    LOTSIZE("LOTSIZE", Int), //Int32
     FACEVALUE("FACEVALUE", Double),
     STATUS("STATUS", String),
     BOARDNAME("BOARDNAME", String),
@@ -34,7 +34,7 @@ enum class EnumSecurities(val rowName: String, rowType: Any){
     MINSTEP("MINSTEP", Double),
     PREVWAPRICE("PREVWAPRICE", Double),
     FACEUNIT("FACEUNIT", String),
-    PREVDATE("PREVDATE" , String), //date
+    PREVDATE("PREVDATE", String), //date
     ISSUESIZE("ISSUESIZE", Int), //Int64
     ISIN("ISIN", String),
     LATNAME("LATNAME", String),
@@ -44,5 +44,5 @@ enum class EnumSecurities(val rowName: String, rowType: Any){
     CURRENCYID("CURRENCYID", String),
     SECTYPE("SECTYPE", String),
     LISTLEVEL("LISTLEVEL", Int), //Int32
-    SETTLEDATE("SETTLEDATE" , String) //date
+    SETTLEDATE("SETTLEDATE", String) //date
 }

@@ -2,12 +2,12 @@ package com.invest.advisor.data.network.yahooResponse
 
 import com.invest.advisor.data.network.ConnectivityInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import retrofit2.http.GET
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
 import retrofit2.http.Path
 
 /**
@@ -18,7 +18,7 @@ import retrofit2.http.Path
 //https://query1.finance.yahoo.com/v10/finance/quoteSummary/YNDX.ME?modules=assetProfile%2CfinancialData%2Cprice
 
 
-interface YahooApiService{
+interface YahooApiService {
     @GET("{assetName}?modules=assetProfile%2CfinancialData%2Cprice")
     fun getAssetProfileAsync(
         @Path("assetName") assetName: String
@@ -28,7 +28,7 @@ interface YahooApiService{
         operator fun invoke(
             connectivityInterceptor: ConnectivityInterceptor
         ): YahooApiService {
-            val requestInterceptor = Interceptor {chain ->
+            val requestInterceptor = Interceptor { chain ->
                 val url = chain.request()
                     .url()
                     .newBuilder()

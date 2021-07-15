@@ -20,7 +20,7 @@ class YahooNetworkDataSourceImpl(
         try {
             yahooApiService.getAssetProfileAsync(assetName).await()
             _downloadedYahooResponse.postValue(yahooApiService.getAssetProfileAsync(assetName).await())
-        } catch (e: Resources.NotFoundException){
+        } catch (e: Resources.NotFoundException) {
             Log.e("Fetch data", "Not found 404.", e)
         } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No internet connection.", e)

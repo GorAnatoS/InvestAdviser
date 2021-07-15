@@ -13,7 +13,6 @@ import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.internal.Helper
 import com.invest.advisor.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.detailed_portfolio_item_fragment.*
-import kotlinx.android.synthetic.main.detailed_portfolio_item_fragment.group_loading
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -21,9 +20,9 @@ import org.kodein.di.android.x.closestKodein
 
 private const val ARG_PARAM1 = "secId"
 
-class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
+class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
 
-   // var resultDeleted: Boolean = false
+    // var resultDeleted: Boolean = false
     override val kodein by closestKodein()
     private var secId: String? = null
 
@@ -44,22 +43,23 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
                 }
             }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
 
-            if ( it.getString(ARG_PARAM1) != null) {
+            if (it.getString(ARG_PARAM1) != null) {
                 hasOptionMenu = false
             }
 
-            secId = if ( it.getString(ARG_PARAM1) != null) {
+            secId = if (it.getString(ARG_PARAM1) != null) {
                 it.getString(ARG_PARAM1)
-            }
-            else { //from portfolio
+            } else { //from portfolio
                 arguments?.getString("itemNumberInDB")
             }
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,7 +70,7 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.detailed_portfolio_item_menu, menu)
 
-        val deleteItemFromDB = menu?.findItem(R.id.delete_item_from_db)
+        val deleteItemFromDB = menu.findItem(R.id.delete_item_from_db)
 
         deleteItemFromDB.setOnMenuItemClickListener {
             deleteItemFromDB()
@@ -134,8 +134,10 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware{
 
             tvCurrentPrice.text =
                 it.quoteSummary.result[0].price.regularMarketPrice.raw.toString() + " (" +
-                        Helper.roundOffDecimal(it.quoteSummary.result[0].price.regularMarketChange.raw).toString() + ", " +
-                        Helper.roundOffDecimal(it.quoteSummary.result[0].price.regularMarketChangePercent.raw).toString() + "%)"
+                        Helper.roundOffDecimal(it.quoteSummary.result[0].price.regularMarketChange.raw)
+                            .toString() + ", " +
+                        Helper.roundOffDecimal(it.quoteSummary.result[0].price.regularMarketChangePercent.raw)
+                            .toString() + "%)"
 
             sliderDayPriceRange.apply {
                 valueFrom = it.quoteSummary.result[0].price.regularMarketDayLow.raw.toFloat()

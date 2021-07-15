@@ -17,7 +17,7 @@ data class MarketData(
     val `data`: List<List<String>>
 )
 
-enum class EnumMarketData(val rowName: String, val rowType: Any){
+enum class EnumMarketData(val rowName: String, val rowType: Any) {
     SECID("SECID", String),
     BOARDID("BOARDID", String),
     BID("BID", Double),

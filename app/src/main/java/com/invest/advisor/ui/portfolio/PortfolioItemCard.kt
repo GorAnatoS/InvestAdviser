@@ -44,7 +44,6 @@ class PortfolioItemCard(private val content: PortfolioItemContent) : Item() {
         viewHolder.tvCurrentPriceChng.text = "${content.changePrice} (${content.changePcnt})%"
 
 
-
     }
 
     override fun getLayout() = R.layout.portfolio_header_item

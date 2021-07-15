@@ -16,8 +16,6 @@ import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.databinding.FragmentMoexDetailBinding
 import com.invest.advisor.internal.Helper
 import com.invest.advisor.ui.portfolio.PortfolioViewModel
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 private const val ARG_PARAM1 = "secId"
@@ -69,7 +67,7 @@ class DetailedMoexItemFragment : Fragment() {
             formatedDateLong = it
         }
 
-        rootView.tvDateVal.setOnClickListener{
+        rootView.tvDateVal.setOnClickListener {
             materialDatePicker.show(parentFragmentManager, "DATE_PICKER")
         }
 

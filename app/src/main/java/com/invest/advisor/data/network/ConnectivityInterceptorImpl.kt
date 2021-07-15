@@ -7,7 +7,6 @@ import android.os.Build
 import com.invest.advisor.internal.NoConnectivityException
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.io.IOException
 
 class ConnectivityInterceptorImpl(
     context: Context
@@ -16,7 +15,7 @@ class ConnectivityInterceptorImpl(
     private val appContext = context.applicationContext
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        if (!isOnline()){
+        if (!isOnline()) {
             throw NoConnectivityException()
         }
         return chain.proceed(chain.request())

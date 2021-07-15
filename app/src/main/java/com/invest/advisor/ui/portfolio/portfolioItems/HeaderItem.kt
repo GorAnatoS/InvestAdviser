@@ -26,7 +26,8 @@ open class HeaderItem(
         viewHolder.tvPurchaseDate.text = entryDatabase.secId
         viewHolder.tvPrice.text = entryMarketData[EnumMarketData.WAPRICE.ordinal] + "₽"
         viewHolder.tvQuantity.text = entryDatabase.secQuantity.toString() + " шт. ⋄"
-        viewHolder.tvCurrentPrice.text = (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() * entryDatabase.secQuantity.toDouble()).toString()
+        viewHolder.tvCurrentPrice.text =
+            (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() * entryDatabase.secQuantity.toDouble()).toString()
 
         var currentPrice =
             (entryDatabase.secQuantity.toDouble() * entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble())
@@ -35,7 +36,8 @@ open class HeaderItem(
 
         var oldPrice = entryDatabase.secPrice.toDouble() * entryDatabase.secQuantity.toDouble()
 
-        var changePcnt = (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() - entryDatabase.secPrice.toDouble()) / entryDatabase.secPrice.toDouble() * 100
+        var changePcnt =
+            (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() - entryDatabase.secPrice.toDouble()) / entryDatabase.secPrice.toDouble() * 100
         changePcnt = (changePcnt * 100.0).roundToInt() / 100.0
 
         var changePrice = currentPrice - oldPrice

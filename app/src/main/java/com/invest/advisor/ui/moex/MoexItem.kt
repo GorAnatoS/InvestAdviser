@@ -29,19 +29,34 @@ class MoexItem(
             } else {
                 tvChange.setTextColor(ContextCompat.getColor(containerView.context, R.color.sharePlusColor))
             }
-            if (moexEntry.secChange == "0") tvChange.setTextColor(ContextCompat.getColor(containerView.context, R.color.black))
+            if (moexEntry.secChange == "0") tvChange.setTextColor(
+                ContextCompat.getColor(
+                    containerView.context,
+                    R.color.black
+                )
+            )
 
 
             tvChangePcnt.text = "(${moexEntry.secChangePcnt}%)"
             if (moexEntry.secChangePcnt?.startsWith("-")!!) {
                 tvChangePcnt.setTextColor(ContextCompat.getColor(containerView.context, R.color.shareMinusColor))
             } else tvChangePcnt.setTextColor(ContextCompat.getColor(containerView.context, R.color.sharePlusColor))
-            if (moexEntry.secChangePcnt == "0") tvChangePcnt.setTextColor(ContextCompat.getColor(containerView.context, R.color.black))
+            if (moexEntry.secChangePcnt == "0") tvChangePcnt.setTextColor(
+                ContextCompat.getColor(
+                    containerView.context,
+                    R.color.black
+                )
+            )
 
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 //Toast.makeText(viewHolder.containerView.context,  , Toast.LENGTH_SHORT).show()
                 if (moexEntry.secPrice != "NoE")
-                    it.findNavController().navigate(MoexFragmentDirections.actionMoexFragmentToCommonDetailedMoexItem(moexEntry.secId, moexEntry.secPrice!!))
+                    it.findNavController().navigate(
+                        MoexFragmentDirections.actionMoexFragmentToCommonDetailedMoexItem(
+                            moexEntry.secId,
+                            moexEntry.secPrice!!
+                        )
+                    )
             }
         }
     }

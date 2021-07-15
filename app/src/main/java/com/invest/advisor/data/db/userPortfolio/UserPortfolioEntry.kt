@@ -1,12 +1,10 @@
 package com.invest.advisor.data.db.userPortfolio
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 
-@Entity(tableName = TABLE_NAME )
+@Entity(tableName = TABLE_NAME)
 data class UserPortfolioEntry(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = Id_COLUMN)

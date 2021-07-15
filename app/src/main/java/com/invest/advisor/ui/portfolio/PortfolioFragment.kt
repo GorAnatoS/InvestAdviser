@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -74,7 +71,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         bindingPortfolio.userPortfolioViewModel = portfolioViewModel
         bindingPortfolio.lifecycleOwner = this
 
-        val newNumOfShares = Observer<Int> {newNum ->
+        val newNumOfShares = Observer<Int> { newNum ->
             textView_analize.isClickable = newNum > 0
             textView_analize.isVisible = newNum > 0
         }
@@ -252,7 +249,6 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
             portfolioPurchaseSum += i.secQuantity.toDouble() * i.secPrice.toDouble()
 
         //first List of stocks
-
 
 
         for (element in marketDataResponse.currentMarketData.data)

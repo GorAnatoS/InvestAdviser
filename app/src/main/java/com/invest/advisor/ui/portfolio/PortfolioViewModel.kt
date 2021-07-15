@@ -1,7 +1,10 @@
 package com.invest.advisor.ui.portfolio
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.invest.advisor.data.db.userPortfolio.UserPortfolio
 import com.invest.advisor.data.db.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.repository.UserPortfolioRepository

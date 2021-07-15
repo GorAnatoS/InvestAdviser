@@ -1,7 +1,6 @@
 package com.invest.advisor.data.network
 
 import androidx.lifecycle.LiveData
-import com.invest.advisor.data.network.yahooResponse.AssetProfile
 import com.invest.advisor.data.network.yahooResponse.YahooResponse
 
 

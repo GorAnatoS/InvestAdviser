@@ -3,7 +3,6 @@ package com.invest.advisor.data.db.entity
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
-import java.util.*
 import java.util.stream.Collectors
 
 

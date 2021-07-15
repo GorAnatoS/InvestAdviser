@@ -11,11 +11,7 @@ import com.invest.advisor.ui.portfolio.INSET
 import com.invest.advisor.ui.portfolio.INSET_TYPE_KEY
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import kotlinx.android.synthetic.main.portfolio_card_item.icon
-import kotlinx.android.synthetic.main.portfolio_card_item.tvCurrentPriceChng
-import kotlinx.android.synthetic.main.portfolio_card_item.tvPrice
-import kotlinx.android.synthetic.main.portfolio_card_item.tvPurchaseDate
-import kotlinx.android.synthetic.main.portfolio_card_item.tvQuantity
+import kotlinx.android.synthetic.main.portfolio_card_item.*
 
 
 open class CardItem(

@@ -16,7 +16,7 @@ import org.threeten.bp.ZonedDateTime
 class MoexRepositoryImpl(
     private val moexDatabaseDao: MoexDatabaseDao,
     private val moexNetworkDataSource: MoexNetworkDataSource
-) : MoexRepository{
+) : MoexRepository {
 
     init {
         moexNetworkDataSource.apply {
@@ -33,7 +33,7 @@ class MoexRepositoryImpl(
     override suspend fun getMarketData(): LiveData<List<MarketData>> {
         initMarketData()
 
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             return@withContext moexDatabaseDao.getRoomMarketData()
         }
     }
@@ -41,19 +41,19 @@ class MoexRepositoryImpl(
     override suspend fun getSecurities(): LiveData<List<Securities>> {
         initSecuritiesData()
 
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             return@withContext moexDatabaseDao.getRoomSecurities()
         }
     }
 
-    private fun persistFetchedSecurities(fetchedSecurities: SecuritiesResponse){
+    private fun persistFetchedSecurities(fetchedSecurities: SecuritiesResponse) {
         GlobalScope.launch(Dispatchers.IO) {
             moexDatabaseDao.upsert(fetchedSecurities.currentSecurities)
         }
     }
 
     private suspend fun initSecuritiesData() {
-        if (isFetchSecuritiesNeeded(ZonedDateTime.now().minusMinutes(10))){
+        if (isFetchSecuritiesNeeded(ZonedDateTime.now().minusMinutes(10))) {
             fetchSecurities()
         }
     }
@@ -63,21 +63,21 @@ class MoexRepositoryImpl(
         moexNetworkDataSource.fetchSecurities()
     }
 
-    private fun isFetchSecuritiesNeeded(lastFetchTime: ZonedDateTime): Boolean{
+    private fun isFetchSecuritiesNeeded(lastFetchTime: ZonedDateTime): Boolean {
         val oneMinuteAgo = ZonedDateTime.now().minusMinutes(1)
         return lastFetchTime.isBefore(oneMinuteAgo)
     }
 
     ////////////////////////////////////////////////////////
 
-    private fun persistFetchedMarketData(fetchedMarketData: MarketDataResponse){
+    private fun persistFetchedMarketData(fetchedMarketData: MarketDataResponse) {
         GlobalScope.launch(Dispatchers.IO) {
             moexDatabaseDao.upsert(fetchedMarketData.currentMarketData)
         }
     }
 
     private suspend fun initMarketData() {
-        if (isFetchMarketDataNeeded(ZonedDateTime.now().minusMinutes(10))){
+        if (isFetchMarketDataNeeded(ZonedDateTime.now().minusMinutes(10))) {
             fetchMarketData()
         }
     }
@@ -86,7 +86,7 @@ class MoexRepositoryImpl(
         moexNetworkDataSource.fetchMarketData()
     }
 
-    private fun isFetchMarketDataNeeded(lastFetchTime: ZonedDateTime): Boolean{
+    private fun isFetchMarketDataNeeded(lastFetchTime: ZonedDateTime): Boolean {
         val oneMinuteAgo = ZonedDateTime.now().minusMinutes(1)
         return lastFetchTime.isBefore(oneMinuteAgo)
     }

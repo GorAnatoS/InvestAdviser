@@ -33,7 +33,7 @@ class InvestAdviserApplication : Application(), KodeinAware {
         bind() from provider { MoexViewModelFactory(instance()) }
 
         bind() from singleton { YahooApiService(instance()) }
-        bind<YahooNetworkDataSource>() with singleton {YahooNetworkDataSourceImpl(instance()) }
+        bind<YahooNetworkDataSource>() with singleton { YahooNetworkDataSourceImpl(instance()) }
     }
 
     override fun onCreate() {

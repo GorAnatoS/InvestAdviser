@@ -70,8 +70,8 @@ class MoexFragment : ScopedFragment(), KodeinAware {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.moex_menu, menu)
 
-        val searchItem = menu?.findItem(R.id.action_search)
-        val sortItem = menu?.findItem(R.id.action_sort)
+        val searchItem = menu.findItem(R.id.action_search)
+        val sortItem = menu.findItem(R.id.action_sort)
 
         sortItem.setOnMenuItemClickListener {
 
@@ -95,10 +95,10 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                 if (newText!!.isNotEmpty()) {
 
                     displayList.clear()
-                    val search = newText.toLowerCase(Locale.getDefault())
+                    val search = newText.lowercase(Locale.getDefault())
 
                     myList.forEach {
-                        if (it.secId!!.toLowerCase().contains(newText) || it.secName!!.toLowerCase()
+                        if (it.secId!!.lowercase(Locale.getDefault()).contains(newText) || it.secName!!.lowercase(Locale.getDefault())
                                 .contains(newText)
                         )
                             displayList.add(it)
@@ -217,12 +217,12 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                         displayList.clear()
                         if (array[which][array[which].length - 1] == '↑') {
                             newList =
-                                viewModel.marketDataResponse.currentMarketData.data.sortedBy { it[EnumMarketData.WAPRICE.ordinal]?.toDouble() }
+                                viewModel.marketDataResponse.currentMarketData.data.sortedBy { it[EnumMarketData.WAPRICE.ordinal].toDouble() }
 
                             array[which] = array[which].replace('↑', '↓')
                         } else {
                             newList =
-                                viewModel.marketDataResponse.currentMarketData.data.sortedByDescending { it[EnumMarketData.WAPRICE.ordinal]?.toDouble() }
+                                viewModel.marketDataResponse.currentMarketData.data.sortedByDescending { it[EnumMarketData.WAPRICE.ordinal].toDouble() }
                             array[which] = array[which].replace('↓', '↑')
                         }
 
@@ -236,12 +236,12 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
                         if (array[which][array[which].length - 1] == '↑') {
                             newList =
-                                viewModel.marketDataResponse.currentMarketData.data.sortedBy { it[EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]?.toDouble() }
+                                viewModel.marketDataResponse.currentMarketData.data.sortedBy { it[EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal].toDouble() }
 
                             array[which] = array[which].replace('↑', '↓')
                         } else {
                             newList =
-                                viewModel.marketDataResponse.currentMarketData.data.sortedByDescending { it[EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal]?.toDouble() }
+                                viewModel.marketDataResponse.currentMarketData.data.sortedByDescending { it[EnumMarketData.WAPTOPREVWAPRICEPRCNT.ordinal].toDouble() }
                             array[which] = array[which].replace('↓', '↑')
                         }
 
@@ -297,6 +297,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 }
 
 const val CONST_NOE_VALUE = "NoE" //Null or Empty value
+
 enum class EnumSortOptions(val sortTypeOrder: Int) {
     BY_NAME(0),
     BY_WARPRICE(1),

@@ -20,7 +20,8 @@ abstract class MoexDatabase : RoomDatabase() {
     abstract fun moexDao(): MoexDatabaseDao
 
     companion object {
-        @Volatile private var instance: MoexDatabase? = null
+        @Volatile
+        private var instance: MoexDatabase? = null
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
@@ -28,8 +29,10 @@ abstract class MoexDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context) =
-                Room.databaseBuilder(context.applicationContext,
-                    MoexDatabase::class.java, "MOEXDatabase.db")
-                    .build()
+            Room.databaseBuilder(
+                context.applicationContext,
+                MoexDatabase::class.java, "MOEXDatabase.db"
+            )
+                .build()
     }
 }

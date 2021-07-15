@@ -16,7 +16,7 @@ class UserPortfolioRepository(private val userPortfolioDao: UserPortfolioDao) {
         userPortfolioDao.insert(entry)
     }
 
-    suspend fun delete(entry: UserPortfolioEntry){
+    suspend fun delete(entry: UserPortfolioEntry) {
         userPortfolioDao.delete(entry)
         //allData = userPortfolioDao.getAllData()
     }

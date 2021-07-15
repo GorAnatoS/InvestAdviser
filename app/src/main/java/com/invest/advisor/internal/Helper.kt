@@ -11,7 +11,7 @@ import java.util.*
  */
 
 class Helper {
-    companion object{
+    companion object {
         fun roundOffDecimal(number: Double): Double? {
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING

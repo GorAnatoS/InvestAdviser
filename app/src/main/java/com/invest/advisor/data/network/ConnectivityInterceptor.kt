@@ -5,4 +5,4 @@ import okhttp3.Interceptor
 /**
  * Created by qsufff on 7/29/2020.
  */
-interface ConnectivityInterceptor: Interceptor
+interface ConnectivityInterceptor : Interceptor
