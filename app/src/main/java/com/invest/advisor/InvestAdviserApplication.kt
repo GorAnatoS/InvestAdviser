@@ -2,7 +2,7 @@ package com.invest.advisor
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.invest.advisor.data.db.MoexDatabase
+import com.invest.advisor.data.db.databese.moex.MoexDatabase
 import com.invest.advisor.data.network.*
 import com.invest.advisor.data.network.moexResponse.MoexApiService
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
