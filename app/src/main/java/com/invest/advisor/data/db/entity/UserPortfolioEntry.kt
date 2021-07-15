@@ -20,8 +20,7 @@ data class UserPortfolioEntry(
 
     @ColumnInfo(name = secId_COLUMN)
     val secId: String,
-    /*@ColumnInfo(name = secName_COLUMN)
-    var secName: String?,*/
+
     @ColumnInfo(name = secPrice_COLUMN)
     val secPrice: String,
 
@@ -32,7 +31,7 @@ data class UserPortfolioEntry(
     val secPurchaseDate: Long
 )
 
-const val DATABASE_NAME = "User_s_portfolio_database.db"
+const val USER_PORTFOLIO_DATABASE_NAME = "user_portfolio_database.db"
 const val USER_PORTFOLIO_TABLE_NAME = "user_portfolio_table"
 const val Id_COLUMN = "id"
 const val secId_COLUMN = "secId"
@@ -40,6 +39,6 @@ const val secBuyDate_COLUMN = "date of purchase"
 const val secPrice_COLUMN = "secPrice"
 const val secQuantity_COLUMN = "Quantity"
 
-const val DATABASE_VERSION = 1
+const val USER_PORTFOLIO_DATABASE_VERSION = 1
 
 
