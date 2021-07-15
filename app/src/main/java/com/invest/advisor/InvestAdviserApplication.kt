@@ -17,11 +17,10 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
 import org.kodein.di.generic.*
 
-
-/**
- * Created by qsufff on 7/29/2020.
- */
-
+/*Application class where we set up:
+dependency injection with KodeIn,
+TimeSupport with AndroidThreeTen
+And temporally showing only DAY_MODE*/
 
 class InvestAdviserApplication : Application(), KodeinAware {
     override val kodein = Kodein.lazy {
@@ -37,7 +36,6 @@ class InvestAdviserApplication : Application(), KodeinAware {
 
         bind() from singleton { YahooApiService(instance()) }
         bind<YahooNetworkDataSource>() with singleton {YahooNetworkDataSourceImpl(instance()) }
-        //bind() from provider { AnaliticsViewModelFactory(instance()) }  private val viewModelFactory: MoexViewModelFactory by instance()
 
         bind() from provider { RecommendationsViewModelFactory(instance(), instance()) }
 
@@ -46,9 +44,6 @@ class InvestAdviserApplication : Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
-        // TODO: 11/22/2020 night mode off
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }
-
-//passwords: 1-strong, 2 - usual
