@@ -11,8 +11,9 @@
         android:icon="@drawable/ic_baseline_add_shopping_cart_24"
         android:title="@string/user_portfolio" />
 
-    <item
-        android:id="@+id/recommendationsFragment"
-        android:icon="@drawable/ic_baseline_donut_small_24"
-        android:title="@string/recommendations" />
+
+<!--    <item-->
+<!--        android:id="@+id/recommendationsFragment"-->
+<!--        android:icon="@drawable/ic_baseline_donut_small_24"-->
+<!--        android:title="@string/recommendations" />-->
 </menu>
