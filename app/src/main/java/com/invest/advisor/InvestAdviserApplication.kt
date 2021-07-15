@@ -9,8 +9,6 @@ import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.data.repository.MoexRepository
 import com.invest.advisor.data.repository.MoexRepositoryImpl
 import com.invest.advisor.ui.moex.MoexViewModelFactory
-import com.invest.advisor.ui.recommendations.RecommendationsViewModel
-import com.invest.advisor.ui.recommendations.RecommendationsViewModelFactory
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -36,9 +34,6 @@ class InvestAdviserApplication : Application(), KodeinAware {
 
         bind() from singleton { YahooApiService(instance()) }
         bind<YahooNetworkDataSource>() with singleton {YahooNetworkDataSourceImpl(instance()) }
-
-        bind() from provider { RecommendationsViewModelFactory(instance(), instance()) }
-
     }
 
     override fun onCreate() {
