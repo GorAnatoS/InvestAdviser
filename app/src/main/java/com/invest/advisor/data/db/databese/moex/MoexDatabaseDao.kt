@@ -1,4 +1,4 @@
-package com.invest.advisor.data.db
+package com.invest.advisor.data.db.databese.moex
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -7,6 +7,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.invest.advisor.data.db.entity.MarketData
 import com.invest.advisor.data.db.entity.Securities
+
+//DAO to get MOEX_DATABASE entries
 
 @Dao
 interface MoexDatabaseDao {

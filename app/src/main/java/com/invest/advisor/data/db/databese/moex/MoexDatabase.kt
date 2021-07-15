@@ -1,4 +1,4 @@
-package com.invest.advisor.data.db
+package com.invest.advisor.data.db.databese.moex
 
 import android.content.Context
 import androidx.room.Database
@@ -8,6 +8,8 @@ import androidx.room.TypeConverters
 import com.invest.advisor.data.db.entity.ColumnsDataConverter
 import com.invest.advisor.data.db.entity.MarketData
 import com.invest.advisor.data.db.entity.Securities
+
+//Application's database that consists of Securities and MarketData entries of MOEX
 
 @Database(
     entities = [Securities::class, MarketData::class],
