@@ -10,7 +10,7 @@ import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
-import com.invest.advisor.internal.Helper
+import com.invest.advisor.internal.MathHelper
 import com.invest.advisor.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.detailed_portfolio_item_fragment.*
 import kotlinx.coroutines.Dispatchers
@@ -134,9 +134,9 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
 
             tvCurrentPrice.text =
                 it.quoteSummary.result[0].price.regularMarketPrice.raw.toString() + " (" +
-                        Helper.roundOffDecimal(it.quoteSummary.result[0].price.regularMarketChange.raw)
+                        MathHelper.roundOffDecimal(it.quoteSummary.result[0].price.regularMarketChange.raw)
                             .toString() + ", " +
-                        Helper.roundOffDecimal(it.quoteSummary.result[0].price.regularMarketChangePercent.raw)
+                        MathHelper.roundOffDecimal(it.quoteSummary.result[0].price.regularMarketChangePercent.raw)
                             .toString() + "%)"
 
             sliderDayPriceRange.apply {

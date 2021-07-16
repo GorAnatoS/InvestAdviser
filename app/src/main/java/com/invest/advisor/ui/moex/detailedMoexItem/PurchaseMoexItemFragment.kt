@@ -14,9 +14,9 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.databinding.FragmentMoexDetailBinding
-import com.invest.advisor.internal.Helper
+import com.invest.advisor.internal.DateHelper.Companion.formattedDateStringToFormattedDateLong
+import com.invest.advisor.internal.DateHelper.Companion.getFormattedDateString
 import com.invest.advisor.ui.portfolio.PortfolioViewModel
-
 
 private const val ARG_PARAM1 = "secId"
 private const val ARG_PARAM2 = "secPrice"
@@ -55,15 +55,15 @@ class DetailedMoexItemFragment : Fragment() {
                 false
             )
 
-        rootView.tvDateVal.text = Helper.getFormattedDateString()
-        formatedDateLong = Helper.formattedDateStringToFormattedDateLong(Helper.getFormattedDateString())
+        rootView.tvDateVal.text = getFormattedDateString()
+        formatedDateLong = formattedDateStringToFormattedDateLong(getFormattedDateString())
 
         val builder = MaterialDatePicker.Builder.datePicker()
         builder.setTitleText("Выберите дату")
         val materialDatePicker = builder.build()
 
         materialDatePicker.addOnPositiveButtonClickListener {
-            rootView.tvDateVal.text = Helper.getFormattedDateString(it)
+            rootView.tvDateVal.text = getFormattedDateString(it)
             formatedDateLong = it
         }
 
@@ -131,7 +131,6 @@ class DetailedMoexItemFragment : Fragment() {
         }
         return rootView.root
     }
-
 
     companion object {
         @JvmStatic

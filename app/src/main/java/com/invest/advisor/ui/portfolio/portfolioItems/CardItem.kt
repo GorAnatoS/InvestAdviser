@@ -4,9 +4,10 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.invest.advisor.R
+import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.db.entity.EnumMarketData
-import com.invest.advisor.data.db.entity.UserPortfolioEntry
-import com.invest.advisor.internal.Helper
+import com.invest.advisor.internal.DateHelper.Companion.getFormattedDateString
+import com.invest.advisor.internal.MathHelper
 import com.invest.advisor.ui.portfolio.INSET
 import com.invest.advisor.ui.portfolio.INSET_TYPE_KEY
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -30,7 +31,7 @@ open class CardItem(
     }
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.tvPurchaseDate.text = Helper.getFormattedDateString(database.secPurchaseDate)
+        viewHolder.tvPurchaseDate.text = getFormattedDateString(database.secPurchaseDate)
         viewHolder.tvPrice.text = database.secPrice + "₽"
         viewHolder.tvQuantity.text = database.secQuantity.toString() + " шт. ⋄"
 

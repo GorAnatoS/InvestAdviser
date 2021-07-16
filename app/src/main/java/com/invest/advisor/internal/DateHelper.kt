@@ -7,10 +7,10 @@ import java.util.*
 
 
 /**
- * Created by qsufff on 11/16/2020.
+ * Helper for working with dates
  */
 
-class Helper {
+class DateHelper {
     companion object {
         fun roundOffDecimal(number: Double): Double? {
             val df = DecimalFormat("#.##")
@@ -22,27 +22,22 @@ class Helper {
             val date = Calendar.getInstance().time
             val formatter =
                 SimpleDateFormat.getDateInstance() //or use getDateInstance()
-            var formatedDateString = formatter.format(date)
-            var formatedDateLong = formatter.parse(formatedDateString).time
-            return formatedDateLong
+            val formattedDateString = formatter.format(date)
+
+            return formatter.parse(formattedDateString).time
         }
 
         fun getFormattedDateString(): String {
             val date = Calendar.getInstance().time
             val formatter =
                 SimpleDateFormat.getDateInstance()
-            var formatedDateString = formatter.format(date)
-            return formatedDateString
+            return formatter.format(date)
         }
 
         fun getFormattedDateString(ms: Long): String {
-            val date = Calendar.getInstance().time
             val formatter =
                 SimpleDateFormat.getDateInstance()
-            var formatedDateString = formatter.format(ms)
-
-            return formatedDateString
+            return formatter.format(ms)
         }
     }
-
 }

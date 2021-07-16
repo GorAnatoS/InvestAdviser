@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.SearchAutoComplete
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,10 +18,10 @@ import com.invest.advisor.data.db.entity.MoexEntry
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.moexResponse.MoexApiService
+import com.invest.advisor.databinding.FragmentMoexBinding
 import com.invest.advisor.ui.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.android.synthetic.main.fragment_moex.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,7 +33,7 @@ import kotlin.collections.ArrayList
 
 
 /**
- * Класс для вывода общего списка данных MOEX за день с основными значениями:
+ * MoexFragment with necessary MOEX data like:
  * secid
  * shortname
  * prevprice
@@ -43,17 +44,24 @@ class MoexFragment : ScopedFragment(), KodeinAware {
     override val kodein by closestKodein()
     private val viewModelFactory: MoexViewModelFactory by instance()
 
-    private var myList: MutableList<MoexEntry> = ArrayList()
-    private var displayList: MutableList<MoexEntry> = ArrayList()
-    private lateinit var viewModel: MoexViewModel
+    lateinit var binding: FragmentMoexBinding
 
+    private var moexDataList: MutableList<MoexEntry> = ArrayList()
+    private var displayedMoexDataList: MutableList<MoexEntry> = ArrayList()
+    private lateinit var viewModel: MoexViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_moex, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_moex,
+            container,
+            false
+        )
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -94,20 +102,20 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
                 if (newText!!.isNotEmpty()) {
 
-                    displayList.clear()
+                    displayedMoexDataList.clear()
                     val search = newText.lowercase(Locale.getDefault())
 
-                    myList.forEach {
+                    moexDataList.forEach {
                         if (it.secId!!.lowercase(Locale.getDefault()).contains(newText) || it.secName!!.lowercase(Locale.getDefault())
                                 .contains(newText)
                         )
-                            displayList.add(it)
+                            displayedMoexDataList.add(it)
                     }
 
-                    initRecycleView(displayList.toMoexItems())
+                    initRecycleView(displayedMoexDataList.toMoexItems())
                 } else {
-                    displayList.clear()
-                    displayList.addAll(myList)
+                    displayedMoexDataList.clear()
+                    displayedMoexDataList.addAll(moexDataList)
                 }
 
                 return true
@@ -132,10 +140,10 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
             val size = it.currentMarketData.data.size
 
-            if (myList.isEmpty()) {
+            if (moexDataList.isEmpty()) {
                 for (i in 0 until size) {
                     //if (!it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty())
-                    myList.add(
+                    moexDataList.add(
                         MoexEntry(
                             it.currentMarketData.data[i][EnumMarketData.SECID.ordinal],
                             "",
@@ -147,22 +155,22 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                 }
             }
 
-            initRecycleView(myList.toMoexItems())
+            initRecycleView(moexDataList.toMoexItems())
 
             moexNetworkDataSource.downloadedSecurities.observe(viewLifecycleOwner, Observer {
                 if (it == null) return@Observer
 
                 viewModel.securitiesResponse = it
 
-                for (i in 0 until myList.size) {
-                    myList[i].secName = it.currentSecurities.data[i][EnumSecurities.SECNAME.ordinal]
+                for (i in 0 until moexDataList.size) {
+                    moexDataList[i].secName = it.currentSecurities.data[i][EnumSecurities.SECNAME.ordinal]
                 }
 
-                displayList.addAll(myList)
+                displayedMoexDataList.addAll(moexDataList)
 
-                initRecycleView(myList.toMoexItems())
+                initRecycleView(moexDataList.toMoexItems())
 
-                group_loading.visibility = View.GONE
+                binding.groupLoading.visibility = View.GONE
             })
         })
 
@@ -178,7 +186,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
             addAll(items.filter { it.moexEntry.secPrice != CONST_NOE_VALUE })
         }
 
-        recyclerView.apply {
+        binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MoexFragment.context)
             adapter = groupAdapter
         }
@@ -214,7 +222,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
                 when (which) {
                     EnumSortOptions.BY_WARPRICE.sortTypeOrder -> {
-                        displayList.clear()
+                        displayedMoexDataList.clear()
                         if (array[which][array[which].length - 1] == '↑') {
                             newList =
                                 viewModel.marketDataResponse.currentMarketData.data.sortedBy { it[EnumMarketData.WAPRICE.ordinal].toDouble() }
@@ -227,11 +235,11 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                         }
 
                         addElementsToDisplayList(newList)
-                        initRecycleView(displayList.toMoexItems())
+                        initRecycleView(displayedMoexDataList.toMoexItems())
                     }
 
                     EnumSortOptions.BY_DAY_CHANGE.sortTypeOrder -> {
-                        displayList.clear()
+                        displayedMoexDataList.clear()
 
 
                         if (array[which][array[which].length - 1] == '↑') {
@@ -246,11 +254,11 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                         }
 
                         addElementsToDisplayList(newList)
-                        initRecycleView(displayList.toMoexItems())
+                        initRecycleView(displayedMoexDataList.toMoexItems())
                     }
 
                     EnumSortOptions.BY_NAME.sortTypeOrder -> {
-                        displayList.clear()
+                        displayedMoexDataList.clear()
 
                         if (array[which][array[which].length - 1] == '↑') {
                             newList =
@@ -264,7 +272,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
                         }
 
                         addElementsToDisplayList(newList)
-                        initRecycleView(displayList.toMoexItems())
+                        initRecycleView(displayedMoexDataList.toMoexItems())
                     }
                 }
             })
@@ -280,7 +288,7 @@ class MoexFragment : ScopedFragment(), KodeinAware {
 
         for (i in list.indices) {
             if (!list[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty())
-                displayList.add(
+                displayedMoexDataList.add(
                     MoexEntry(
                         list[i][EnumMarketData.SECID.ordinal],
                         secList.find { it[0] == list[i][EnumMarketData.SECID.ordinal] }
