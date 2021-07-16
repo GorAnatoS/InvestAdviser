@@ -10,6 +10,7 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.animation.Easing
@@ -22,9 +23,9 @@ import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
+import com.invest.advisor.databinding.FragmentAnaliticsBinding
 import com.invest.advisor.ui.base.ScopedFragment
 import com.invest.advisor.ui.portfolio.PortfolioViewModel
-import kotlinx.android.synthetic.main.fragment_analitics.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -33,6 +34,7 @@ import org.kodein.di.android.x.closestKodein
 import java.util.*
 
 class AnaliticsFragment : ScopedFragment(), KodeinAware {
+    lateinit var binding: FragmentAnaliticsBinding
 
     override val kodein by closestKodein()
 
@@ -43,7 +45,14 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_analitics,
+            container,
+            false
+        )
+
         portfolioViewModel = ViewModelProvider(this).get(PortfolioViewModel::class.java)
 
         mYahooApiService = YahooApiService(ConnectivityInterceptorImpl(requireContext()))
@@ -52,15 +61,14 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
         pieEntries.clear()
         sectorEntries.clear()
 
-
-        return inflater.inflate(R.layout.fragment_analitics, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        pieChart.setNoDataText("Загружаем...")
-        sectorChart.setNoDataText("Загружаем...")
+        binding.pieChart.setNoDataText("Загружаем...")
+        binding.sectorChart.setNoDataText("Загружаем...")
 
         bindUI()
     }
@@ -76,81 +84,56 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
         dataSet.valueLinePart1Length = 0.2f
         dataSet.valueLinePart2Length = 0.4f
 
-        //dataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
         dataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-
-        //end new
 
         // add a lot of colors
         val colors = ArrayList<Int>()
 
         for (c in PIE_CHART_COLORS) colors.add(c)
-        //for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
-        //for (c in ColorTemplate.PASTEL_COLORS) colors.add(c) +
-        //colors.add(ColorTemplate.getHoloBlue())
 
         dataSet.colors = colors
 
         val data = PieData(dataSet)
 
-        /*data.setValueFormatter(PercentFormatter())
-        data.setValueTextSize(11f)
-        data.setValueTextColor(Color.WHITE)
-*/
         data.setValueFormatter(PercentFormatter())
         data.setValueTextSize(11f)
         data.setValueTextColor(Color.BLACK)
 
-        pieChart?.let {
-            pieChart.data = data
+        binding.pieChart.let {
+            binding.pieChart.data = data
 
             //todo
-            pieChart.setUsePercentValues(true)
-            pieChart.description.isEnabled = false
-            pieChart.dragDecelerationFrictionCoef = 0.95f
+            binding.pieChart.setUsePercentValues(true)
+            binding.pieChart.description.isEnabled = false
+            binding.pieChart.dragDecelerationFrictionCoef = 0.95f
 
-            pieChart.isDrawHoleEnabled = true
-            pieChart.setHoleColor(Color.WHITE)
+            binding.pieChart.isDrawHoleEnabled = true
+            binding.pieChart.setHoleColor(Color.WHITE)
 
-            pieChart.setTransparentCircleColor(Color.WHITE)
-            pieChart.setTransparentCircleAlpha(110)
+            binding.pieChart.setTransparentCircleColor(Color.WHITE)
+            binding.pieChart.setTransparentCircleAlpha(110)
 
-            pieChart.holeRadius = 58f
-            pieChart.transparentCircleRadius = 61f
+            binding.pieChart.holeRadius = 58f
+            binding.pieChart.transparentCircleRadius = 61f
 
-            pieChart.setDrawCenterText(true)
+            binding.pieChart.setDrawCenterText(true)
 
-            pieChart.rotationAngle = 0f
-            // enable rotation of the chart by touch
-            // enable rotation of the chart by touch
-            pieChart.isRotationEnabled = true
-            pieChart.isHighlightPerTapEnabled = true
+            binding.pieChart.rotationAngle = 0f
+            binding.pieChart.isRotationEnabled = true
+            binding.pieChart.isHighlightPerTapEnabled = true
 
-            // chart.setUnit(" €");
-            //chart.setExtraOffsets(5f, 10f, 5f, 5f)
-            pieChart.setExtraOffsets(20f, 5f, 20f, 5f)
-            pieChart.animateY(1400, Easing.EaseInOutQuad)
+            binding.pieChart.setExtraOffsets(20f, 5f, 20f, 5f)
+            binding.pieChart.animateY(1400, Easing.EaseInOutQuad)
 
-            // chart.spin(2000, 0, 360);
-/*        val l = chart.legend
-        l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-        l.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-        l.orientation = Legend.LegendOrientation.VERTICAL
-        l.setDrawInside(false)
-        l.xEntrySpace = 7f
-        l.yEntrySpace = 0f
-        l.yOffset = 0f*/
-
-            pieChart.legend.isEnabled = false
+            binding.pieChart.legend.isEnabled = false
 
             // entry label styling
-            pieChart.setEntryLabelColor(Color.WHITE)
-            //chart.setEntryLabelTypeface(tfRegular)
-            pieChart.setEntryLabelTextSize(12f)
+            binding.pieChart.setEntryLabelColor(Color.WHITE)
+            binding.pieChart.setEntryLabelTextSize(12f)
 
-            pieChart.centerText = generateCenterSpannableTextForPieChart()
+            binding.pieChart.centerText = generateCenterSpannableTextForPieChart()
 
-            if (data.entryCount > 0) pieChart.visibility = View.VISIBLE
+            if (data.entryCount > 0) binding.pieChart.visibility = View.VISIBLE
         }
 
     }
@@ -175,7 +158,6 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
             updatedSectorEntries.add(newEntry)
         }
 
-
         val dataSet = PieDataSet(updatedSectorEntries, "Sector`s portfolio")
 
         dataSet.setDrawIcons(false)
@@ -189,77 +171,53 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
         dataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
         dataSet.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
 
-        //end new
-
         // add a lot of colors
         val colors = ArrayList<Int>()
 
         for (c in PIE_CHART_COLORS) colors.add(c)
-        //for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
-        //for (c in ColorTemplate.PASTEL_COLORS) colors.add(c) +
-        //colors.add(ColorTemplate.getHoloBlue())
 
         dataSet.colors = colors
 
         val data = PieData(dataSet)
 
-        /*data.setValueFormatter(PercentFormatter())
-        data.setValueTextSize(11f)
-        data.setValueTextColor(Color.WHITE)
-*/
         data.setValueFormatter(PercentFormatter())
         data.setValueTextSize(11f)
         data.setValueTextColor(Color.BLACK)
 
-        sectorChart.data = data
+        binding.sectorChart.data = data
 
-        //todo
-        sectorChart.setUsePercentValues(true)
-        sectorChart.description.isEnabled = false
-        sectorChart.dragDecelerationFrictionCoef = 0.95f
+        binding.sectorChart.setUsePercentValues(true)
+        binding.sectorChart.description.isEnabled = false
+        binding.sectorChart.dragDecelerationFrictionCoef = 0.95f
 
-        sectorChart.isDrawHoleEnabled = true
-        sectorChart.setHoleColor(Color.WHITE)
+        binding.sectorChart.isDrawHoleEnabled = true
+        binding.sectorChart.setHoleColor(Color.WHITE)
 
-        sectorChart.setTransparentCircleColor(Color.WHITE)
-        sectorChart.setTransparentCircleAlpha(110)
+        binding.sectorChart.setTransparentCircleColor(Color.WHITE)
+        binding.sectorChart.setTransparentCircleAlpha(110)
 
-        sectorChart.holeRadius = 58f
-        sectorChart.transparentCircleRadius = 61f
+        binding.sectorChart.holeRadius = 58f
+        binding.sectorChart.transparentCircleRadius = 61f
 
-        sectorChart.setDrawCenterText(true)
+        binding.sectorChart.setDrawCenterText(true)
 
-        sectorChart.rotationAngle = 0f
+        binding.sectorChart.rotationAngle = 0f
         // enable rotation of the chart by touch
-        // enable rotation of the chart by touch
-        sectorChart.isRotationEnabled = true
-        sectorChart.isHighlightPerTapEnabled = true
+        binding.sectorChart.isRotationEnabled = true
+        binding.sectorChart.isHighlightPerTapEnabled = true
 
-        //chart.setUnit(" €");
-        //chart.setExtraOffsets(5f, 10f, 5f, 5f)
-        sectorChart.setExtraOffsets(20f, 5f, 20f, 5f)
-        sectorChart.animateY(1400, Easing.EaseInOutQuad)
+        binding.sectorChart.setExtraOffsets(20f, 5f, 20f, 5f)
+        binding.sectorChart.animateY(1400, Easing.EaseInOutQuad)
 
-        // chart.spin(2000, 0, 360);
-/*        val l = chart.legend
-        l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-        l.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-        l.orientation = Legend.LegendOrientation.VERTICAL
-        l.setDrawInside(false)
-        l.xEntrySpace = 7f
-        l.yEntrySpace = 0f
-        l.yOffset = 0f*/
-
-        sectorChart.legend.isEnabled = false
+        binding.sectorChart.legend.isEnabled = false
 
         // entry label styling
-        sectorChart.setEntryLabelColor(Color.BLACK)
-        //chart.setEntryLabelTypeface(tfRegular)
-        sectorChart.setEntryLabelTextSize(12f)
+        binding.sectorChart.setEntryLabelColor(Color.BLACK)
+        binding.sectorChart.setEntryLabelTextSize(12f)
 
-        sectorChart.centerText = generateCenterSpannableTextForSectors()
+        binding.sectorChart.centerText = generateCenterSpannableTextForSectors()
 
-        if (data.entryCount > 0) sectorChart.visibility = View.VISIBLE
+        if (data.entryCount > 0) binding.sectorChart.visibility = View.VISIBLE
     }
 
     fun generateCenterSpannableTextForPieChart(): SpannableString? {
@@ -388,8 +346,8 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
                     )
                 )
 
-                text_analitics.text =
-                    text_analitics.text.toString() + symb + " " + sectorEntries[index].first.toString() + " " + sectorEntries[index].second + '\n'//it.quoteSummary.result[0].price?.shortName + " " + it.quoteSummary.result[0].assetProfile?.industry + "  " + it.quoteSummary.result[0].assetProfile?.sector + " " + it.quoteSummary.result[0].financialData?.currentPrice?.fmt + '\n'
+                binding.textAnalitics.text =
+                    binding.textAnalitics.text.toString() + symb + " " + sectorEntries[index].first.toString() + " " + sectorEntries[index].second + '\n'//it.quoteSummary.result[0].price?.shortName + " " + it.quoteSummary.result[0].assetProfile?.industry + "  " + it.quoteSummary.result[0].assetProfile?.sector + " " + it.quoteSummary.result[0].financialData?.currentPrice?.fmt + '\n'
             }
 
             setSectorsChart()
