@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.invest.advisor.R
-import com.invest.advisor.data.db.entity.UserPortfolioEntry
+import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.databinding.FragmentMoexDetailBinding
 import com.invest.advisor.internal.Helper
 import com.invest.advisor.ui.portfolio.PortfolioViewModel

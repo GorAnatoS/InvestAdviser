@@ -8,6 +8,8 @@ import com.invest.advisor.internal.NoConnectivityException
 import okhttp3.Interceptor
 import okhttp3.Response
 
+//Class for no_internet_connection handling
+
 class ConnectivityInterceptorImpl(
     context: Context
 ) : ConnectivityInterceptor {

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.portfolio_card_item.*
 
 
 open class CardItem(
-    val entryDatabase: UserPortfolioEntry,
+    val database: UserPortfolioEntry,
     val entryMarketData: List<String>,
     @DrawableRes private val iconResId: Int? = null,
     private val onIconClickListener: View.OnClickListener? = null
@@ -30,18 +30,18 @@ open class CardItem(
     }
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.tvPurchaseDate.text = Helper.getFormattedDateString(entryDatabase.secPurchaseDate)
-        viewHolder.tvPrice.text = entryDatabase.secPrice + "₽"
-        viewHolder.tvQuantity.text = entryDatabase.secQuantity.toString() + " шт. ⋄"
+        viewHolder.tvPurchaseDate.text = Helper.getFormattedDateString(database.secPurchaseDate)
+        viewHolder.tvPrice.text = database.secPrice + "₽"
+        viewHolder.tvQuantity.text = database.secQuantity.toString() + " шт. ⋄"
 
         var currentPrice =
-            (entryDatabase.secQuantity.toDouble() * entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble())
+            (database.secQuantity.toDouble() * entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble())
         currentPrice = Math.round(currentPrice * 100.0) / 100.0
 
-        var oldPrice = entryDatabase.secPrice.toDouble() * entryDatabase.secQuantity.toDouble()
+        var oldPrice = database.secPrice.toDouble() * database.secQuantity.toDouble()
 
         var changePcnt =
-            (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() - entryDatabase.secPrice.toDouble()) / entryDatabase.secPrice.toDouble() * 100
+            (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() - database.secPrice.toDouble()) / database.secPrice.toDouble() * 100
         changePcnt = Math.round(changePcnt * 100.0) / 100.0
 
         var changePrice = currentPrice - oldPrice

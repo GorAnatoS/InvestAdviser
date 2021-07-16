@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.portfolio_header_item.*
 import kotlin.math.roundToInt
 
 open class HeaderItem(
-    val entryDatabase: UserPortfolioEntry,
+    val database: UserPortfolioEntry,
     val entryMarketData: List<String>,
     @DrawableRes private val iconResId: Int? = null,
     private val onIconClickListener: View.OnClickListener? = null
@@ -23,21 +23,21 @@ open class HeaderItem(
     }
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.tvPurchaseDate.text = entryDatabase.secId
+        viewHolder.tvPurchaseDate.text = database.secId
         viewHolder.tvPrice.text = entryMarketData[EnumMarketData.WAPRICE.ordinal] + "₽"
-        viewHolder.tvQuantity.text = entryDatabase.secQuantity.toString() + " шт. ⋄"
+        viewHolder.tvQuantity.text = database.secQuantity.toString() + " шт. ⋄"
         viewHolder.tvCurrentPrice.text =
-            (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() * entryDatabase.secQuantity.toDouble()).toString()
+            (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() * database.secQuantity.toDouble()).toString()
 
         var currentPrice =
-            (entryDatabase.secQuantity.toDouble() * entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble())
+            (database.secQuantity.toDouble() * entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble())
         currentPrice = (currentPrice * 100.0).roundToInt() / 100.0
         viewHolder.tvCurrentPrice.text = currentPrice.toString()
 
-        var oldPrice = entryDatabase.secPrice.toDouble() * entryDatabase.secQuantity.toDouble()
+        var oldPrice = database.secPrice.toDouble() * database.secQuantity.toDouble()
 
         var changePcnt =
-            (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() - entryDatabase.secPrice.toDouble()) / entryDatabase.secPrice.toDouble() * 100
+            (entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble() - database.secPrice.toDouble()) / database.secPrice.toDouble() * 100
         changePcnt = (changePcnt * 100.0).roundToInt() / 100.0
 
         var changePrice = currentPrice - oldPrice

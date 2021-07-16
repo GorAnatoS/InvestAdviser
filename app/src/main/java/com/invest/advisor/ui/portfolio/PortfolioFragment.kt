@@ -14,7 +14,7 @@ import com.invest.advisor.R
 import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.entity.UserPortfolioEntry
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
-import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
+import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.moexResponse.MarketDataResponse
 import com.invest.advisor.data.network.moexResponse.MoexApiService
 import com.invest.advisor.databinding.FragmentPortfolioBinding
@@ -124,17 +124,17 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
             //expandable list setting
             val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()
-            val headerList = cardItemList.toList().groupBy { it.entryDatabase.secId }
+            val headerList = cardItemList.toList().groupBy { it.database.secId }
 
             for (j in headerList.values) {
 
                 var newItem = ExpandablePortfolioItem(
                     UserPortfolioEntry(
-                        j[0].entryDatabase.id,
-                        j[0].entryDatabase.secId,
-                        j[0].entryDatabase.secPrice,
-                        j[0].entryDatabase.secQuantity,
-                        j[0].entryDatabase.secPurchaseDate
+                        j[0].database.id,
+                        j[0].database.secId,
+                        j[0].database.secPrice,
+                        j[0].database.secQuantity,
+                        j[0].database.secPurchaseDate
                     ),
                     j[0].entryMarketData,
                     j.size > 1
@@ -143,11 +143,11 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                 for (k in j.subList(1, j.size)) {
                     newItem = ExpandablePortfolioItem(
                         UserPortfolioEntry(
-                            k.entryDatabase.id,
-                            k.entryDatabase.secId,
-                            ((newItem.entryDatabase.secPrice.toDouble() + k.entryDatabase.secPrice.toDouble()) / 2).toString(),
-                            newItem.entryDatabase.secQuantity + k.entryDatabase.secQuantity,
-                            k.entryDatabase.secPurchaseDate
+                            k.database.id,
+                            k.database.secId,
+                            ((newItem.database.secPrice.toDouble() + k.database.secPrice.toDouble()) / 2).toString(),
+                            newItem.database.secQuantity + k.database.secQuantity,
+                            k.database.secPurchaseDate
                         ),
                         k.entryMarketData,
                         newItem.isExpandable
@@ -167,21 +167,21 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
 
                     groupIndex = index
-                    groupShareName = expandableItem.entryDatabase.secId
+                    groupShareName = expandableItem.database.secId
 
                     findNavController().navigate(
                         PortfolioFragmentDirections.actionPortfolioFragmentToDetailedPortfolioItem(
-                            expandableItem.entryDatabase.secId
+                            expandableItem.database.secId
                         )
                     )
                 }
 
                 groupAdapter += ExpandableGroup(expandableItem).apply {
                     for (item in cardItemList) {
-                        if (item.entryDatabase.secId == expandableItem.entryDatabase.secId)
+                        if (item.database.secId == expandableItem.database.secId)
                             add(
                                 CardItem(
-                                    item.entryDatabase,
+                                    item.database,
                                     item.entryMarketData
                                 )
                             )

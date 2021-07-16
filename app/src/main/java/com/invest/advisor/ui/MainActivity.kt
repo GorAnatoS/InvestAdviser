@@ -11,7 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.invest.advisor.R
 
 /*
-MainActivity class where we setting up navigationController component and bottomNavigationBar
+MainActivity class where we setting up navigationController and bottomNavigationBar
  */
 
 class MainActivity : AppCompatActivity() {

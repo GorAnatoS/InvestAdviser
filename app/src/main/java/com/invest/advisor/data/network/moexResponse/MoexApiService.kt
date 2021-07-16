@@ -1,6 +1,5 @@
 package com.invest.advisor.data.network.moexResponse
 
-//import com.invest.advisor.data.db.entity.MOEXdata
 import com.invest.advisor.data.network.ConnectivityInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred

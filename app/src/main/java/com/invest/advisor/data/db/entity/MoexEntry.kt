@@ -1,6 +1,6 @@
 package com.invest.advisor.data.db.entity
 
-//entry for MoexFragment with list of MOEX entries
+//entry for RecycleView in MoexFragment with only necessary data
 
 data class MoexEntry(
     val secId: String?,

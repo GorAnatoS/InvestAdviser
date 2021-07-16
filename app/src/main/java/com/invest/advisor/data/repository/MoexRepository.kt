@@ -6,7 +6,7 @@ import com.invest.advisor.data.db.entity.Securities
 
 
 /**
- * Created by qsufff on 7/29/2020.
+ * MoexRepository interface
  */
 
 interface MoexRepository {

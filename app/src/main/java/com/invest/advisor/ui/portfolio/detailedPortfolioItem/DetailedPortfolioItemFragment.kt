@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.slider.Slider
 import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
-import com.invest.advisor.data.network.YahooNetworkDataSourceImpl
+import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.internal.Helper
 import com.invest.advisor.ui.base.ScopedFragment

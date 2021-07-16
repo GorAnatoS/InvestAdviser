@@ -14,9 +14,7 @@ import retrofit2.http.Path
  * Created by qsufff on 7/26/2020.
  */
 
-
 //https://query1.finance.yahoo.com/v10/finance/quoteSummary/YNDX.ME?modules=assetProfile%2CfinancialData%2Cprice
-
 
 interface YahooApiService {
     @GET("{assetName}?modules=assetProfile%2CfinancialData%2Cprice")

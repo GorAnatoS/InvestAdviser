@@ -2,7 +2,7 @@ package com.invest.advisor.ui.analitics
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.invest.advisor.data.network.YahooNetworkDataSource
+import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSource
 
 
 /**

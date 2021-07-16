@@ -9,7 +9,7 @@ import kotlin.coroutines.CoroutineContext
 
 
 /**
- * Created by qsufff on 7/29/2020.
+ * Base class for all Fragments to auto control scopes and jobs
  */
 
 abstract class ScopedFragment : Fragment(), CoroutineScope {
@@ -27,5 +27,4 @@ abstract class ScopedFragment : Fragment(), CoroutineScope {
         super.onDestroy()
         job.cancel()
     }
-
 }

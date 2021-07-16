@@ -1,10 +1,10 @@
 package com.invest.advisor.data.repository
 
 import androidx.lifecycle.LiveData
-import com.invest.advisor.data.db.databese.moex.MoexDatabaseDao
+import com.invest.advisor.data.db.database.moex.MoexDatabaseDao
 import com.invest.advisor.data.db.entity.MarketData
 import com.invest.advisor.data.db.entity.Securities
-import com.invest.advisor.data.network.MoexNetworkDataSource
+import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSource
 import com.invest.advisor.data.network.moexResponse.MarketDataResponse
 import com.invest.advisor.data.network.moexResponse.SecuritiesResponse
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +12,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.threeten.bp.ZonedDateTime
+
+/*
+* MOEX_Repository implementation
+* */
 
 class MoexRepositoryImpl(
     private val moexDatabaseDao: MoexDatabaseDao,
@@ -58,7 +62,6 @@ class MoexRepositoryImpl(
         }
     }
 
-    // TODO: 7/29/2020 c securities не надо, надо с маркетдата
     private suspend fun fetchSecurities() {
         moexNetworkDataSource.fetchSecurities()
     }
@@ -84,6 +87,7 @@ class MoexRepositoryImpl(
         moexNetworkDataSource.fetchMarketData()
     }
 
+    //update data every minute
     private fun isFetchMarketDataNeeded(lastFetchTime: ZonedDateTime): Boolean {
         val oneMinuteAgo = ZonedDateTime.now().minusMinutes(1)
         return lastFetchTime.isBefore(oneMinuteAgo)

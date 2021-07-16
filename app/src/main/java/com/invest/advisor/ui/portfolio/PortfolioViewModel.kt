@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.invest.advisor.data.db.databese.userPortfolio.UserPortfolio
-import com.invest.advisor.data.db.entity.UserPortfolioEntry
+import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioDatabase
+import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.repository.UserPortfolioRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class PortfolioViewModel(application: Application) : AndroidViewModel(applicatio
     var allData: LiveData<List<UserPortfolioEntry>>
 
     init {
-        val userPortfolioDao = UserPortfolio.getInstance(application).userPortfolioDao
+        val userPortfolioDao = UserPortfolioDatabase.getInstance(application).userPortfolioDao
         repository = UserPortfolioRepository(userPortfolioDao)
         allData = repository.allData
     }
@@ -34,6 +34,5 @@ class PortfolioViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun delete(userPortfolioEntry: UserPortfolioEntry) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(userPortfolioEntry)
-        //allData = repository.allData
     }
 }

@@ -20,7 +20,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
-import com.invest.advisor.data.network.YahooNetworkDataSourceImpl
+import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.ui.base.ScopedFragment
 import com.invest.advisor.ui.portfolio.PortfolioViewModel

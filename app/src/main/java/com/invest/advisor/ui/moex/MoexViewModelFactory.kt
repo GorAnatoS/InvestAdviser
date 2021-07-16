@@ -2,7 +2,7 @@ package com.invest.advisor.ui.moex
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.invest.advisor.data.network.MoexNetworkDataSource
+import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSource
 
 
 /**

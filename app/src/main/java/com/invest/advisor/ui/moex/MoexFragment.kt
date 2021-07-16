@@ -15,7 +15,7 @@ import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.entity.EnumSecurities
 import com.invest.advisor.data.db.entity.MoexEntry
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
-import com.invest.advisor.data.network.MoexNetworkDataSourceImpl
+import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.moexResponse.MoexApiService
 import com.invest.advisor.ui.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
