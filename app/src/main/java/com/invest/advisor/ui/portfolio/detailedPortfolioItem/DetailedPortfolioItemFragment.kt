@@ -3,6 +3,7 @@ package com.invest.advisor.ui.portfolio.detailedPortfolioItem
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.slider.Slider
@@ -10,9 +11,9 @@ import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
+import com.invest.advisor.databinding.DetailedPortfolioItemFragmentBinding
 import com.invest.advisor.internal.MathHelper
 import com.invest.advisor.ui.base.ScopedFragment
-import kotlinx.android.synthetic.main.detailed_portfolio_item_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -21,6 +22,8 @@ import org.kodein.di.android.x.closestKodein
 private const val ARG_PARAM1 = "secId"
 
 class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
+
+    lateinit var binding: DetailedPortfolioItemFragmentBinding
 
     // var resultDeleted: Boolean = false
     override val kodein by closestKodein()
@@ -63,8 +66,14 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.detailed_portfolio_item_fragment, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.detailed_portfolio_item_fragment,
+            container,
+            false
+        )
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -107,71 +116,71 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
         mYahooNetworkDataSource.downloadedYahooResponse.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
 
-            group_loading.visibility = View.GONE
+            binding.groupLoading.visibility = View.GONE
 
-            tvName.visibility = View.VISIBLE
-            tvCurrentPrice.visibility = View.VISIBLE
-            sliderDayPriceRange.visibility = View.VISIBLE
-            tvRegularMarketDayLow.visibility = View.VISIBLE
-            tvRegularMarketDayHigh.visibility = View.VISIBLE
-            tvPrevClose.visibility = View.VISIBLE
-            tvOpen.visibility = View.VISIBLE
-            tvVolume.visibility = View.VISIBLE
-            tvMarketCap.visibility = View.VISIBLE
-            tvBeta.visibility = View.VISIBLE
-            tvROE.visibility = View.VISIBLE
-            tvROA.visibility = View.VISIBLE
-            tvPrevCloseVal.visibility = View.VISIBLE
-            tvOpenVal.visibility = View.VISIBLE
-            tvVolumeVal.visibility = View.VISIBLE
-            tvMarketCapVal.visibility = View.VISIBLE
-            tvBetaVal.visibility = View.VISIBLE
-            tvROEVal.visibility = View.VISIBLE
-            tvROAVal.visibility = View.VISIBLE
+            binding.tvName.visibility = View.VISIBLE
+            binding.tvCurrentPrice.visibility = View.VISIBLE
+            binding.sliderDayPriceRange.visibility = View.VISIBLE
+            binding.tvRegularMarketDayLow.visibility = View.VISIBLE
+            binding.tvRegularMarketDayHigh.visibility = View.VISIBLE
+            binding.tvPrevClose.visibility = View.VISIBLE
+            binding.tvOpen.visibility = View.VISIBLE
+            binding.tvVolume.visibility = View.VISIBLE
+            binding.tvMarketCap.visibility = View.VISIBLE
+            binding.tvBeta.visibility = View.VISIBLE
+            binding.tvROE.visibility = View.VISIBLE
+            binding.tvROA.visibility = View.VISIBLE
+            binding.tvPrevCloseVal.visibility = View.VISIBLE
+            binding.tvOpenVal.visibility = View.VISIBLE
+            binding.tvVolumeVal.visibility = View.VISIBLE
+            binding.tvMarketCapVal.visibility = View.VISIBLE
+            binding.tvBetaVal.visibility = View.VISIBLE
+            binding.tvROEVal.visibility = View.VISIBLE
+            binding.tvROEVal.visibility = View.VISIBLE
 
 
-            tvName.text = it.quoteSummary.result[0].price.shortName
+            binding.tvName.text = it.quoteSummary.result[0].price.shortName
 
-            tvCurrentPrice.text =
+            binding.tvCurrentPrice.text =
                 it.quoteSummary.result[0].price.regularMarketPrice.raw.toString() + " (" +
                         MathHelper.roundOffDecimal(it.quoteSummary.result[0].price.regularMarketChange.raw)
                             .toString() + ", " +
                         MathHelper.roundOffDecimal(it.quoteSummary.result[0].price.regularMarketChangePercent.raw)
                             .toString() + "%)"
 
-            sliderDayPriceRange.apply {
+            binding.sliderDayPriceRange.apply {
                 valueFrom = it.quoteSummary.result[0].price.regularMarketDayLow.raw.toFloat()
                 valueTo = it.quoteSummary.result[0].price.regularMarketDayHigh.raw.toFloat()
                 value = it.quoteSummary.result[0].price.regularMarketPrice.raw.toFloat()
 
 
 
-                tvRegularMarketDayHigh.text =
+                binding.tvRegularMarketDayHigh.text =
                     it.quoteSummary.result[0].price.regularMarketDayHigh.raw.toString()
-                tvRegularMarketDayLow.text =
+                binding.tvRegularMarketDayLow.text =
                     it.quoteSummary.result[0].price.regularMarketDayLow.raw.toString()
             }
 
-            sliderDayPriceRange.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+            binding.sliderDayPriceRange.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
                 override fun onStartTrackingTouch(slider: Slider) {
                     //println("Start Tracking Touch")
                 }
 
                 override fun onStopTrackingTouch(slider: Slider) {
-                    sliderDayPriceRange.value =
+                    binding.sliderDayPriceRange.value =
                         it.quoteSummary.result[0].price.regularMarketPrice.raw.toFloat()
                 }
             })
 
             // TODO: 11/16/2020 изменить бэкграунд при нажджатии на слайдер
 
-            tvPrevCloseVal.text = it.quoteSummary.result[0].price.regularMarketPreviousClose.fmt
-            tvOpenVal.text = it.quoteSummary.result[0].price.regularMarketOpen.fmt
-            tvVolumeVal.text = it.quoteSummary.result[0].price.regularMarketVolume.fmt
-            tvMarketCapVal.text = it.quoteSummary.result[0].price.marketCap.fmt
-            tvBetaVal.text = it.quoteSummary.result[0].financialData.currentRatio.fmt
-            tvROEVal.text = it.quoteSummary.result[0].financialData.returnOnEquity.fmt
-            tvROAVal.text = it.quoteSummary.result[0].financialData.returnOnAssets.fmt
+            binding.tvPrevCloseVal.text = it.quoteSummary.result[0].price.regularMarketPreviousClose.fmt
+            binding.tvOpenVal.text = it.quoteSummary.result[0].price.regularMarketOpen.fmt
+            binding.tvVolumeVal.text = it.quoteSummary.result[0].price.regularMarketVolume.fmt
+            binding.tvMarketCapVal.text = it.quoteSummary.result[0].price.marketCap.fmt
+            binding.tvBetaVal.text = it.quoteSummary.result[0].financialData.currentRatio.fmt
+            binding.tvROEVal.text = it.quoteSummary.result[0].financialData.returnOnEquity.fmt
+            binding.tvROAVal.text = it.quoteSummary.result[0].financialData.returnOnAssets.fmt
         })
 
         if (hasOptionMenu) setHasOptionsMenu(true)
