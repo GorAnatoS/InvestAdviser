@@ -27,9 +27,6 @@ import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.groupiex.plusAssign
-import kotlinx.android.synthetic.main.content_fragment_portfolio.*
-import kotlinx.android.synthetic.main.content_fragment_portfolio.view.*
-import kotlinx.android.synthetic.main.fragment_portfolio.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -72,8 +69,8 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         bindingPortfolio.lifecycleOwner = this
 
         val newNumOfShares = Observer<Int> { newNum ->
-            textView_analize.isClickable = newNum > 0
-            textView_analize.isVisible = newNum > 0
+            bindingPortfolio.textViewAnalize.isClickable = newNum > 0
+            bindingPortfolio.textViewAnalize.isVisible = newNum > 0
         }
 
         portfolioViewModel.numOfShares.observe(viewLifecycleOwner, newNumOfShares)
@@ -97,12 +94,12 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
     private fun bindUI() = launch {
 
-        textView_add.setOnClickListener {
+        bindingPortfolio.textViewAdd.setOnClickListener {
             Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
                 .navigate(R.id.moexFragment)
         }
 
-        textView_analize.setOnClickListener {
+        bindingPortfolio.textViewAnalize.setOnClickListener {
             Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
                 .navigate(R.id.analiticsFragment)
         }
@@ -117,7 +114,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
             groupAdapter.clear()
 
-            textView_add.visibility = View.VISIBLE
+            bindingPortfolio.textViewAdd.visibility = View.VISIBLE
 
 
             calculatePortfolio()
@@ -229,9 +226,9 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                     }
                 }
 
-            app_bar.visibility = View.VISIBLE
-            items_container.visibility = View.VISIBLE
-            group_loading.visibility = View.GONE
+            bindingPortfolio.appBar.visibility = View.VISIBLE
+            bindingPortfolio.include.itemsContainer.visibility = View.VISIBLE
+            bindingPortfolio.include.groupLoading.visibility = View.GONE
         })
 
         GlobalScope.launch(Dispatchers.Main) {
