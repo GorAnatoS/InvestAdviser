@@ -13,14 +13,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.threeten.bp.ZonedDateTime
 
-/*
-* MOEX_Repository implementation
-* */
-
-class MoexRepositoryImpl(
+/**
+ * Implementation of [MoexSecuritiesRepositoryInterface]
+ */
+class MoexSecuritiesRepository(
     private val moexDatabaseDao: MoexDatabaseDao,
     private val moexNetworkDataSource: MoexNetworkDataSource
-) : MoexRepository {
+) : MoexSecuritiesRepositoryInterface {
 
     init {
         moexNetworkDataSource.apply {
@@ -92,4 +91,12 @@ class MoexRepositoryImpl(
         val oneMinuteAgo = ZonedDateTime.now().minusMinutes(1)
         return lastFetchTime.isBefore(oneMinuteAgo)
     }
+}
+
+/**
+ * MoexRepository interface
+ */
+interface MoexSecuritiesRepositoryInterface {
+    suspend fun getMarketData(): LiveData<List<MarketData>>
+    suspend fun getSecurities(): LiveData<List<Securities>>
 }

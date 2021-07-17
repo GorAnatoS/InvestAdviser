@@ -10,8 +10,8 @@ import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSource
 import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
-import com.invest.advisor.data.repository.MoexRepository
-import com.invest.advisor.data.repository.MoexRepositoryImpl
+import com.invest.advisor.data.repository.MoexSecuritiesRepositoryInterface
+import com.invest.advisor.data.repository.MoexSecuritiesRepository
 import com.invest.advisor.ui.moexsecurities.MoexViewModelFactory
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
@@ -41,7 +41,7 @@ class InvestAdviserApplication : Application(), KodeinAware {
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
         bind() from singleton { MoexApiService(instance()) }
         bind<MoexNetworkDataSource>() with singleton { MoexNetworkDataSourceImpl(instance()) }
-        bind<MoexRepository>() with singleton { MoexRepositoryImpl(instance(), instance()) }
+        bind<MoexSecuritiesRepositoryInterface>() with singleton { MoexSecuritiesRepository(instance(), instance()) }
         bind() from provider { MoexViewModelFactory(instance()) }
 
         bind() from singleton { YahooApiService(instance()) }

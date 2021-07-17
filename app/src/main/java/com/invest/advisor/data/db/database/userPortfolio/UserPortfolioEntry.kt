@@ -4,12 +4,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-/*
-Entries of user's portfolio that contains:
-secId - short name of share
-secPrice - what price was when share was bought
-secQuantity - how many share user bought
-secPurchaseDate - when user bought share
+/**
+ * Entries of user's portfolio that contains:
+ * secId - short name of share
+ * secPrice - what price was when share was bought
+ * secQuantity - how many share user bought
+ * secPurchaseDate - when user bought share
 */
 
 @Entity(tableName = USER_PORTFOLIO_TABLE_NAME)
@@ -40,5 +40,3 @@ const val secPrice_COLUMN = "secPrice"
 const val secQuantity_COLUMN = "Quantity"
 
 const val USER_PORTFOLIO_DATABASE_VERSION = 1
-
-
