@@ -55,9 +55,9 @@ class CommonDetailedMoexItem : ScopedFragment() {
 
             override fun createFragment(position: Int): Fragment {
                 return when (position) {
-                    0 -> DetailedMoexItemFragment.newInstance(secId, secPrice!!)
+                    0 -> AddMoexItemToPortfolioFragment.newInstance(secId, secPrice!!)
                     1 -> DetailedPortfolioItemFragment.newInstance(secId)
-                    else -> DetailedMoexItemFragment.newInstance(secId, secPrice!!)
+                    else -> AddMoexItemToPortfolioFragment.newInstance(secId, secPrice!!)
                 }
             }
         }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,8 +21,8 @@ import com.invest.advisor.ui.portfolio.PortfolioViewModel
 private const val ARG_PARAM1 = "secId"
 private const val ARG_PARAM2 = "secPrice"
 
-class DetailedMoexItemFragment : Fragment() {
-    private lateinit var rootView: FragmentAddShareBinding
+class AddMoexItemToPortfolioFragment : Fragment() {
+    private lateinit var binding: FragmentAddShareBinding
     private lateinit var viewModel: PortfolioViewModel
 
     private var secId: String? = null
@@ -46,7 +47,7 @@ class DetailedMoexItemFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView =
+        binding =
             DataBindingUtil.inflate(
                 inflater,
                 R.layout.fragment_add_share,
@@ -54,7 +55,7 @@ class DetailedMoexItemFragment : Fragment() {
                 false
             )
 
-        rootView.tvDateVal.text = getFormattedDateString()
+        binding.tvDateVal.text = getFormattedDateString()
         formattedDateLong = formattedDateStringToFormattedDateLong(getFormattedDateString())
 
         val builder = MaterialDatePicker.Builder.datePicker()
@@ -62,15 +63,15 @@ class DetailedMoexItemFragment : Fragment() {
         val materialDatePicker = builder.build()
 
         materialDatePicker.addOnPositiveButtonClickListener {
-            rootView.tvDateVal.text = getFormattedDateString(it)
+            binding.tvDateVal.text = getFormattedDateString(it)
             formattedDateLong = it
         }
 
-        rootView.tvDateVal.setOnClickListener {
+        binding.tvDateVal.setOnClickListener {
             materialDatePicker.show(parentFragmentManager, "DATE_PICKER")
         }
 
-        rootView.apply {
+        binding.apply {
             textTitle.text =
                 textTitle.text.toString()
                     .replace("ХХ", secId!!, true)
@@ -78,12 +79,12 @@ class DetailedMoexItemFragment : Fragment() {
 
             textViewTotalMoneyIs.text =
                 (editTextQuantity.text.toString()
-                    .toDouble() * rootView.editTextPrice.text.toString()
+                    .toDouble() * binding.editTextPrice.text.toString()
                     .toDouble()).toString()
 
             editTextPrice.doAfterTextChanged {
                 if (editTextPrice.text.isNotEmpty() && editTextQuantity.text.isNotEmpty())
-                    textViewTotalMoneyIs.text = (rootView.editTextQuantity.text.toString()
+                    textViewTotalMoneyIs.text = (binding.editTextQuantity.text.toString()
                         .toDouble() * editTextPrice.text.toString()
                         .toDouble()).toString()
             }
@@ -128,13 +129,13 @@ class DetailedMoexItemFragment : Fragment() {
 
             }
         }
-        return rootView.root
+        return binding.root
     }
 
     companion object {
         @JvmStatic
         fun newInstance(secId: String?, secPrice: String) =
-            DetailedMoexItemFragment().apply {
+            AddMoexItemToPortfolioFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, secId)
                     putString(ARG_PARAM2, secPrice)
