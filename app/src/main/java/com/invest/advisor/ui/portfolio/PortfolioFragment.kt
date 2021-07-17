@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.db.entity.EnumMarketData
-import com.invest.advisor.data.network.ConnectivityInterceptorImpl
+import com.invest.advisor.data.network.ConnectivityInterceptor
 import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.moexResponse.MarketDataResponse
 import com.invest.advisor.data.network.moexResponse.MoexApiService
@@ -104,7 +104,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                 .navigate(R.id.analiticsFragment)
         }
 
-        val mIssApiService = MoexApiService(ConnectivityInterceptorImpl(requireContext()))
+        val mIssApiService = MoexApiService(ConnectivityInterceptor(requireContext()))
         val moexNetworkDataSource = MoexNetworkDataSourceImpl(mIssApiService)
 
         moexNetworkDataSource.downloadedMarketData.observe(viewLifecycleOwner, Observer { it ->

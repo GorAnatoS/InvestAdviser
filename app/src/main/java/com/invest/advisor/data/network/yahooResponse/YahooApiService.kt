@@ -1,6 +1,6 @@
 package com.invest.advisor.data.network.yahooResponse
 
-import com.invest.advisor.data.network.ConnectivityInterceptor
+import com.invest.advisor.data.network.ConnectivityInterceptorInterface
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -24,7 +24,7 @@ interface YahooApiService {
 
     companion object {
         operator fun invoke(
-            connectivityInterceptor: ConnectivityInterceptor
+            connectivityInterceptor: ConnectivityInterceptorInterface
         ): YahooApiService {
             val requestInterceptor = Interceptor { chain ->
                 val url = chain.request()

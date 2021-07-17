@@ -20,7 +20,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.invest.advisor.R
-import com.invest.advisor.data.network.ConnectivityInterceptorImpl
+import com.invest.advisor.data.network.ConnectivityInterceptor
 import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.databinding.FragmentAnaliticsBinding
@@ -63,7 +63,7 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
 
         viewModel = ViewModelProvider(this).get(AnaliticsViewModel::class.java)
 
-        mYahooApiService = YahooApiService(ConnectivityInterceptorImpl(requireContext()))
+        mYahooApiService = YahooApiService(ConnectivityInterceptor(requireContext()))
         mYahooNetworkDataSource = YahooNetworkDataSourceImpl(mYahooApiService)
 
         pieEntries.clear()

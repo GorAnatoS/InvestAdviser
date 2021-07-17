@@ -38,7 +38,7 @@ class InvestAdviserApplication : Application(), KodeinAware {
 
         bind() from singleton { MoexDatabase(instance()) }
         bind() from singleton { instance<MoexDatabase>().moexDao() }
-        bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
+        bind<ConnectivityInterceptorInterface>() with singleton { ConnectivityInterceptor(instance()) }
         bind() from singleton { MoexApiService(instance()) }
         bind<MoexNetworkDataSource>() with singleton { MoexNetworkDataSourceImpl(instance()) }
         bind<MoexSecuritiesRepositoryInterface>() with singleton { MoexSecuritiesRepository(instance(), instance()) }

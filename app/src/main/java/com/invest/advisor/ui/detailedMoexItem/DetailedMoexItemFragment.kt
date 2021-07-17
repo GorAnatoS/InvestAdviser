@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.slider.Slider
 import com.invest.advisor.R
-import com.invest.advisor.data.network.ConnectivityInterceptorImpl
+import com.invest.advisor.data.network.ConnectivityInterceptor
 import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.databinding.DetailedPortfolioItemFragmentBinding
@@ -108,7 +108,7 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mYahooApiService = YahooApiService(ConnectivityInterceptorImpl(requireContext()))
+        mYahooApiService = YahooApiService(ConnectivityInterceptor(requireContext()))
         mYahooNetworkDataSource = YahooNetworkDataSourceImpl(mYahooApiService)
 
         //launch(Dispatchers.Default) {  }

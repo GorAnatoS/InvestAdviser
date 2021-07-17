@@ -15,7 +15,7 @@ import com.invest.advisor.R
 import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.entity.EnumSecurities
 import com.invest.advisor.data.db.entity.MoexEntry
-import com.invest.advisor.data.network.ConnectivityInterceptorImpl
+import com.invest.advisor.data.network.ConnectivityInterceptor
 import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.moexResponse.MoexApiService
 import com.invest.advisor.databinding.FragmentMoexBinding
@@ -131,7 +131,7 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
         val marketData = moexSecuritiesListViewModel.marketData.await()
         val securities = moexSecuritiesListViewModel.securities.await()
 
-        val mIssApiService = MoexApiService(ConnectivityInterceptorImpl(requireContext()))
+        val mIssApiService = MoexApiService(ConnectivityInterceptor(requireContext()))
         val moexNetworkDataSource = MoexNetworkDataSourceImpl(mIssApiService)
 
         moexNetworkDataSource.downloadedMarketData.observe(viewLifecycleOwner, Observer {
