@@ -21,8 +21,8 @@ import com.invest.advisor.databinding.FragmentPortfolioBinding
 import com.invest.advisor.ui.base.ScopedFragment
 import com.invest.advisor.ui.moex.MoexViewModel
 import com.invest.advisor.ui.moex.MoexViewModelFactory
-import com.invest.advisor.ui.portfolio.portfolioItems.CardItem
-import com.invest.advisor.ui.portfolio.portfolioItems.ExpandablePortfolioItem
+import com.invest.advisor.ui.views.portfolioItems.PortfolioCardItem
+import com.invest.advisor.ui.views.portfolioItems.PortfolioExpandableItem
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -57,7 +57,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         bindingPortfolio =
             DataBindingUtil.inflate(inflater, R.layout.fragment_portfolio, container, false)
@@ -120,12 +120,12 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
             calculatePortfolio()
 
             //expandable list setting
-            val updatedList: MutableList<ExpandablePortfolioItem> = ArrayList()
-            val headerList = cardItemList.toList().groupBy { it.database.secId }
+            val updatedList: MutableList<PortfolioExpandableItem> = ArrayList()
+            val headerList = portfolioExpandableCardItemList.toList().groupBy { it.database.secId }
 
             for (j in headerList.values) {
 
-                var newItem = ExpandablePortfolioItem(
+                var newItem = PortfolioExpandableItem(
                     UserPortfolioEntry(
                         j[0].database.id,
                         j[0].database.secId,
@@ -138,7 +138,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                 )
 
                 for (k in j.subList(1, j.size)) {
-                    newItem = ExpandablePortfolioItem(
+                    newItem = PortfolioExpandableItem(
                         UserPortfolioEntry(
                             k.database.id,
                             k.database.secId,
@@ -174,10 +174,10 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                 }
 
                 groupAdapter += ExpandableGroup(expandableItem).apply {
-                    for (item in cardItemList) {
+                    for (item in portfolioExpandableCardItemList) {
                         if (item.database.secId == expandableItem.database.secId)
                             add(
-                                CardItem(
+                                PortfolioCardItem(
                                     item.database,
                                     item.entryMarketData
                                 )
@@ -237,7 +237,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun calculatePortfolio() {
-        cardItemList = ArrayList()
+        portfolioExpandableCardItemList = ArrayList()
 
         currentPortfolioPrice = 0.0
         portfolioPurchaseSum = 0.0
@@ -251,17 +251,17 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         for (element in marketDataResponse.currentMarketData.data)
             for (entry in databaseList.toList())
                 if (entry.secId == element[EnumMarketData.SECID.ordinal]) {
-                    val expandableHeaderItem = ExpandablePortfolioItem(
+                    val expandableHeaderItem = PortfolioExpandableItem(
                         entry,
                         element,
                         false
                     )
-                    cardItemList.add(expandableHeaderItem)
+                    portfolioExpandableCardItemList.add(expandableHeaderItem)
 
                     currentPortfolioPrice += entry.secQuantity.toDouble() * element[EnumMarketData.WAPRICE.ordinal].toDouble()
                 }
 
-        if (cardItemList.isNotEmpty()) {
+        if (portfolioExpandableCardItemList.isNotEmpty()) {
             currentPortfolioPrice = (currentPortfolioPrice * 100).roundToInt() / 100.0
 
             changePrice = currentPortfolioPrice - portfolioPurchaseSum
@@ -280,7 +280,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
     companion object {
         lateinit var marketDataResponse: MarketDataResponse
 
-        var cardItemList: MutableList<ExpandablePortfolioItem> = ArrayList()
+        var portfolioExpandableCardItemList: MutableList<PortfolioExpandableItem> = ArrayList()
 
         lateinit var databaseList: MutableList<UserPortfolioEntry>
         private var groupIndex: Int = -1
