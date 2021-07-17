@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.invest.advisor.R
 import com.invest.advisor.data.db.entity.EnumMarketData
 import com.invest.advisor.data.db.entity.EnumSecurities
-import com.invest.advisor.data.db.entity.MoexEntry
+import com.invest.advisor.data.db.entity.MoexSecurityEntry
 import com.invest.advisor.data.network.ConnectivityInterceptor
 import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.moexResponse.MoexApiService
@@ -47,8 +47,8 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
 
     lateinit var binding: FragmentMoexBinding
 
-    private var moexDataList: MutableList<MoexEntry> = ArrayList()
-    private var displayedMoexDataList: MutableList<MoexEntry> = ArrayList()
+    private var moexSecurityDataList: MutableList<MoexSecurityEntry> = ArrayList()
+    private var displayedMoexSecurityDataList: MutableList<MoexSecurityEntry> = ArrayList()
     private lateinit var moexSecuritiesListViewModel: MoexSecuritiesListViewModel
 
     override fun onCreateView(
@@ -103,20 +103,20 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
 
                 if (newText!!.isNotEmpty()) {
 
-                    displayedMoexDataList.clear()
+                    displayedMoexSecurityDataList.clear()
                     val search = newText.lowercase(Locale.getDefault())
 
-                    moexDataList.forEach {
+                    moexSecurityDataList.forEach {
                         if (it.secId!!.lowercase(Locale.getDefault()).contains(newText) || it.secName!!.lowercase(Locale.getDefault())
                                 .contains(newText)
                         )
-                            displayedMoexDataList.add(it)
+                            displayedMoexSecurityDataList.add(it)
                     }
 
-                    initRecycleView(displayedMoexDataList.toMoexItems())
+                    initRecycleView(displayedMoexSecurityDataList.toMoexItems())
                 } else {
-                    displayedMoexDataList.clear()
-                    displayedMoexDataList.addAll(moexDataList)
+                    displayedMoexSecurityDataList.clear()
+                    displayedMoexSecurityDataList.addAll(moexSecurityDataList)
                 }
 
                 return true
@@ -141,11 +141,11 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
 
             val size = it.currentMarketData.data.size
 
-            if (moexDataList.isEmpty()) {
+            if (moexSecurityDataList.isEmpty()) {
                 for (i in 0 until size) {
                     //if (!it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty())
-                    moexDataList.add(
-                        MoexEntry(
+                    moexSecurityDataList.add(
+                        MoexSecurityEntry(
                             it.currentMarketData.data[i][EnumMarketData.SECID.ordinal],
                             "",
                             if (it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty()) CONST_NOE_VALUE else it.currentMarketData.data[i][EnumMarketData.WAPRICE.ordinal],
@@ -156,20 +156,20 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
                 }
             }
 
-            initRecycleView(moexDataList.toMoexItems())
+            initRecycleView(moexSecurityDataList.toMoexItems())
 
             moexNetworkDataSource.downloadedSecurities.observe(viewLifecycleOwner, Observer {
                 if (it == null) return@Observer
 
                 moexSecuritiesListViewModel.securitiesResponse = it
 
-                for (i in 0 until moexDataList.size) {
-                    moexDataList[i].secName = it.currentSecurities.data[i][EnumSecurities.SECNAME.ordinal]
+                for (i in 0 until moexSecurityDataList.size) {
+                    moexSecurityDataList[i].secName = it.currentSecurities.data[i][EnumSecurities.SECNAME.ordinal]
                 }
 
-                displayedMoexDataList.addAll(moexDataList)
+                displayedMoexSecurityDataList.addAll(moexSecurityDataList)
 
-                initRecycleView(moexDataList.toMoexItems())
+                initRecycleView(moexSecurityDataList.toMoexItems())
 
                 binding.groupLoading.visibility = View.GONE
             })
@@ -184,7 +184,7 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
 
     private fun initRecycleView(securityItems: List<MoexSecurityItem>) {
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
-            addAll(securityItems.filter { it.moexEntry.secPrice != CONST_NOE_VALUE })
+            addAll(securityItems.filter { it.moexSecurityEntry.secPrice != CONST_NOE_VALUE })
         }
 
         binding.recyclerView.apply {
@@ -193,7 +193,7 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
         }
     }
 
-    private fun MutableList<MoexEntry>.toMoexItems(): List<MoexSecurityItem> {
+    private fun MutableList<MoexSecurityEntry>.toMoexItems(): List<MoexSecurityItem> {
         return this.map {
             MoexSecurityItem(it)
         }
@@ -223,7 +223,7 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
 
                 when (which) {
                     EnumSortOptions.BY_WARPRICE.sortTypeOrder -> {
-                        displayedMoexDataList.clear()
+                        displayedMoexSecurityDataList.clear()
                         if (array[which][array[which].length - 1] == '↑') {
                             newList =
                                 moexSecuritiesListViewModel.marketDataResponse.currentMarketData.data.sortedBy { it[EnumMarketData.WAPRICE.ordinal].toDouble() }
@@ -236,11 +236,11 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
                         }
 
                         addElementsToDisplayList(newList)
-                        initRecycleView(displayedMoexDataList.toMoexItems())
+                        initRecycleView(displayedMoexSecurityDataList.toMoexItems())
                     }
 
                     EnumSortOptions.BY_DAY_CHANGE.sortTypeOrder -> {
-                        displayedMoexDataList.clear()
+                        displayedMoexSecurityDataList.clear()
 
 
                         if (array[which][array[which].length - 1] == '↑') {
@@ -255,11 +255,11 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
                         }
 
                         addElementsToDisplayList(newList)
-                        initRecycleView(displayedMoexDataList.toMoexItems())
+                        initRecycleView(displayedMoexSecurityDataList.toMoexItems())
                     }
 
                     EnumSortOptions.BY_NAME.sortTypeOrder -> {
-                        displayedMoexDataList.clear()
+                        displayedMoexSecurityDataList.clear()
 
                         if (array[which][array[which].length - 1] == '↑') {
                             newList =
@@ -273,7 +273,7 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
                         }
 
                         addElementsToDisplayList(newList)
-                        initRecycleView(displayedMoexDataList.toMoexItems())
+                        initRecycleView(displayedMoexSecurityDataList.toMoexItems())
                     }
                 }
             })
@@ -289,8 +289,8 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
 
         for (i in list.indices) {
             if (!list[i][EnumMarketData.WAPRICE.ordinal].isNullOrEmpty())
-                displayedMoexDataList.add(
-                    MoexEntry(
+                displayedMoexSecurityDataList.add(
+                    MoexSecurityEntry(
                         list[i][EnumMarketData.SECID.ordinal],
                         secList.find { it[0] == list[i][EnumMarketData.SECID.ordinal] }
                             ?.get(EnumSecurities.SECNAME.ordinal) ?: "",

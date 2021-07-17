@@ -4,7 +4,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import com.invest.advisor.R
-import com.invest.advisor.data.db.entity.MoexEntry
+import com.invest.advisor.data.db.entity.MoexSecurityEntry
 import com.invest.advisor.databinding.ItemMoexSecurityBinding
 import com.invest.advisor.ui.moexsecurities.MoexSecuritiesListFragmentDirections
 import com.xwray.groupie.viewbinding.BindableItem
@@ -14,7 +14,7 @@ import com.xwray.groupie.viewbinding.BindableItem
  */
 
 class MoexSecurityItem(
-    val moexEntry: MoexEntry
+    val moexSecurityEntry: MoexSecurityEntry
 ) : BindableItem<ItemMoexSecurityBinding>() {
 
     override fun initializeViewBinding(view: View): ItemMoexSecurityBinding {
@@ -23,18 +23,18 @@ class MoexSecurityItem(
 
     override fun bind(binding: ItemMoexSecurityBinding, position: Int) {
         binding.apply {
-            tvPurchaseDate.text = moexEntry.secName
-            tvSecId.text = moexEntry.secId
-            tvPrice.text = moexEntry.secPrice
+            tvPurchaseDate.text = moexSecurityEntry.secName
+            tvSecId.text = moexSecurityEntry.secId
+            tvPrice.text = moexSecurityEntry.secPrice
 
 
-            tvChange.text = moexEntry.secChange
-            if (moexEntry.secChange?.startsWith("-")!!) {
+            tvChange.text = moexSecurityEntry.secChange
+            if (moexSecurityEntry.secChange?.startsWith("-")!!) {
                 tvChange.setTextColor(ContextCompat.getColor(binding.root.context, R.color.shareMinusColor))
             } else {
                 tvChange.setTextColor(ContextCompat.getColor(binding.root.context, R.color.sharePlusColor))
             }
-            if (moexEntry.secChange == "0") tvChange.setTextColor(
+            if (moexSecurityEntry.secChange == "0") tvChange.setTextColor(
                 ContextCompat.getColor(
                     binding.root.context,
                     R.color.black
@@ -42,11 +42,11 @@ class MoexSecurityItem(
             )
 
 
-            tvChangePcnt.text = "(${moexEntry.secChangePcnt}%)"
-            if (moexEntry.secChangePcnt?.startsWith("-")!!) {
+            tvChangePcnt.text = "(${moexSecurityEntry.secChangePcnt}%)"
+            if (moexSecurityEntry.secChangePcnt?.startsWith("-")!!) {
                 tvChangePcnt.setTextColor(ContextCompat.getColor(binding.root.context, R.color.shareMinusColor))
             } else tvChangePcnt.setTextColor(ContextCompat.getColor(binding.root.context, R.color.sharePlusColor))
-            if (moexEntry.secChangePcnt == "0") tvChangePcnt.setTextColor(
+            if (moexSecurityEntry.secChangePcnt == "0") tvChangePcnt.setTextColor(
                 ContextCompat.getColor(
                     binding.root.context,
                     R.color.black
@@ -56,11 +56,11 @@ class MoexSecurityItem(
 
         binding.root.setOnClickListener {
             //Toast.makeText(viewHolder.containerView.context,  , Toast.LENGTH_SHORT).show()
-            if (moexEntry.secPrice != "NoE")
+            if (moexSecurityEntry.secPrice != "NoE")
                 it.findNavController().navigate(
                     MoexSecuritiesListFragmentDirections.actionMoexFragmentToCommonDetailedMoexItem(
-                        moexEntry.secId,
-                        moexEntry.secPrice!!
+                        moexSecurityEntry.secId,
+                        moexSecurityEntry.secPrice!!
                     )
                 )
         }
