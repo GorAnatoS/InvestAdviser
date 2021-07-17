@@ -19,10 +19,10 @@ import com.invest.advisor.data.network.moexResponse.MarketDataResponse
 import com.invest.advisor.data.network.moexResponse.MoexApiService
 import com.invest.advisor.databinding.FragmentPortfolioBinding
 import com.invest.advisor.ui.base.ScopedFragment
-import com.invest.advisor.ui.moex.MoexViewModel
-import com.invest.advisor.ui.moex.MoexViewModelFactory
-import com.invest.advisor.ui.views.portfolioItems.PortfolioCardItem
-import com.invest.advisor.ui.views.portfolioItems.PortfolioExpandableItem
+import com.invest.advisor.ui.moexsecurities.MoexSecuritiesListViewModel
+import com.invest.advisor.ui.moexsecurities.MoexViewModelFactory
+import com.invest.advisor.ui.portfolio.Items.PortfolioCardItem
+import com.invest.advisor.ui.portfolio.Items.PortfolioExpandableItem
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -41,7 +41,7 @@ const val INSET = "inset"
 class PortfolioFragment : ScopedFragment(), KodeinAware {
     private lateinit var portfolioViewModel: PortfolioViewModel
     lateinit var bindingPortfolio: FragmentPortfolioBinding
-    private lateinit var moexViewModel: MoexViewModel
+    private lateinit var moexSecuritiesListViewModel: MoexSecuritiesListViewModel
 
     private val groupAdapter = GroupAdapter<GroupieViewHolder>() //TODO get rid of this parameter
 
@@ -88,7 +88,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        moexViewModel = ViewModelProvider(this, viewModelFactory).get(MoexViewModel::class.java)
+        moexSecuritiesListViewModel = ViewModelProvider(this, viewModelFactory).get(MoexSecuritiesListViewModel::class.java)
         bindUI()
     }
 

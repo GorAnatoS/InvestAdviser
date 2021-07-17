@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/moexFragment"
-        android:name="com.invest.advisor.ui.moex.MoexFragment"
+        android:name="com.invest.advisor.ui.moexsecurities.MoexSecuritiesListFragment"
         android:label="@string/moex"
         tools:layout="@layout/fragment_moex" >
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/moexDetail"
-        android:name="com.invest.advisor.ui.detailedMoexItem.AddMoexItemToPortfolioFragment"
+        android:name="com.invest.advisor.ui.detailedMoexItem.AddMoexItemFragment"
         android:label="@string/moexDetail"
         tools:layout="@layout/fragment_add_share" >
         <argument

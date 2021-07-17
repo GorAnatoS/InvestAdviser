@@ -1,4 +1,4 @@
-package com.invest.advisor.ui.moex
+package com.invest.advisor.ui.moexsecurities
 
 import androidx.lifecycle.ViewModel
 import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSource
@@ -6,7 +6,7 @@ import com.invest.advisor.data.network.moexResponse.MarketDataResponse
 import com.invest.advisor.data.network.moexResponse.SecuritiesResponse
 import com.invest.advisor.internal.lazyDeferred
 
-class MoexViewModel(
+class MoexSecuritiesListViewModel(
     private val moexNetworkDataSource: MoexNetworkDataSource
 ) : ViewModel() {
 

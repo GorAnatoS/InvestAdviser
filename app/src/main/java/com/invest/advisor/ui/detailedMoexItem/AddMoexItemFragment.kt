@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
+import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioDatabase
 import com.invest.advisor.databinding.FragmentAddShareBinding
 import com.invest.advisor.internal.DateHelper.Companion.formattedDateStringToFormattedDateLong
 import com.invest.advisor.internal.DateHelper.Companion.getFormattedDateString
@@ -21,7 +23,11 @@ import com.invest.advisor.ui.portfolio.PortfolioViewModel
 private const val ARG_PARAM1 = "secId"
 private const val ARG_PARAM2 = "secPrice"
 
-class AddMoexItemToPortfolioFragment : Fragment() {
+/**
+ * Fragment to add new share [UserPortfolioEntry] to [UserPortfolioDatabase]
+ */
+
+class AddMoexItemFragment : Fragment() {
     private lateinit var binding: FragmentAddShareBinding
     private lateinit var viewModel: PortfolioViewModel
 
@@ -46,7 +52,7 @@ class AddMoexItemToPortfolioFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(
                 inflater,
@@ -129,13 +135,14 @@ class AddMoexItemToPortfolioFragment : Fragment() {
 
             }
         }
+
         return binding.root
     }
 
     companion object {
         @JvmStatic
         fun newInstance(secId: String?, secPrice: String) =
-            AddMoexItemToPortfolioFragment().apply {
+            AddMoexItemFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, secId)
                     putString(ARG_PARAM2, secPrice)

@@ -1,4 +1,4 @@
-package com.invest.advisor.ui.detailedPortfolioItem
+package com.invest.advisor.ui.detailedMoexItem
 
 import android.os.Bundle
 import android.view.*

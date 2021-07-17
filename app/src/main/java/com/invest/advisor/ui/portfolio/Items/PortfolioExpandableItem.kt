@@ -1,4 +1,4 @@
-package com.invest.advisor.ui.views.portfolioItems
+package com.invest.advisor.ui.portfolio.Items
 
 import android.graphics.drawable.Animatable
 import android.view.View
