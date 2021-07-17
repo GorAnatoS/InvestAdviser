@@ -19,11 +19,11 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
 import org.kodein.di.generic.*
 
-/*
-Application class where we set up:
-dependency injection with KodeIn,
-TimeSupport with AndroidThreeTen
-And temporally showing only DAY_MODE
+/**
+ * Application class where we set up:
+ * dependency injection with [Kodein]
+ * TimeSupport with [AndroidThreeTen]
+ * And temporally showing only DAY_MODE
 */
 
 //All links:
