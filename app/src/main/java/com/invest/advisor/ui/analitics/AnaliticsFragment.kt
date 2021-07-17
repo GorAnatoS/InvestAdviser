@@ -25,7 +25,6 @@ import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.databinding.FragmentAnaliticsBinding
 import com.invest.advisor.ui.base.ScopedFragment
-import com.invest.advisor.ui.portfolio.PortfolioViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -33,8 +32,17 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import java.util.*
 
+/**
+ * After click [FragmentAnaliticsBinding.textAnalitics] we have this Fragment with brief info in plots.
+ */
+
 class AnaliticsFragment : ScopedFragment(), KodeinAware {
     lateinit var binding: FragmentAnaliticsBinding
+    lateinit var viewModel: AnaliticsViewModel
+
+    val pieEntries: MutableList<PieEntry> = ArrayList()
+    val updatedSectorEntries: MutableList<PieEntry> = ArrayList()
+    var sectorEntries: MutableList<Pair<PieEntry, String>> = ArrayList()
 
     override val kodein by closestKodein()
 
@@ -53,7 +61,7 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
             false
         )
 
-        portfolioViewModel = ViewModelProvider(this).get(PortfolioViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AnaliticsViewModel::class.java)
 
         mYahooApiService = YahooApiService(ConnectivityInterceptorImpl(requireContext()))
         mYahooNetworkDataSource = YahooNetworkDataSourceImpl(mYahooApiService)
@@ -354,7 +362,7 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
         })
 
         //get data from Room
-        portfolioViewModel.allData.observe(viewLifecycleOwner, Observer {
+        viewModel.allData.observe(viewLifecycleOwner, Observer {
             GlobalScope.launch(Dispatchers.IO) {
 
                 //суммирование одинаковых тикеров в портфеке
@@ -409,13 +417,6 @@ class AnaliticsFragment : ScopedFragment(), KodeinAware {
                 }
             }
         })
-    }
-
-    companion object {
-        private lateinit var portfolioViewModel: PortfolioViewModel
-        val pieEntries: MutableList<PieEntry> = ArrayList()
-        val updatedSectorEntries: MutableList<PieEntry> = ArrayList()
-        var sectorEntries: MutableList<Pair<PieEntry, String>> = ArrayList()
     }
 }
 

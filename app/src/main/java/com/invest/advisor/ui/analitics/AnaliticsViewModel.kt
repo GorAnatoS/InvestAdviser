@@ -1,17 +1,25 @@
 package com.invest.advisor.ui.analitics
 
-import androidx.lifecycle.ViewModel
-import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSource
-import com.invest.advisor.data.network.yahooResponse.YahooResponse
-import com.invest.advisor.internal.lazyDeferred
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioDatabase
+import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
+import com.invest.advisor.data.repository.UserPortfolioRepository
 
-class AnaliticsViewModel(
-    private val yahooNetworkDataSource: YahooNetworkDataSource
-) : ViewModel() {
+/**
+ * ViewModel for [AnaliticsFragment]
+ */
 
-    lateinit var yahooResponse: YahooResponse
+class AnaliticsViewModel(application: Application) : AndroidViewModel(application) {
 
-    val downloadedYahooData by lazyDeferred {
-        yahooNetworkDataSource.fetchYahooData("CSCO")
+    private val repository: UserPortfolioRepository
+
+    var allData: LiveData<List<UserPortfolioEntry>>
+
+    init {
+        val userPortfolioDao = UserPortfolioDatabase.getInstance(application).userPortfolioDao
+        repository = UserPortfolioRepository(userPortfolioDao)
+        allData = repository.allData
     }
 }
