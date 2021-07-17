@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/moexDetail"
-        android:name="com.invest.advisor.ui.detailedMoexItem.AddMoexItemFragment"
+        android:name="com.invest.advisor.ui.detailedMoexItem.AddMoexSecItemFragment"
         android:label="@string/moexDetail"
         tools:layout="@layout/fragment_add_share" >
         <argument
@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/commonDetailedMoexItem"
         tools:layout="@layout/fragment_common_detailed_moex_item"
-        android:name="com.invest.advisor.ui.detailedMoexItem.CommonDetailedMoexItem"
+        android:name="com.invest.advisor.ui.detailedMoexItem.DetailedMoexSecurityItemFragment"
         android:label="@string/сommonDetailedMoexItem">
         <argument
             android:name="secId"

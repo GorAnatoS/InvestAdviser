@@ -21,10 +21,10 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 
 /**
- * Class contains main info about selected security ([ARG_PARAM_SECID])
+ * Fragment contains main info about selected security [ARG_PARAM_SECID]
  */
 
-class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
+class MoexSecItemInfoFragment : ScopedFragment(), KodeinAware {
 
     lateinit var binding: DetailedPortfolioItemFragmentBinding
 
@@ -43,7 +43,7 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
 
         @JvmStatic
         fun newInstance(secId: String?) =
-            DetailedPortfolioItemFragment().apply {
+            MoexSecItemInfoFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM_SECID, secId)
                 }

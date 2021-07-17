@@ -9,21 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.invest.advisor.R
+import com.invest.advisor.data.repository.UserPortfolioRepository
 import com.invest.advisor.databinding.FragmentCommonDetailedMoexItemBinding
 import com.invest.advisor.internal.Constants.ARG_PARAM_SECID
 import com.invest.advisor.internal.Constants.ARG_PARAM_SECPRICE
 import com.invest.advisor.ui.base.ScopedFragment
 
 /**
- * A simple [Fragment] subclass.
- * Use the [CommonDetailedMoexItem.newInstance] factory method to
- * create an instance of this fragment.
+ * Fragment that contains [ViewPager2] and has pages:
+ * [AddMoexSecItemFragment] - Fragment to add new security to [UserPortfolioRepository]
+ * [MoexSecItemInfoFragment] - Fragment contains main info about selected security
  */
-class CommonDetailedMoexItem : ScopedFragment() {
+class DetailedMoexSecurityItemFragment : ScopedFragment() {
 
     private lateinit var binding: FragmentCommonDetailedMoexItemBinding
 
-    // TODO: Rename and change types of parameters
     private var secId: String? = null
     private var secPrice: String? = null
 
@@ -48,9 +48,9 @@ class CommonDetailedMoexItem : ScopedFragment() {
 
             override fun createFragment(position: Int): Fragment {
                 return when (position) {
-                    0 -> AddMoexItemFragment.newInstance(secId, secPrice!!)
-                    1 -> DetailedPortfolioItemFragment.newInstance(secId)
-                    else -> AddMoexItemFragment.newInstance(secId, secPrice!!)
+                    0 -> AddMoexSecItemFragment.newInstance(secId, secPrice!!)
+                    1 -> MoexSecItemInfoFragment.newInstance(secId)
+                    else -> AddMoexSecItemFragment.newInstance(secId, secPrice!!)
                 }
             }
         }

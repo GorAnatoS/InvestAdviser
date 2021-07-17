@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -23,10 +22,11 @@ import com.invest.advisor.internal.DateHelper.Companion.getFormattedDateString
 import com.invest.advisor.ui.portfolio.PortfolioViewModel
 
 /**
- * Fragment to add new security [UserPortfolioEntry] to [UserPortfolioDatabase]
+ * Fragment to add new security [UserPortfolioEntry] to [UserPortfolioDatabase] with
+ * [FragmentAddShareBinding.editTextQuantity] and [FragmentAddShareBinding.editTextPrice]
  */
 
-class AddMoexItemFragment : Fragment() {
+class AddMoexSecItemFragment : Fragment() {
     private lateinit var binding: FragmentAddShareBinding
     private lateinit var viewModel: PortfolioViewModel
 
@@ -141,7 +141,7 @@ class AddMoexItemFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(secId: String?, secPrice: String) =
-            AddMoexItemFragment().apply {
+            AddMoexSecItemFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM_SECID, secId)
                     putString(ARG_PARAM_SECPRICE, secPrice)
