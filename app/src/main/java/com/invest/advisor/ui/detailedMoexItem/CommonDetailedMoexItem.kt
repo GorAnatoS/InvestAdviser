@@ -1,4 +1,4 @@
-package com.invest.advisor.ui.moex.detailedMoexItem
+package com.invest.advisor.ui.detailedMoexItem
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.invest.advisor.R
 import com.invest.advisor.databinding.FragmentCommonDetailedMoexItemBinding
 import com.invest.advisor.ui.base.ScopedFragment
-import com.invest.advisor.ui.portfolio.detailedPortfolioItem.DetailedPortfolioItemFragment
+import com.invest.advisor.ui.detailedPortfolioItem.DetailedPortfolioItemFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
