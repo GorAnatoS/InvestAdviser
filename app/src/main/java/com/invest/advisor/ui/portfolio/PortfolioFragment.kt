@@ -21,8 +21,8 @@ import com.invest.advisor.databinding.FragmentPortfolioBinding
 import com.invest.advisor.ui.base.ScopedFragment
 import com.invest.advisor.ui.moexsecurities.MoexSecuritiesListViewModel
 import com.invest.advisor.ui.moexsecurities.MoexViewModelFactory
-import com.invest.advisor.ui.portfolio.Items.PortfolioCardItem
-import com.invest.advisor.ui.portfolio.Items.PortfolioExpandableItem
+import com.invest.advisor.ui.portfolio.items.PortfolioCardItem
+import com.invest.advisor.ui.portfolio.items.PortfolioCardExpandableItem
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -120,12 +120,12 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
             calculatePortfolio()
 
             //expandable list setting
-            val updatedList: MutableList<PortfolioExpandableItem> = ArrayList()
+            val updatedList: MutableList<PortfolioCardExpandableItem> = ArrayList()
             val headerList = portfolioExpandableCardItemList.toList().groupBy { it.database.secId }
 
             for (j in headerList.values) {
 
-                var newItem = PortfolioExpandableItem(
+                var newItem = PortfolioCardExpandableItem(
                     UserPortfolioEntry(
                         j[0].database.id,
                         j[0].database.secId,
@@ -138,7 +138,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                 )
 
                 for (k in j.subList(1, j.size)) {
-                    newItem = PortfolioExpandableItem(
+                    newItem = PortfolioCardExpandableItem(
                         UserPortfolioEntry(
                             k.database.id,
                             k.database.secId,
@@ -251,7 +251,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         for (element in marketDataResponse.currentMarketData.data)
             for (entry in databaseList.toList())
                 if (entry.secId == element[EnumMarketData.SECID.ordinal]) {
-                    val expandableHeaderItem = PortfolioExpandableItem(
+                    val expandableHeaderItem = PortfolioCardExpandableItem(
                         entry,
                         element,
                         false
@@ -274,17 +274,15 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
         bindingPortfolio.tvPortfolioInfo.text =
             "Цена портфеля $currentPortfolioPrice₽ ${changePrice} (${changePercent}%)"
-
     }
 
     companion object {
         lateinit var marketDataResponse: MarketDataResponse
 
-        var portfolioExpandableCardItemList: MutableList<PortfolioExpandableItem> = ArrayList()
+        var portfolioExpandableCardItemList: MutableList<PortfolioCardExpandableItem> = ArrayList()
 
         lateinit var databaseList: MutableList<UserPortfolioEntry>
         private var groupIndex: Int = -1
         private var groupShareName: String = ""
-
     }
 }

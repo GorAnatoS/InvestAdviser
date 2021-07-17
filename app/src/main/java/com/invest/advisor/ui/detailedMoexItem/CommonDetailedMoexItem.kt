@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -12,7 +11,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.invest.advisor.R
 import com.invest.advisor.databinding.FragmentCommonDetailedMoexItemBinding
 import com.invest.advisor.ui.base.ScopedFragment
-import com.invest.advisor.ui.detailedPortfolioItem.DetailedPortfolioItemFragment
 
 
 private const val ARG_PARAM1 = "secId"

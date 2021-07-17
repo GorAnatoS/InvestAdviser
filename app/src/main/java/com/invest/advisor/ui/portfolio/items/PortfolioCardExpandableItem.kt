@@ -1,4 +1,4 @@
-package com.invest.advisor.ui.portfolio.Items
+package com.invest.advisor.ui.portfolio.items
 
 import android.graphics.drawable.Animatable
 import android.view.View
@@ -8,17 +8,21 @@ import com.invest.advisor.databinding.PortfolioHeaderItemBinding
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.ExpandableItem
 
+/**
+ * CardView item where we accumulate all [PortfolioCardItem] of the same security in one expandable header item on base
+ * of [PortfolioCardHeaderItem]
+ */
 
-class PortfolioExpandableItem(
+class PortfolioCardExpandableItem(
     entry: UserPortfolioEntry,
     marketData: List<String>,
     val isExpandable: Boolean
-) : PortfolioHeaderItem(
+) : PortfolioCardHeaderItem(
     entry,
     marketData
 ), ExpandableItem {
 
-    var clickListener: ((PortfolioExpandableItem) -> Unit)? = null
+    var clickListener: ((PortfolioCardExpandableItem) -> Unit)? = null
 
     private lateinit var expandableGroup: ExpandableGroup
 
