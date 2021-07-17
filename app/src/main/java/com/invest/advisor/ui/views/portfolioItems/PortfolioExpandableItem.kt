@@ -1,50 +1,49 @@
-package com.invest.advisor.ui.portfolio.portfolioItems
+package com.invest.advisor.ui.views.portfolioItems
 
 import android.graphics.drawable.Animatable
 import android.view.View
 import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
+import com.invest.advisor.databinding.PortfolioHeaderItemBinding
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.ExpandableItem
-import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import kotlinx.android.synthetic.main.portfolio_header_item.*
 
 
-class ExpandablePortfolioItem(
+class PortfolioExpandableItem(
     entry: UserPortfolioEntry,
     marketData: List<String>,
     val isExpandable: Boolean
-) : HeaderItem(
+) : PortfolioHeaderItem(
     entry,
     marketData
 ), ExpandableItem {
 
-    var clickListener: ((ExpandablePortfolioItem) -> Unit)? = null
+    var clickListener: ((PortfolioExpandableItem) -> Unit)? = null
 
     private lateinit var expandableGroup: ExpandableGroup
 
-    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        super.bind(viewHolder, position)
+    override fun bind(binding: PortfolioHeaderItemBinding, position: Int) {
+        super.bind(binding, position)
 
         // Initial icon state -- not animated.
-        viewHolder.icon.apply {
+        binding.icon.apply {
             if (isExpandable) {
                 visibility = View.VISIBLE
                 setImageResource(if (expandableGroup.isExpanded) R.drawable.collapse_animated else R.drawable.expand_animated)
                 setOnClickListener {
                     expandableGroup.onToggleExpanded()
-                    bindIcon(viewHolder)
+                    bindIcon(binding)
                 }
             } else visibility = View.INVISIBLE
         }
 
-        viewHolder.itemView.setOnClickListener {
+        binding.root.setOnClickListener {
             clickListener?.invoke(this)
         }
     }
 
-    private fun bindIcon(viewHolder: GroupieViewHolder) {
-        viewHolder.icon.apply {
+    private fun bindIcon(binding: PortfolioHeaderItemBinding) {
+        binding.icon.apply {
             visibility = View.VISIBLE
             setImageResource(if (expandableGroup.isExpanded) R.drawable.collapse_animated else R.drawable.expand_animated)
             (drawable as Animatable).start()

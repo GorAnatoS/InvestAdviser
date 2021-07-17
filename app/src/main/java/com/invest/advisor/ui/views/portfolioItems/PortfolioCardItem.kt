@@ -1,4 +1,4 @@
-package com.invest.advisor.ui.portfolio.portfolioItems
+package com.invest.advisor.ui.views.portfolioItems
 
 import android.view.View
 import androidx.annotation.DrawableRes
@@ -6,21 +6,24 @@ import androidx.core.content.ContextCompat
 import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.db.entity.EnumMarketData
+import com.invest.advisor.databinding.PortfolioCardItemBinding
 import com.invest.advisor.internal.DateHelper.Companion.getFormattedDateString
-import com.invest.advisor.internal.MathHelper
 import com.invest.advisor.ui.portfolio.INSET
 import com.invest.advisor.ui.portfolio.INSET_TYPE_KEY
-import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import com.xwray.groupie.kotlinandroidextensions.Item
-import kotlinx.android.synthetic.main.portfolio_card_item.*
+import com.xwray.groupie.viewbinding.BindableItem
 
+/*
 
-open class CardItem(
+ */
+
+class PortfolioCardItem(
     val database: UserPortfolioEntry,
     val entryMarketData: List<String>,
     @DrawableRes private val iconResId: Int? = null,
     private val onIconClickListener: View.OnClickListener? = null
-) : Item() {
+): BindableItem<PortfolioCardItemBinding>() {
+
+    lateinit var binding: PortfolioCardItemBinding
 
     init {
         extras[INSET_TYPE_KEY] = INSET
@@ -30,10 +33,14 @@ open class CardItem(
         return R.layout.portfolio_card_item
     }
 
-    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.tvPurchaseDate.text = getFormattedDateString(database.secPurchaseDate)
-        viewHolder.tvPrice.text = database.secPrice + "₽"
-        viewHolder.tvQuantity.text = database.secQuantity.toString() + " шт. ⋄"
+    override fun initializeViewBinding(view: View): PortfolioCardItemBinding {
+        return PortfolioCardItemBinding.bind(view)
+    }
+
+    override fun bind(binding: PortfolioCardItemBinding, position: Int) {
+        binding.tvPurchaseDate.text = getFormattedDateString(database.secPurchaseDate)
+        binding.tvPrice.text = database.secPrice + "₽"
+        binding.tvQuantity.text = database.secQuantity.toString() + " шт. ⋄"
 
         var currentPrice =
             (database.secQuantity.toDouble() * entryMarketData[EnumMarketData.WAPRICE.ordinal].toDouble())
@@ -49,30 +56,30 @@ open class CardItem(
         changePrice = Math.round(changePrice * 100.0) / 100.0
 
         if (changePcnt < 0)
-            viewHolder.tvCurrentPriceChng.setTextColor(
+            binding.tvCurrentPriceChng.setTextColor(
                 ContextCompat.getColor(
-                    viewHolder.containerView.context,
+                    binding.root.context,
                     R.color.shareMinusColor
                 )
             )
         else
-            viewHolder.tvCurrentPriceChng.setTextColor(
+            binding.tvCurrentPriceChng.setTextColor(
                 ContextCompat.getColor(
-                    viewHolder.containerView.context,
+                    binding.root.context,
                     R.color.sharePlusColor
                 )
             )
 
-        if (changePcnt == 0.0) viewHolder.tvCurrentPriceChng.setTextColor(
+        if (changePcnt == 0.0) binding.tvCurrentPriceChng.setTextColor(
             ContextCompat.getColor(
-                viewHolder.containerView.context,
+                binding.root.context,
                 R.color.black
             )
         )
 
-        viewHolder.tvCurrentPriceChng.text = "${changePrice} (${changePcnt})%"
+        binding.tvCurrentPriceChng.text = "${changePrice} (${changePcnt})%"
 
-        viewHolder.icon.apply {
+        binding.icon.apply {
             visibility = View.GONE
             iconResId?.let {
                 visibility = View.VISIBLE
