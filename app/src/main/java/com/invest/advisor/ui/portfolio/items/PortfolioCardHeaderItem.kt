@@ -11,7 +11,7 @@ import com.xwray.groupie.viewbinding.BindableItem
 import kotlin.math.roundToInt
 
 /**
- * base class for [PortfolioCardExpandableItem]
+ * Base class for [PortfolioCardExpandableItem]
  */
 
 open class PortfolioCardHeaderItem(

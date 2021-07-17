@@ -16,15 +16,14 @@ import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioDatabase
 import com.invest.advisor.databinding.FragmentAddShareBinding
+import com.invest.advisor.internal.Constants.ARG_PARAM_SECID
+import com.invest.advisor.internal.Constants.ARG_PARAM_SECPRICE
 import com.invest.advisor.internal.DateHelper.Companion.formattedDateStringToFormattedDateLong
 import com.invest.advisor.internal.DateHelper.Companion.getFormattedDateString
 import com.invest.advisor.ui.portfolio.PortfolioViewModel
 
-private const val ARG_PARAM1 = "secId"
-private const val ARG_PARAM2 = "secPrice"
-
 /**
- * Fragment to add new share [UserPortfolioEntry] to [UserPortfolioDatabase]
+ * Fragment to add new security [UserPortfolioEntry] to [UserPortfolioDatabase]
  */
 
 class AddMoexItemFragment : Fragment() {
@@ -43,8 +42,8 @@ class AddMoexItemFragment : Fragment() {
             ViewModelProvider(requireActivity()).get(PortfolioViewModel::class.java)
 
         arguments?.let {
-            secId = it.getString(ARG_PARAM1)
-            secPrice = it.getString(ARG_PARAM2)
+            secId = it.getString(ARG_PARAM_SECID)
+            secPrice = it.getString(ARG_PARAM_SECPRICE)
         }
     }
 
@@ -144,8 +143,8 @@ class AddMoexItemFragment : Fragment() {
         fun newInstance(secId: String?, secPrice: String) =
             AddMoexItemFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, secId)
-                    putString(ARG_PARAM2, secPrice)
+                    putString(ARG_PARAM_SECID, secId)
+                    putString(ARG_PARAM_SECPRICE, secPrice)
                 }
             }
     }

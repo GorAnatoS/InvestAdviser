@@ -10,11 +10,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.invest.advisor.R
 import com.invest.advisor.databinding.FragmentCommonDetailedMoexItemBinding
+import com.invest.advisor.internal.Constants.ARG_PARAM_SECID
+import com.invest.advisor.internal.Constants.ARG_PARAM_SECPRICE
 import com.invest.advisor.ui.base.ScopedFragment
-
-
-private const val ARG_PARAM1 = "secId"
-private const val ARG_PARAM2 = "secPrice"
 
 /**
  * A simple [Fragment] subclass.
@@ -32,8 +30,8 @@ class CommonDetailedMoexItem : ScopedFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            secId = it.getString(ARG_PARAM1)
-            secPrice = it.getString(ARG_PARAM2)
+            secId = it.getString(ARG_PARAM_SECID)
+            secPrice = it.getString(ARG_PARAM_SECPRICE)
         }
     }
 

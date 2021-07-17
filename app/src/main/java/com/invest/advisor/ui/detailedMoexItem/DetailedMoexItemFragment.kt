@@ -12,6 +12,7 @@ import com.invest.advisor.data.network.ConnectivityInterceptorImpl
 import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
 import com.invest.advisor.databinding.DetailedPortfolioItemFragmentBinding
+import com.invest.advisor.internal.Constants.ARG_PARAM_SECID
 import com.invest.advisor.internal.MathHelper
 import com.invest.advisor.ui.base.ScopedFragment
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +20,9 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 
-private const val ARG_PARAM1 = "secId"
+/**
+ * Class contains main info about selected security ([ARG_PARAM_SECID])
+ */
 
 class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
 
@@ -42,7 +45,7 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
         fun newInstance(secId: String?) =
             DetailedPortfolioItemFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, secId)
+                    putString(ARG_PARAM_SECID, secId)
                 }
             }
     }
@@ -51,12 +54,12 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
         super.onCreate(savedInstanceState)
         arguments?.let {
 
-            if (it.getString(ARG_PARAM1) != null) {
+            if (it.getString(ARG_PARAM_SECID) != null) {
                 hasOptionMenu = false
             }
 
-            secId = if (it.getString(ARG_PARAM1) != null) {
-                it.getString(ARG_PARAM1)
+            secId = if (it.getString(ARG_PARAM_SECID) != null) {
+                it.getString(ARG_PARAM_SECID)
             } else { //from portfolio
                 arguments?.getString("itemNumberInDB")
             }
@@ -185,5 +188,4 @@ class DetailedPortfolioItemFragment : ScopedFragment(), KodeinAware {
 
         if (hasOptionMenu) setHasOptionsMenu(true)
     }
-
 }
