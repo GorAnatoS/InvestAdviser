@@ -1,9 +1,9 @@
 package com.invest.advisor.data.db.entity
 
-import com.invest.advisor.ui.moexsecurities.MoexSecuritiesListFragment
+import com.invest.advisor.ui.moexsecurities.items.MoexSecurityItem
 
 /**
- * Entry for RecycleView in [MoexSecuritiesListFragment] with only necessary data
+ * Entry for [MoexSecurityItem] with only necessary data
  */
 
 data class MoexSecurityEntry(
