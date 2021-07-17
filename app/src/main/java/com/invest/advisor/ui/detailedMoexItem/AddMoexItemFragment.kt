@@ -1,11 +1,10 @@
-package com.invest.advisor.ui.moex.detailedMoexItem
+package com.invest.advisor.ui.detailedMoexItem
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
-import com.invest.advisor.databinding.FragmentMoexDetailBinding
+import com.invest.advisor.databinding.FragmentAddShareBinding
 import com.invest.advisor.internal.DateHelper.Companion.formattedDateStringToFormattedDateLong
 import com.invest.advisor.internal.DateHelper.Companion.getFormattedDateString
 import com.invest.advisor.ui.portfolio.PortfolioViewModel
@@ -22,13 +21,13 @@ private const val ARG_PARAM1 = "secId"
 private const val ARG_PARAM2 = "secPrice"
 
 class DetailedMoexItemFragment : Fragment() {
-    private lateinit var rootView: FragmentMoexDetailBinding
+    private lateinit var rootView: FragmentAddShareBinding
     private lateinit var viewModel: PortfolioViewModel
 
     private var secId: String? = null
     private var secPrice: String? = null
 
-    private var formatedDateLong: Long = 0
+    private var formattedDateLong: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,13 +49,13 @@ class DetailedMoexItemFragment : Fragment() {
         rootView =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.fragment_moex_detail,
+                R.layout.fragment_add_share,
                 container,
                 false
             )
 
         rootView.tvDateVal.text = getFormattedDateString()
-        formatedDateLong = formattedDateStringToFormattedDateLong(getFormattedDateString())
+        formattedDateLong = formattedDateStringToFormattedDateLong(getFormattedDateString())
 
         val builder = MaterialDatePicker.Builder.datePicker()
         builder.setTitleText("Выберите дату")
@@ -64,7 +63,7 @@ class DetailedMoexItemFragment : Fragment() {
 
         materialDatePicker.addOnPositiveButtonClickListener {
             rootView.tvDateVal.text = getFormattedDateString(it)
-            formatedDateLong = it
+            formattedDateLong = it
         }
 
         rootView.tvDateVal.setOnClickListener {
@@ -108,7 +107,7 @@ class DetailedMoexItemFragment : Fragment() {
                         secId!!,
                         editTextPrice.text.toString(),
                         editTextQuantity.text.toString().toInt(),
-                        formatedDateLong
+                        formattedDateLong
                     )
                     viewModel.insert(newUserPortfolioEntry)
 

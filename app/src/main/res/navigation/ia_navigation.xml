@@ -27,9 +27,9 @@
 
     <fragment
         android:id="@+id/moexDetail"
-        android:name="com.invest.advisor.ui.moex.detailedMoexItem.DetailedMoexItemFragment"
+        android:name="com.invest.advisor.ui.detailedMoexItem.DetailedMoexItemFragment"
         android:label="@string/moexDetail"
-        tools:layout="@layout/fragment_moex_detail" >
+        tools:layout="@layout/fragment_add_share" >
         <argument
             android:name="secId"
             app:argType="string"
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/detailedPortfolioItem"
-        android:name="com.invest.advisor.ui.portfolio.detailedPortfolioItem.DetailedPortfolioItemFragment"
+        android:name="com.invest.advisor.ui.detailedPortfolioItem.DetailedPortfolioItemFragment"
         android:label="@string/detailed_portfolio_item_fragment"
         tools:layout="@layout/detailed_portfolio_item_fragment" >
         <argument
@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/commonDetailedMoexItem"
         tools:layout="@layout/fragment_common_detailed_moex_item"
-        android:name="com.invest.advisor.ui.moex.detailedMoexItem.CommonDetailedMoexItem"
+        android:name="com.invest.advisor.ui.detailedMoexItem.CommonDetailedMoexItem"
         android:label="@string/сommonDetailedMoexItem">
         <argument
             android:name="secId"
