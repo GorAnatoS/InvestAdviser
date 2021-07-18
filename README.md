@@ -26,41 +26,38 @@ Screenshots
 <table style="padding:20px">
   <tr>
     <td>
-      <img src="screenshots/light_my_plants_linear.png"  alt="1" width = 260px>
+      <img src="screenshots/moex_sec_list.png"  alt="1" width = 260px>
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="screenshots/dark_my_plants_grid.png" alt="2" width = 260px >
+      <img src="screenshots/moex_sorting_options.png" alt="2" width = 260px >
     </td>
     <td width="30%">
-      MyPlants Screen where you can:<br><br>
-      - see your plant collection<br>
-      - add new or edit plant<br> 
-      - choose linear or grid types of layouts</td>
+      MoexSecuritiesListFragment where you can:<br><br>
+      - see necessary information and sort Moex securities list<br>
+      - add selected stock in portfolio</td>
   </tr>
   
    <tr>
     <td>
-      <img src="screenshots/light_edit_plant.png"  alt="1" width = 260px>
+      <img src="screenshots/add_sec.png"  alt="1" width = 260px>
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="screenshots/dark_edit_plant.png" alt="2" width = 260px >
+      <img src="screenshots/sec_detailed_info.png" alt="2" width = 260px >
     </td>
     <td width="30%">
-      EditPlant Screen where you can:<br><br>
-      - choose picture or make photo of plant<br>
-      - set Hibernate Mode when plants need other type of care (Winter)<br>
-      - set Watering and Fertilization periods and next dates<br>
-      - add plant's notes</td>
+      DetailedMoexSecurityItemFragment where you can: <br><br>
+      - add selected MOEX security to your portfolio with setting price, quantity and date
+      - see additional stock info</td>
   </tr>
   
   <tr>
     <td>
-      <img src="screenshots/light_plants_info.png"  alt="1" width = 260px>
+      <img src="screenshots/user_portfolio.png"  alt="1" width = 260px>
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <img src="screenshots/dark_plant_info.png" alt="2" width = 260px >
+      <img src="screenshots/portfolio_analitics.png" alt="2" width = 260px >
     </td>
     <td width="30%">
-      PlantInfo Screen where you can:<br><br> 
-      - see plant's info<br>
-      - update watered and fertilized data<br>
+      PortfolioFragment where you can:<br><br> 
+      - see your portfolio purchase history and price change<br>
+      - see portfolio brief analitics<br>
     </td>
   </tr>
   
