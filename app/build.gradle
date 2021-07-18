@@ -32,8 +32,6 @@ android {
                                       "$projectDir/schemas".toString()]
             }
         }
-
-
     }
 
     signingConfigs {
@@ -60,10 +58,9 @@ android {
         debug {
             debuggable true
             minifyEnabled false
-/*
+
             applicationIdSuffix = '.debug'
-            versionNameSuffix = '.debug'
-*/
+            versionNameSuffix = '-debug'
 
          /*   firebaseCrashlytics {
                 // If you don't need crash reporting for your debug build,
