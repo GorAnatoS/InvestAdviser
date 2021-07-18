@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 def keystorePropertiesFile = rootProject.file("keystore.properties.txt")
 def keystoreProperties = new Properties()
@@ -62,11 +63,11 @@ android {
             applicationIdSuffix = '.debug'
             versionNameSuffix = '-debug'
 
-         /*   firebaseCrashlytics {
+            firebaseCrashlytics {
                 // If you don't need crash reporting for your debug build,
                 // you can speed up your build by disabling mapping file uploading.
                 mappingFileUploadEnabled false
-            }*/
+            }
         }
     }
 
@@ -84,10 +85,10 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //firebase
-    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+    implementation platform('com.google.firebase:firebase-bom:28.2.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
-
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'com.google.firebase:firebase-crashlytics-krx'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx'
 
     def room_version = "2.4.0-alpha03"
 
@@ -112,8 +113,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-
-    //
 
     // Kotlin Android Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
