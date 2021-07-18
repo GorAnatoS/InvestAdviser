@@ -44,7 +44,7 @@ Screenshots
     </td>
     <td width="30%">
       DetailedMoexSecurityItemFragment where you can: <br><br>
-      - add selected MOEX security to your portfolio with setting price, quantity and date
+      - add selected MOEX security to your portfolio with setting price, quantity and date <br>
       - see additional stock info</td>
   </tr>
   
