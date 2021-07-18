@@ -62,12 +62,10 @@ Screenshots
   </tr>
   
 </table>
-
   
 Libraries Used
 --------------
-
-* SharedPreferences
+* ViewBinding
 * ViewModel
 * LiveData
 * Room
@@ -75,25 +73,24 @@ Libraries Used
 * MaterialDesign
 * Kotlin Android Coroutines
 * Lifecycles
-* Broadcasts
 * Animations and Transitions
 * [Firebase: Performance, Crashlitics, Analitics][0] for analize users app's performance, crashes and getting statistics
-* [Hilt][1] for dependency injection
+* [Kodein][1] for dependency injection
 * [Glide][2] for image loading
-* [Intro][3] on first start shop Intro's slides 
-* [Permission][4] for getting permissions
-* [lingver][5] for changing language
-* [uCrop][6] for cropping image when getting plant's photos
+* [MPAndroidChart][3] A powerful & easy to use chart library for Android 
 * [groupie][7] for recycle view easy usage
+* [retrofit][8] A type-safe HTTP client for Android and Java.
+* [Gson][9] Gson is a Java library that can be used to convert Java Objects into their JSON representation.
+* [ThreeTenABP][10] An adaptation of the JSR-310 backport for Android.
 
 [0]: https://firebase.google.com/
-[1]: https://dagger.dev/hilt/
+[1]: https://github.com/Kodein-Framework/Kodein-DI
 [2]: https://bumptech.github.io/glide/
-[3]: https://github.com/AppIntro/AppIntro
-[4]: https://github.com/permissions-dispatcher/PermissionsDispatcher
-[5]: https://github.com/YarikSOffice/lingver
-[6]: https://github.com/Yalantis/uCrop
+[3]: https://github.com/PhilJay/MPAndroidChart
 [7]: https://github.com/lisawray/groupie
+[8]: https://github.com/square/retrofit
+[9]: https://github.com/google/gson
+[10]: https://github.com/JakeWharton/ThreeTenABP
 
 License
 -------
