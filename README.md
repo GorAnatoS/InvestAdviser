@@ -1,7 +1,8 @@
 InvestAdviser
 =============
 
-InvestAdviser is a simple app written on Kotlin that demonstrates how to use [libs] to obtain data from
+InvestAdviser is a simple app written on Kotlin that demonstrates how to obtain stock base data from
+https://www.moex.com/ and stock's additinal information from https://www.yahoo.com/.
 
 Introduction
 ------------
@@ -11,13 +12,13 @@ InvestAdviser's GooglePlay page: https://play.google.com/store/apps/details?id=c
 App's features
 ------------
 You can:
-* set light/dark themes
-* chose one of 3 languages: English, Russian and Spanish
-* create and set your collection of plants and flowers
-* set each plant with settings like: next watering/fertilizing date, watering/fertilizing intervals, hibernate mode 
-* set plant's photo or image
-* see what plants need care of today/tomorrow/this week
-* set notifications time and turn it on/of
+* See current MOEX securies list with such data as Name, SecurityId, Current Price, Day value/percent price change
+* Using search to find stock you need
+* Organaze securitiy list by name, price, day price change
+* Add security to your Portfolio and set share's quantity, price, date
+* See additional share info like day range price, open price, volume, market cap, Beta, ROE, ROA
+* See your portfolio purchase history and price change
+* See simple analitics of your portfolio 
 
 Screenshots
 -----------
