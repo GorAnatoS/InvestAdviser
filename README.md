@@ -54,7 +54,7 @@ Screenshots
       &nbsp;&nbsp;&nbsp;&nbsp;
       <img src="screenshots/portfolio_analitics.png" alt="2" width = 260px >
     </td>
-    <td width="25%">
+    <td width="30%">
       PortfolioFragment where you can:<br><br> 
       - see your portfolio purchase history and price change<br>
       - see portfolio brief analitics<br>
