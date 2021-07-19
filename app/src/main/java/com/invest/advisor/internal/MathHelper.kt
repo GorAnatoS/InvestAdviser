@@ -12,10 +12,10 @@ import java.util.*
 
 class MathHelper {
     companion object {
-        fun roundOffDecimal(number: Double): Double? {
+        fun roundOffDecimal(number: Double): String {
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
-            return df.format(number).toDouble()
+            return df.format(number)
         }
     }
 }

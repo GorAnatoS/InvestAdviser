@@ -12,12 +12,6 @@ import java.util.*
 
 class DateHelper {
     companion object {
-        fun roundOffDecimal(number: Double): Double? {
-            val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
-            return df.format(number).toDouble()
-        }
-
         fun formattedDateStringToFormattedDateLong(string: String): Long {
             val date = Calendar.getInstance().time
             val formatter =
