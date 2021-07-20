@@ -96,7 +96,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
 
         bindingPortfolio.textViewAdd.setOnClickListener {
             Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-                .navigate(R.id.moexFragment)
+                .navigate(R.id.moexSecuritiesListFragment)
         }
 
         bindingPortfolio.textViewAnalize.setOnClickListener {
@@ -167,7 +167,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
                     groupShareName = expandableItem.database.secId
 
                     findNavController().navigate(
-                        PortfolioFragmentDirections.actionPortfolioFragmentToDetailedPortfolioItem(
+                        PortfolioFragmentDirections.actionPortfolioFragmentToMoexSecItemInfoFragment(
                             expandableItem.database.secId
                         )
                     )

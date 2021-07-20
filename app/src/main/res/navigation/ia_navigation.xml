@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/moexFragment">
+    app:startDestination="@+id/moexSecuritiesListFragment">
 
     <fragment
         android:id="@+id/portfolioFragment"
@@ -12,21 +12,24 @@
         tools:layout="@layout/content_fragment_portfolio" >
         <action
             android:id="@+id/action_portfolioFragment_to_detailedPortfolioItem"
-            app:destination="@id/detailedPortfolioItem" />
+            app:destination="@id/detailedMoexSecurityItem" />
+        <action
+            android:id="@+id/action_portfolioFragment_to_moexSecItemInfoFragment"
+            app:destination="@id/moexSecItemInfoFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/moexFragment"
+        android:id="@+id/moexSecuritiesListFragment"
         android:name="com.invest.advisor.ui.moexsecurities.MoexSecuritiesListFragment"
         android:label="@string/moex"
         tools:layout="@layout/fragment_moex" >
         <action
             android:id="@+id/action_moexFragment_to_commonDetailedMoexItem"
-            app:destination="@id/commonDetailedMoexItem" />
+            app:destination="@id/detailedMoexSecurityFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/moexDetail"
+        android:id="@+id/addMoexSecItem"
         android:name="com.invest.advisor.ui.detailedMoexItem.AddMoexSecItemFragment"
         android:label="@string/moexDetail"
         tools:layout="@layout/fragment_add_share" >
@@ -47,17 +50,15 @@
         tools:layout="@layout/fragment_analitics" />
 
     <fragment
-        android:id="@+id/detailedPortfolioItem"
-        android:name="com.invest.advisor.ui.detailedPortfolioItem.DetailedPortfolioItemFragment"
+        android:id="@+id/detailedMoexSecurityItem"
+        android:name="com.invest.advisor.ui.detailedMoexItem.DetailedMoexSecurityItemFragment"
         android:label="@string/detailed_portfolio_item_fragment"
         tools:layout="@layout/detailed_portfolio_item_fragment" >
-        <argument
-            android:name="itemNumberInDB"
-            app:argType="string" />
+
     </fragment>
 
     <fragment
-        android:id="@+id/commonDetailedMoexItem"
+        android:id="@+id/detailedMoexSecurityFragment"
         tools:layout="@layout/fragment_common_detailed_moex_item"
         android:name="com.invest.advisor.ui.detailedMoexItem.DetailedMoexSecurityItemFragment"
         android:label="@string/сommonDetailedMoexItem">
@@ -70,4 +71,15 @@
             app:argType="string"
             android:defaultValue="0" />
     </fragment>
+
+    <fragment
+        android:id="@+id/moexSecItemInfoFragment"
+        tools:layout="@layout/detailed_portfolio_item_fragment"
+        android:name="com.invest.advisor.ui.detailedMoexItem.MoexSecItemInfoFragment"
+        android:label="@string/detailed_portfolio_item_fragment">
+        <argument
+            android:name="itemNumberInDB"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

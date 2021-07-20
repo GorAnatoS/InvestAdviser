@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/moexFragment"
+        android:id="@+id/moexSecuritiesListFragment"
         android:icon="@drawable/ic_outline_update_24"
         android:title="@string/moex" />
 

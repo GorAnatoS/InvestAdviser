@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private val appBarConfiguration = AppBarConfiguration(
         setOf(
             R.id.portfolioFragment,
-            R.id.moexFragment
+            R.id.moexSecuritiesListFragment
         )
     )
 
