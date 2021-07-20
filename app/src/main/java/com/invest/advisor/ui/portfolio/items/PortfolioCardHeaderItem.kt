@@ -22,7 +22,7 @@ open class PortfolioCardHeaderItem(
 ) : BindableItem<PortfolioHeaderItemBinding>() {
 
     override fun getLayout(): Int {
-        return R.layout.portfolio_header_item
+        return R.layout.item_portfolio_expandable_header
     }
 
     override fun initializeViewBinding(view: View): PortfolioHeaderItemBinding {

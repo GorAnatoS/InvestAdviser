@@ -30,7 +30,7 @@ class PortfolioCardItem(
     }
 
     override fun getLayout(): Int {
-        return R.layout.portfolio_card_item
+        return R.layout.item_portfolio_card
     }
 
     override fun initializeViewBinding(view: View): PortfolioCardItemBinding {
