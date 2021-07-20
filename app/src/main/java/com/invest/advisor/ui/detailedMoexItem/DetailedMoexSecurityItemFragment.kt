@@ -39,7 +39,7 @@ class DetailedMoexSecurityItemFragment : ScopedFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_common_detailed_moex_item, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detailed_moex_security_item, container, false)
 
         binding.pager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int {

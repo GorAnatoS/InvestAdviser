@@ -58,7 +58,7 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_moex,
+            R.layout.fragment_moex_securities_list,
             container,
             false
         )
