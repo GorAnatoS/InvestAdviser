@@ -1,8 +1,8 @@
 InvestAdviser
 =============
 
-InvestAdviser is a simple app written on Kotlin that demonstrates how to obtain stock base data from
-https://www.moex.com/ and stock's additinal information from https://www.yahoo.com/.
+InvestAdviser is a simple app written on Kotlin that demonstrates how to obtain securities data from 
+https://www.moex.com/ and stock's additional information from https://www.yahoo.com/. 
 
 Introduction
 ------------
@@ -14,11 +14,11 @@ App's features
 You can:
 * See current MOEX securies list with such data as Name, SecurityId, Current Price, Day value/percent price change
 * Using search to find stock you need
-* Organaze securitiy list by name, price, day price change
-* Add security to your Portfolio and set share's quantity, price, date
-* See additional share info like day range price, open price, volume, market cap, Beta, ROE, ROA
+* Organize security list by name, price, day price change
+* Add security to your Portfolio and set share's quantity, price, purchase date
+* Obtain additional share info like day range price, open price, volume, market cap, Beta, ROE, ROA
 * See your portfolio purchase history and price change
-* See simple analitics of your portfolio 
+* Work with analitics of your portfolio 
 
 Screenshots
 -----------
@@ -31,7 +31,7 @@ Screenshots
       <img src="screenshots/moex_sorting_options.png" alt="2" width = 260px >
     </td>
     <td width="30%">
-      MoexSecuritiesListFragment where you can:<br><br>
+      MoexSecuritiesList Fragment where you can:<br><br>
       - see necessary information and sort Moex securities list<br>
       - add selected stock in portfolio</td>
   </tr>
@@ -43,7 +43,7 @@ Screenshots
       <img src="screenshots/sec_detailed_info.png" alt="2" width = 260px >
     </td>
     <td width="30%">
-      DetailedMoexSecurityItemFragment where you can: <br><br>
+      DetailedMoexSecurityItem Fragment where you can: <br><br>
       - add selected MOEX security to your portfolio with setting price, quantity and date <br>
       - see additional stock info</td>
   </tr>
@@ -55,7 +55,7 @@ Screenshots
       <img src="screenshots/portfolio_analitics.png" alt="2" width = 260px >
     </td>
     <td width="30%">
-      PortfolioFragment where you can:<br><br> 
+      Portfolio Fragment where you can:<br><br> 
       - see your portfolio purchase history and price change<br>
       - see portfolio brief analitics<br>
     </td>
