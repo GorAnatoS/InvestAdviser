@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.db.entity.EnumMarketData
-import com.invest.advisor.databinding.PortfolioHeaderItemBinding
+import com.invest.advisor.databinding.ItemPortfolioExpandableHeaderBinding
 import com.xwray.groupie.viewbinding.BindableItem
 import kotlin.math.roundToInt
 
@@ -19,17 +19,17 @@ open class PortfolioCardHeaderItem(
     val entryMarketData: List<String>,
     @DrawableRes private val iconResId: Int? = null,
     private val onIconClickListener: View.OnClickListener? = null
-) : BindableItem<PortfolioHeaderItemBinding>() {
+) : BindableItem<ItemPortfolioExpandableHeaderBinding>() {
 
     override fun getLayout(): Int {
         return R.layout.item_portfolio_expandable_header
     }
 
-    override fun initializeViewBinding(view: View): PortfolioHeaderItemBinding {
-        return PortfolioHeaderItemBinding.bind(view)
+    override fun initializeViewBinding(view: View): ItemPortfolioExpandableHeaderBinding {
+        return ItemPortfolioExpandableHeaderBinding.bind(view)
     }
 
-    override fun bind(binding: PortfolioHeaderItemBinding, position: Int) {
+    override fun bind(binding: ItemPortfolioExpandableHeaderBinding, position: Int) {
         binding.tvPurchaseDate.text = database.secId
         binding.tvPrice.text = entryMarketData[EnumMarketData.WAPRICE.ordinal] + "₽"
         binding.tvQuantity.text = database.secQuantity.toString() + " шт. ⋄"

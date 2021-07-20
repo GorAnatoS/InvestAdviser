@@ -11,7 +11,7 @@ import com.invest.advisor.R
 import com.invest.advisor.data.network.ConnectivityInterceptor
 import com.invest.advisor.data.network.yahooResponse.YahooNetworkDataSourceImpl
 import com.invest.advisor.data.network.yahooResponse.YahooApiService
-import com.invest.advisor.databinding.DetailedPortfolioItemFragmentBinding
+import com.invest.advisor.databinding.FragmentMoexSecurityItemInfoBinding
 import com.invest.advisor.internal.Constants.ARG_PARAM_SECID
 import com.invest.advisor.internal.MathHelper
 import com.invest.advisor.ui.base.ScopedFragment
@@ -26,7 +26,7 @@ import org.kodein.di.android.x.closestKodein
 
 class MoexSecItemInfoFragment : ScopedFragment(), KodeinAware {
 
-    lateinit var binding: DetailedPortfolioItemFragmentBinding
+    lateinit var binding: FragmentMoexSecurityItemInfoBinding
 
     // var resultDeleted: Boolean = false
     override val kodein by closestKodein()
@@ -72,7 +72,7 @@ class MoexSecItemInfoFragment : ScopedFragment(), KodeinAware {
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.detailed_portfolio_item_fragment,
+            R.layout.fragment_moex_security_item_info,
             container,
             false
         )

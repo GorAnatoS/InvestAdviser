@@ -53,7 +53,7 @@
         android:id="@+id/detailedMoexSecurityItem"
         android:name="com.invest.advisor.ui.detailedMoexItem.DetailedMoexSecurityItemFragment"
         android:label="@string/detailed_portfolio_item_fragment"
-        tools:layout="@layout/detailed_portfolio_item_fragment" >
+        tools:layout="@layout/fragment_moex_security_item_info" >
 
     </fragment>
 
@@ -74,7 +74,7 @@
 
     <fragment
         android:id="@+id/moexSecItemInfoFragment"
-        tools:layout="@layout/detailed_portfolio_item_fragment"
+        tools:layout="@layout/fragment_moex_security_item_info"
         android:name="com.invest.advisor.ui.detailedMoexItem.MoexSecItemInfoFragment"
         android:label="@string/detailed_portfolio_item_fragment">
         <argument

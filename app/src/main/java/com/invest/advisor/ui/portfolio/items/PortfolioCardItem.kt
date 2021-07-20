@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.db.entity.EnumMarketData
-import com.invest.advisor.databinding.PortfolioCardItemBinding
+import com.invest.advisor.databinding.ItemPortfolioCardBinding
 import com.invest.advisor.internal.DateHelper.Companion.getFormattedDateString
 import com.invest.advisor.ui.portfolio.INSET
 import com.invest.advisor.ui.portfolio.INSET_TYPE_KEY
@@ -21,9 +21,9 @@ class PortfolioCardItem(
     val entryMarketData: List<String>,
     @DrawableRes private val iconResId: Int? = null,
     private val onIconClickListener: View.OnClickListener? = null
-): BindableItem<PortfolioCardItemBinding>() {
+): BindableItem<ItemPortfolioCardBinding>() {
 
-    lateinit var binding: PortfolioCardItemBinding
+    lateinit var binding: ItemPortfolioCardBinding
 
     init {
         extras[INSET_TYPE_KEY] = INSET
@@ -33,11 +33,11 @@ class PortfolioCardItem(
         return R.layout.item_portfolio_card
     }
 
-    override fun initializeViewBinding(view: View): PortfolioCardItemBinding {
-        return PortfolioCardItemBinding.bind(view)
+    override fun initializeViewBinding(view: View): ItemPortfolioCardBinding {
+        return ItemPortfolioCardBinding.bind(view)
     }
 
-    override fun bind(binding: PortfolioCardItemBinding, position: Int) {
+    override fun bind(binding: ItemPortfolioCardBinding, position: Int) {
         binding.tvPurchaseDate.text = getFormattedDateString(database.secPurchaseDate)
         binding.tvPrice.text = database.secPrice + "₽"
         binding.tvQuantity.text = database.secQuantity.toString() + " шт. ⋄"

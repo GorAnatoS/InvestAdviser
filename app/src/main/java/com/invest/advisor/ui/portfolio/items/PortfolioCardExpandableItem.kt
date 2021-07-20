@@ -4,7 +4,7 @@ import android.graphics.drawable.Animatable
 import android.view.View
 import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
-import com.invest.advisor.databinding.PortfolioHeaderItemBinding
+import com.invest.advisor.databinding.ItemPortfolioExpandableHeaderBinding
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.ExpandableItem
 
@@ -26,7 +26,7 @@ class PortfolioCardExpandableItem(
 
     private lateinit var expandableGroup: ExpandableGroup
 
-    override fun bind(binding: PortfolioHeaderItemBinding, position: Int) {
+    override fun bind(binding: ItemPortfolioExpandableHeaderBinding, position: Int) {
         super.bind(binding, position)
 
         // Initial icon state -- not animated.
@@ -46,7 +46,7 @@ class PortfolioCardExpandableItem(
         }
     }
 
-    private fun bindIcon(binding: PortfolioHeaderItemBinding) {
+    private fun bindIcon(binding: ItemPortfolioExpandableHeaderBinding) {
         binding.icon.apply {
             visibility = View.VISIBLE
             setImageResource(if (expandableGroup.isExpanded) R.drawable.collapse_animated else R.drawable.expand_animated)
