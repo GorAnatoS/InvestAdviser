@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +14,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.invest.advisor.R
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioEntry
 import com.invest.advisor.data.db.database.userPortfolio.UserPortfolioDatabase
-import com.invest.advisor.databinding.FragmentAddShareBinding
+import com.invest.advisor.databinding.FragmentAddMoexSecItemBinding
 import com.invest.advisor.internal.Constants.ARG_PARAM_SECID
 import com.invest.advisor.internal.Constants.ARG_PARAM_SECPRICE
 import com.invest.advisor.internal.DateHelper.Companion.formattedDateStringToFormattedDateLong
@@ -22,11 +23,11 @@ import com.invest.advisor.ui.portfolio.PortfolioViewModel
 
 /**
  * Fragment to add new security [UserPortfolioEntry] to [UserPortfolioDatabase] with
- * [FragmentAddShareBinding.editTextQuantity] and [FragmentAddShareBinding.editTextPrice]
+ * [FragmentAddMoexSecItemBinding.editTextQuantity] and [FragmentAddMoexSecItemBinding.editTextPrice]
  */
 
 class AddMoexSecItemFragment : Fragment() {
-    private lateinit var binding: FragmentAddShareBinding
+    private lateinit var binding: FragmentAddMoexSecItemBinding
     private lateinit var viewModel: PortfolioViewModel
 
     private var secId: String? = null

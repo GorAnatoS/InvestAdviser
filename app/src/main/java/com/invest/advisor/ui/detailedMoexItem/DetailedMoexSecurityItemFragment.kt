@@ -10,7 +10,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.invest.advisor.R
 import com.invest.advisor.data.repository.UserPortfolioRepository
-import com.invest.advisor.databinding.FragmentCommonDetailedMoexItemBinding
+import com.invest.advisor.databinding.FragmentDetailedMoexSecurityItemBinding
 import com.invest.advisor.internal.Constants.ARG_PARAM_SECID
 import com.invest.advisor.internal.Constants.ARG_PARAM_SECPRICE
 import com.invest.advisor.ui.base.ScopedFragment
@@ -22,7 +22,7 @@ import com.invest.advisor.ui.base.ScopedFragment
  */
 class DetailedMoexSecurityItemFragment : ScopedFragment() {
 
-    private lateinit var binding: FragmentCommonDetailedMoexItemBinding
+    private lateinit var binding: FragmentDetailedMoexSecurityItemBinding
 
     private var secId: String? = null
     private var secPrice: String? = null

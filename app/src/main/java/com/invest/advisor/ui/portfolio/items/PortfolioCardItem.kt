@@ -77,7 +77,7 @@ class PortfolioCardItem(
             )
         )
 
-        binding.tvCurrentPriceChng.text = "${changePrice} (${changePcnt})%"
+        binding.tvCurrentPriceChng.text = "$changePrice ($changePcnt)%"
 
         binding.icon.apply {
             visibility = View.GONE

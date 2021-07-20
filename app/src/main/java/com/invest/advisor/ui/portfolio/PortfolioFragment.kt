@@ -273,7 +273,7 @@ class PortfolioFragment : ScopedFragment(), KodeinAware {
         }
 
         bindingPortfolio.tvPortfolioInfo.text =
-            "Цена портфеля $currentPortfolioPrice₽ ${changePrice} (${changePercent}%)"
+            "Цена портфеля $currentPortfolioPrice₽ $changePrice ($changePercent%)"
     }
 
     companion object {

@@ -22,4 +22,23 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="detailed_portfolio_item_fragment">Подбробнее</string>
     <string name="сommonDetailedMoexItem">По акции</string>
+    <string name="loading">Загружаю</string>
+    <string name="quantity">Колличество:</string>
+    <string name="share_price">Цена акции:</string>
+    <string name="date">Дата:</string>
+    <string name="_10">10</string>
+    <string name="_100">100</string>
+    <string name="_01_04_2024">01.04.2024</string>
+    <string name="total_sum">Итоговая сумма:</string>
+    <string name="_500">500</string>
+    <string name="add">Добавить</string>
+    <string name="gazprom">GAZPROM</string>
+    <string name="previous_close">Предыдущее закрытие</string>
+    <string name="n_a">N/A</string>
+    <string name="open">Открытие</string>
+    <string name="volume">Объем</string>
+    <string name="market_cap">Рыночная стоимость</string>
+    <string name="beta">Beta</string>
+    <string name="roe">ROE</string>
+    <string name="roa">ROA</string>
 </resources>

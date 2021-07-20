@@ -18,7 +18,7 @@ import com.invest.advisor.data.db.entity.MoexSecurityEntry
 import com.invest.advisor.data.network.ConnectivityInterceptor
 import com.invest.advisor.data.network.moexResponse.MoexNetworkDataSourceImpl
 import com.invest.advisor.data.network.moexResponse.MoexApiService
-import com.invest.advisor.databinding.FragmentMoexBinding
+import com.invest.advisor.databinding.FragmentMoexSecuritiesListBinding
 import com.invest.advisor.ui.base.ScopedFragment
 import com.invest.advisor.ui.moexsecurities.items.MoexSecurityItem
 import com.xwray.groupie.GroupAdapter
@@ -45,7 +45,7 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
     override val kodein by closestKodein()
     private val viewModelFactory: MoexViewModelFactory by instance()
 
-    lateinit var binding: FragmentMoexBinding
+    lateinit var binding: FragmentMoexSecuritiesListBinding
 
     private var moexSecurityDataList: MutableList<MoexSecurityEntry> = ArrayList()
     private var displayedMoexSecurityDataList: MutableList<MoexSecurityEntry> = ArrayList()
@@ -300,9 +300,7 @@ class MoexSecuritiesListFragment : ScopedFragment(), KodeinAware {
                     )
                 )
         }
-
     }
-
 }
 
 const val CONST_NOE_VALUE = "NoE" //Null or Empty value
